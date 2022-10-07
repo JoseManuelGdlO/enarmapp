@@ -1,13 +1,14 @@
 const express = require("express");
+const morgan = require('morgan');
 const app = express();
 const port = 3000;
-const enarmStundetsRouter = require("./routes/enarmStudents");
+const enarmStundetsRouter = require("./routes/enarmStudents"); 
 
-
-app.use(express.json());
+app.use(express.json({limit: '25mb'}));
 app.use(
   express.urlencoded({
     extended: true,
+    limit: '25mb'
   })
 );
 
