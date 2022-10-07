@@ -1,4 +1,4 @@
 # Express API PROJECT
 ## ENARM
 #### Creator
-:bowtie:** Jose Manuel Garcia de la O, Alejandro Carrillo **:bowtie:
+:bowtie: **Jose Manuel Garcia de la O, Alejandro Carrillo** :bowtie:
