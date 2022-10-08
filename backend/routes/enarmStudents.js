@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const enarmStudents = require('../services/enarmStudents');
+const headers = require('../libs/headers');
 const fs = require("fs");
 
 const upload = require('../libs/storage');
 
 
-router.get('/', async function(req, res, next) {
+router.get('/', headers.verifyToken, async function(req, res, next) {
+
+ 
   try {
     res.json(await enarmStudents.getMultiple(req.query.page));
   } catch (err) {
