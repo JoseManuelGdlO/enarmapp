@@ -4,6 +4,8 @@ const app = express();
 const port = 3000;
 const enarmStundetsRouter = require("./routes/enarmStudents"); 
 const authRouter = require("./routes/auth"); 
+const questionsRouter = require("./routes/questions-route.js");
+const examRouter = require("./routes/exam-route.js"); 
 
 app.use(express.json({limit: '25mb'}));
 app.use(
@@ -19,6 +21,8 @@ app.get("/", (req, res) => {
 
 app.use("/enarm-students", enarmStundetsRouter);
 app.use("/auth", authRouter);
+app.use("/questions", questionsRouter);
+app.use("/exam", examRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
