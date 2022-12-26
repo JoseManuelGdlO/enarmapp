@@ -50,11 +50,92 @@ async function addExamType(body) {
         return 405
     }
 
+}
 
+/**
+ * 
+ * @param id
+ * @returns 
+ */
+async function getExamsListPerUser(id) {
+
+    const offset = helper.getOffset(undefined, config.listPerPage);
+    const rows = await db.query(
+      `SELECT * 
+      FROM examen WHERE idUsuario = ${id} LIMIT ${offset},${config.listPerPage}`
+    );
+    
+    const data = helper.emptyOrRows(rows);
+  
+    return {
+      data
+    }
+
+}
+
+/**
+ * 
+ * @param id
+ * @returns 
+ */
+async function getExamdetail(id) {
+
+    let rows = await db.query(
+      `SELECT     E.id, E.numeroPreguntas
+        , C.idPregunta, C.idRespuesta
+        FROM        examen E
+        INNER JOIN  preguntas_examen C
+        ON      C.idExamen = E.id
+        WHERE E.id = ${id}`
+    );
+    
+    const exam = helper.emptyOrRows(rows);
+    if(!exam){
+        return {
+            response: null, 
+            code: 404
+        }
+    }
+
+    let questionResponse = []
+
+    for(let question of exam ) {
+        console.log('quesiton', question);
+        rows = await db.query(
+            `SELECT * 
+            FROM pregunta WHERE id = ${question.idPregunta}`
+        );
+        
+        rows[0].idRespuesta = question.idRespuesta
+
+        const answers = await db.query(
+            `SELECT * 
+            FROM respuesta WHERE idPregunta = ${question.idPregunta}`
+        );
+
+        rows[0].respuestas = answers;
+
+        questionResponse.push(rows[0])
+    }
+
+    questionResponse = helper.emptyOrRows(questionResponse);
+    if(!questionResponse){
+        return {
+            response: null,            
+            code: 404
+        }
+    }
+      
+    return {
+      response: { id: exam.id, questionResponse},
+      code: 200
+    }
 
 }
 
 module.exports = {
     addExamType,
+    getExamsListPerUser,
+    getExamdetail,
     createExam
 }
