@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { LoginService } from "../../services/login.service";
 
 @Component({
     templateUrl: './login.component.html',
@@ -6,11 +7,17 @@ import { Component, OnInit } from "@angular/core";
   })
   export class LoginComponent implements OnInit {
 
-    constructor(){
+    constructor(
+      public loginService: LoginService
+    ){
 
     }
-    
-    ngOnInit(): void {
-        throw new Error("Method not implemented.");
+
+    async ngOnInit(): Promise<void> {
+        const response =  await this.loginService.login('')
+    }
+
+    clickcomponent(){
+      console.log("di click desde login");
     }
   }

@@ -34,7 +34,7 @@ async function login(body) {
         }
     }
 
-    const samePass = await encrypt.encryptCompare(data[0].password, body.password);
+    /*const samePass = await encrypt.encryptCompare(data[0].password, body.password);
     if (!samePass) {
         data = [];
         code = 403;
@@ -43,7 +43,7 @@ async function login(body) {
             code
         }
     }
-
+*/
     return {
         data,
         code
