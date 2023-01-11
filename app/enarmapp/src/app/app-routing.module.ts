@@ -13,6 +13,13 @@ const routes: Routes = [
         (mod) => mod.HomeModule
       ),
   },
+  {
+    path: 'configurator',
+    loadChildren: () =>
+      import('./modules/configurator/configurator.module').then(
+        (mod) => mod.ConfiguratorModule
+      )
+  },
 ];
 
 @NgModule({
