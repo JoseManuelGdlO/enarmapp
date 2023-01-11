@@ -27,6 +27,13 @@ const routes: Routes = [
         (mod) => mod.ExamModule
       )
   },
+  {
+    path: 'previous-exams',
+    loadChildren: () =>
+      import('./modules/previous-exams/previous-exams.module').then(
+        (mod) => mod.PreviousExamsModule
+      )
+  },
 ];
 
 @NgModule({
