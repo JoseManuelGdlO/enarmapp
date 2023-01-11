@@ -20,6 +20,13 @@ const routes: Routes = [
         (mod) => mod.ConfiguratorModule
       )
   },
+  {
+    path: 'exam',
+    loadChildren: () =>
+      import('./modules/exam/exam.module').then(
+        (mod) => mod.ExamModule
+      )
+  },
 ];
 
 @NgModule({
