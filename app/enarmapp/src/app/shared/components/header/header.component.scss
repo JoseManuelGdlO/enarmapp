@@ -1,0 +1,30 @@
+
+.div___header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 24px 58px;
+    width: 93%;
+    position: fixed;
+    top: 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.div___profile {
+    width: 47px;
+    height: 47px;
+    color: white;
+    font-size: 20px;
+    background: #000000;
+    border-radius: 193.194px;
+}
+
+.h4___profile {
+    color: white;
+    padding: 9px 17px;
+}
+
+.div___principalprofile {
+    display: inline-flex;
+}

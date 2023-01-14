@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
 import { GraphAverageComponent } from './components/graph-average/graph-average.component';
+import { HeaderComponent } from './components/header/header.component';
 import { ListPreviousExamsComponent } from './components/list-previous-exams/list-previous-exams.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.component';
@@ -17,7 +18,8 @@ import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.
     ButtonComponent,
     ProgressBarComponent,
     ListPreviousExamsComponent,
-    GraphAverageComponent
+    GraphAverageComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.
     ButtonComponent,
     ProgressBarComponent,
     ListPreviousExamsComponent,
-    GraphAverageComponent
+    GraphAverageComponent,
+    HeaderComponent
   ]
 })
 export class SharedModule { }

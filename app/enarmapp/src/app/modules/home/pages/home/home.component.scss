@@ -1,0 +1,53 @@
+
+body {
+    background-color: #FBFBFB;
+}
+
+.h1___welcome {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 44px;
+    color: #818181;
+}
+
+.h1___daystoenarm {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 33px;
+    color: #818181;
+}
+
+.div___name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button___add {
+    height: 100%;
+    background: #FFFFFF;
+    border: 1px solid #F1F1F1;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.div___add {
+    padding: 18px;
+    height: 35vh;
+    width: 94%;
+    border: 2px dashed #C8C8C8;
+    border-radius: 11px;
+    margin-bottom: 20px;
+}
+
+.h1___add {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: #212121;
+}
