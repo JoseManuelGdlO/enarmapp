@@ -15,6 +15,15 @@ router.post('/add-category', async function(req, res, next) {
   }
 });
 
+router.get('/categories', async function(req, res, next) {
+  try {
+    res.json(await questions.getCategories());
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
 router.post('/add-question', async function(req, res, next) {
   try {
     const body = req.body;

@@ -9,6 +9,11 @@ async function query(sql, params) {
   return results;
 }
 
+async function connection() {
+  return(await mysql.createConnection(config.db))
+} 
+
 module.exports = {
-  query
+  query,
+  connection
 }

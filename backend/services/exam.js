@@ -1,25 +1,58 @@
 const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
+const ARR_UTILS = require('../libs/utils-arr')
 
 /**
  * 
- * @param { idTipo, idUsuario, dificultad, numeroPreguntas, isEspañol, preguntas: [int] } 
+ * @param { idTipo, idUsuario, dificultad, numeroPreguntas, isEspañol, sucategories: [int] } 
  * @returns 
  */
 async function createExam(body) {
 
     try {
-        const rows = await db.query(
-            `INSERT INTO examen (idTipo, idUsuario, dificultad, numeroPreguntas, isEspanol)
-    VALUES (${body.idTipo}, ${body.idUsuario}, ${body.dificultad}, ${body.numeroPreguntas}, ${body.isEspañol});`
+        
+        const examsUser = await db.query(
+            `SELECT id FROM examen WHERE idUsuario = ${body.idUsuario};`
         );
 
-        for (let pregunta of body.preguntas) {
+        const idExams = ARR_UTILS.CovertArrayString(examsUser, 'id')
+
+        let getAnswers = await db.query(
+            `SELECT P.id FROM pregunta P
+            LEFT JOIN preguntas_examen PE
+            ON PE.idPregunta = P.id
+            WHERE P.idSubcategoria IN (${body.subcategories.toString()})
+            AND PE.idExamen IN (${idExams.toString()});`
+        );
+
+        getAnswers = ARR_UTILS.CovertArrayString(getAnswers, 'id')
+
+        const uniqAnswers = getAnswers.filter((value, index, self) => {
+            return self.indexOf(value) === index;
+          })
+
+        const getCompleteAswers = await db.query(
+            `Select id from pregunta where id NOT IN (${uniqAnswers.toString()}) AND isEspanol = ${body.isEspanol} ORDER BY RAND() LIMIT ${body.numeroPreguntas};`
+        );
+        
+        console.log('complete', getCompleteAswers);
+
+        if(getCompleteAswers.length === 0) {
+            return 404
+        }
+
+        const exam = await db.query(
+            `INSERT INTO examen (idTipo, idUsuario, dificultad, numeroPreguntas)
+            VALUES (${body.idTipo}, ${body.idUsuario}, ${body.dificultad}, ${body.numeroPreguntas});`
+        );
+
+        for (let pregunta of getCompleteAswers) {
             await db.query(
                 `INSERT INTO preguntas_examen (idExamen, idPregunta, idRespuesta)
-        VALUES (${rows.insertId}, ${pregunta}, null);`);
+        VALUES (${exam.insertId}, ${pregunta.id}, null);`);
         }
+
         return 201
     } catch (error) {
         console.error(error);
@@ -132,6 +165,12 @@ async function getExamdetail(id) {
     }
 
 }
+
+// SELECT P.* FROM pregunta P
+// LEFT JOIN preguntas_examen PE
+// ON PE.idPregunta = P.id
+// WHERE P.idSubcategoria IN (1,2,3,4,5)
+// AND PE.
 
 module.exports = {
     addExamType,
