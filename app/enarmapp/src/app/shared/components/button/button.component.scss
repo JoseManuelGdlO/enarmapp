@@ -1,14 +1,19 @@
-h1,h2,h3,h4,h5,h6{font-family: monospace; margin:0; padding:0;}
 
 .div-button{
     cursor: pointer;
     transition-duration: 0.4s;
-    font-size: 8px;
-    background-color: black;
-    border-radius: 8px;
-    padding: 15px 22px;
-    color: white;
+    background: #000000;
+    border-radius: 4px;
+    padding: 10px 22px;
     text-align: center;
+}
+
+h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 18px;
+    color: #FFFFFF;
 }
 
 .div-button:hover{

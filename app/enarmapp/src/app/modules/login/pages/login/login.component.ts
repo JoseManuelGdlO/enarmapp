@@ -6,6 +6,8 @@ import { LoginService } from "../../services/login.service";
     styleUrls: ['./login.component.scss']
   })
   export class LoginComponent implements OnInit {
+    
+    screenHeight = 0;
 
     constructor(
       public loginService: LoginService
@@ -13,8 +15,8 @@ import { LoginService } from "../../services/login.service";
 
     }
 
-    async ngOnInit(): Promise<void> {
-        const response =  await this.loginService.login('')
+    async ngOnInit() {
+      this.screenHeight = window.innerHeight;
     }
 
     clickcomponent(){

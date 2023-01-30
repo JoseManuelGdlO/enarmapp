@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 h1,h2,h3,h4,h5,h6{font-family: 'Manrope', sans-serif; margin: 0; padding: 0;}
 
@@ -41,6 +42,10 @@ body {
   .pt-5 {
     padding-top: 5%;
   }
+
+  .mt-18 {
+    margin-top: 18px !important;
+  }
   
   .mt-23 {
     margin-top: 23px !important;
@@ -56,6 +61,10 @@ body {
   
   .pt-5px {
     padding-top: 5px;
+  }
+
+  .pl-5 {
+    padding-left: 5px !important;
   }
 
   .ph-55 {
@@ -163,13 +172,38 @@ body {
   .pl-9 {
     padding-left: 8px !important;
   }
+
+  .pr-25 {
+    padding-right: 25px !important;
+  }
+
+  .pl-25 {
+    padding-left: 25px !important;
+  }
   
   .inline {
     display: inline-flex !important;
   }
 
+  .inline-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .inline-separe {
+    display: flex;
+    justify-content: space-between;
+  }
+
 //   grid section
 .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .subrow:after {
     content: "";
     display: table;
     clear: both;
@@ -185,4 +219,42 @@ body {
       width: 50%;
   }
 
-//   close grid section
+  .col-25{
+    float: left;
+    width: 25%;
+  }
+
+  .col-30{
+    float: left;
+    width: 30%;
+  }
+
+  .col-20{
+    float: left;
+    width: 20%;
+  }
+  
+
+//  scroll bar
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  border-radius: 8px;
+}

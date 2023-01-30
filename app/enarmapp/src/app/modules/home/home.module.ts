@@ -6,9 +6,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-
-
-
 @NgModule({
   declarations: [
     HomeComponent

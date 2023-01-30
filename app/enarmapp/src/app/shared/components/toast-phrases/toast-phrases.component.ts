@@ -16,6 +16,8 @@ export class ToastPhrasesComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
+        console.log('encABRZADO', this.encabezado);
+        console.log('cuerpo', this.cuerpo);
         
     }
 }

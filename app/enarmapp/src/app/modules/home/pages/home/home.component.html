@@ -1,23 +1,85 @@
-
-
 <body>
     <enarm-header></enarm-header>
     <div class="ph-55" style="padding-top: 9%;">
-        <div class="div___name" >
+        <div class="div___name">
             <h1 class="h1___welcome">Bienvenido, <span style="font-weight: 600; color: black">José Manuel
                     Carrillo</span></h1>
             <h1 class="h1___daystoenarm">
                 <img src="assets/icons/calendar-icon.svg" alt="">
                 Quedan 62 días para el ENARM 2023, ¡tu puedes!
-            </h1>    
+            </h1>
         </div>
         <div class="row">
-            <div class="col-50">
-                <h2>asdasd</h2>
+            <div class="col-50 mt-38">
+                <div style="display: flex;" class="pr-25">
+                    <div class="col-50">
+                    </div>
+                    <div class="col-50 div__exam">
+                        <h3 class="h3___titleexam">Examen actual</h3>
+                        <h4 class="h4___titleexam mt-14">Examen 5</h4>
+                        <div class="mt-12" style="display: flex;"><img src="assets/icons/check-icon.svg" alt="">
+                            <h6 class="h6___litext pl-5">5 módulos</h6>
+                        </div>
+                        <div class="mt-8" style="display: flex;"><img src="assets/icons/check-icon.svg" alt="">
+                            <h6 class="h6___litext pl-5">85 preguntas</h6>
+                        </div>
+                        <div class="mt-8" style="display: flex;"><img src="assets/icons/check-icon.svg" alt="">
+                            <h6 class="h6___litext pl-5">Español</h6>
+                        </div>
+                        <div class="mt-18">
+                            <enarm-progress-bar-exam percentage="50"></enarm-progress-bar-exam>
+                        </div>
+                        <div class="mt-30">
+                            <enarm-button text="Retomar examen"></enarm-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-50 div___moreExams">
+                    <div class="div___headerExams mt-20">
+                        <h1 class="h1___exams">Exámenes previos</h1>
+                        <div class="buttonSeeAll">
+                            <h3 class="h3___seeAll">Ver todos</h3>
+                        </div>
+                    </div>
+                    <div class="row mt-30">
+                        <div class="col-25">
+                            <h5 class="h5___titleTable">EXAMEN</h5>
+                        </div>
+                        <div class="col-25">
+                            <h5 class="h5___titleTable">FECHA</h5>
+                        </div>
+                        <div class="col-30">
+                            <h5 class="h5___titleTable">PROGRESO</h5>
+                        </div>
+                        <div class="col-20">
+                            <h5 class="h5___titleTable">ESTATUS</h5>
+                        </div>
+                    </div>
+                    <div *ngFor="let item of exams" class="row">
+                        <div class="div___line"></div>
+                        <div class="col-25">
+                            <h5 class="h5___titleTableBody">Examen {{item.id}}</h5>
+                        </div>
+                        <div class="col-25">
+                            <h5 class="h5___titleTableBody">{{item.date}}</h5>
+                        </div>
+                        <div class="col-30">
+                            <div style="padding-right: 40px;">
+                                <enarm-mini-progress-bar-exam></enarm-mini-progress-bar-exam>
+                            </div>
+                        </div>
+                        <div class="col-20">
+                            <div style="padding-right: 20px;">
+                                <enarm-status-exam [type]="item.status"></enarm-status-exam>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-50">
-                <div class="mt-38">
-                    <enarm-toast-phrases encabezado="¿Sabías qué?" cuerpo="La micosis fungoide no tiene nada que ver con hongos, y se trata más bien de un linfoma No Hodgkin de células T que afecta la piel"></enarm-toast-phrases>
+                <div class="mt-38 pl-25">
+                    <enarm-toast-phrases encabezado="¿Sabías qué?"
+                        cuerpo="La micosis fungoide no tiene nada que ver con hongos, y se trata más bien de un linfoma No Hodgkin de células T que afecta la piel"></enarm-toast-phrases>
                     <div class="div___add mt-38">
                         <div class="button___add">
                             <h1 style="font-size: 50px;">+</h1>
@@ -25,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
