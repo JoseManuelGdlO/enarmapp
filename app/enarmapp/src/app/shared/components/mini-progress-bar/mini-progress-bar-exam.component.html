@@ -1,10 +1,14 @@
 
-<div class="div___title">
+<div *ngIf="type === 1" class="div___title">
         <h5 class="one">{{percentage}}%</h5>
         <h5 class="two">{{subtitle}}</h5>  
 </div>
+<div *ngIf="type === 2" class="div___title">
+        <h5 class="one___2">Pregunta {{answered}} de {{questions}}</h5>
+        <h5 class="two___2">{{((answered * 100) / questions)}}%</h5>  
+</div>
 <div class="div-container wrapper"> 
 </div>
-<div class="div-container wrapper" [ngStyle]="{'margin-top': '-4px', 'padding': '2px 0px', 'background-color': '#000000', 'width': percentage+'%'}">
+<div class="div-container wrapper" [ngStyle]="{'margin-top': '-4px', 'padding': '2px 0px', 'background-color': '#000000', 'width': type === 2 ? ((answered * 100) / questions) + '%' :  percentage+'%'}">
 </div>
 

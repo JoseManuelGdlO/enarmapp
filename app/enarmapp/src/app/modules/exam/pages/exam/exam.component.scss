@@ -1,0 +1,90 @@
+.div___header {
+    display: flex;
+    justify-content: center;
+}
+
+.h5___time {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 27px;
+    margin-right: 10px;
+    color: #212121;
+}
+
+.h4___examquestion {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 27px;
+    color: #212121;
+}
+
+.h4___question {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    
+    color: #212121;
+}
+
+.div___body {
+    padding: 40px;
+    margin: 40px;
+    background: #FFFFFF;
+    border: 1px solid #F1F1F1;
+    border-radius: 13px;
+}
+
+.div___answereds {
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 12px;
+}
+
+.div___answer {
+    display: flex;
+    justify-content: left;
+    padding: 15px 20px;
+    border-bottom: 1px solid #E5E7EB;;
+}
+
+.h1___typeanswerdselected {
+    font-size: 15px;
+    color: white;
+    background-color: black;
+    border-radius: 18px;
+    width: 25px;
+    text-align: center;
+    padding: 1px 0px 0px 0px;
+}
+
+.h1___typeanswerd {
+    font-size: 15px;
+    border-radius: 18px;
+    width: 23px;
+    text-align: center;
+    border: 1px solid black;
+    padding: 1px 0px 0px 0px;
+}
+
+.h1___answered {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    color: #212121;
+    margin-left: 20px;
+}
+
+.h2___laboratories {
+    font-weight: 400;
+    border: 1px solid #3e3a3a;
+    padding: 3px 13px;
+    border-radius: 25px;
+    margin-top: -8px;
+    margin-left: 75px;
+    cursor: pointer;
+}

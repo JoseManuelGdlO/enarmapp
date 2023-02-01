@@ -1,0 +1,7 @@
+<div style="padding: 0 35px;">
+    <div class="div___clinicclase" *ngFor="let item of questions">
+        <div class="div___subitem" *ngFor="let subitem of item.total" [ngStyle]="{ 'background-color': subitem.selected ? 'black' : 'none' }">
+            <h1 [ngStyle]="{ 'color': subitem.selected ? 'white' : 'black' }" class="h1___subitem">{{subitem.question}}</h1>
+        </div>
+    </div>
+</div>

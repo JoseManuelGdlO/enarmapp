@@ -9,6 +9,10 @@ export class MiniProgressBarExamComponent implements OnInit {
     
     @Input() percentage = '79';
     @Input() subtitle = '123/162';
+    
+    @Input() questions = 50;
+    @Input() answered = 6
+    @Input() type = 1;
 
     constructor(
         
