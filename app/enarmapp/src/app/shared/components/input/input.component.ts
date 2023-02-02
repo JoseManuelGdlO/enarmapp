@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from "@angular/core";
 export class InputComponent implements OnInit {
 
     @Input() placeholder = '';
+    @Input() type = 'normal';
 
     label = '';
 

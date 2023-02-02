@@ -1,0 +1,43 @@
+<!-- <div class="container mt-5">
+  <select class="form-select" [(ngModel)]="selected">
+    <option *ngFor="let n of subcatList">{{ n }}</option>
+  </select>
+  <div class="container">
+    {{ selected }}
+  </div>
+</div> -->
+
+<div (click)="isHidden = !isHidden" class="div___principal" [ngClass]="{ 'border___open': !isHidden }">
+  <div class="div___position">
+      <div>
+        <h3>{{placeholder}}</h3>
+      </div> 
+      <div>
+        <img class="svg___downarrow" src="assets/icons/down-arrow-icon.svg" [ngStyle]="{ 'transform': !isHidden ? 'rotate(180deg)' : 'none' }">
+      </div>
+  </div>
+</div>
+<div [hidden]="isHidden" class="div___select">
+  <div class="input___search">  
+    <enarm-input type="search" placeholder="Buscar subtema"></enarm-input>
+  </div>
+  <div class="div___position2"*ngFor="let item of items" (click)="selected(item)">
+    <h5 style="padding-top: 5px; cursor:default;">{{item.value}}</h5>
+    <img *ngIf="item.selected" src="assets/icons/check-select.svg">
+  </div>
+</div>
+
+<!--
+<div class="div___prosition">
+  <div *ngFor="let item of temas" [ngStyle]="{ 'border-bottom': item.selected ? '1px solid black' : 'none' }" (click)="select(item)">
+    <h1>{{item.name}}</h1>
+  </div>
+</div>
+
+const temas = [
+  {name: 'medicina interna', id: 2, selected : flase},
+  {name: 'medicina interna', id: 2, selected : flase},
+  {name: 'medicina interna', id: 2, selected : flase},
+  {name: 'medicina interna', id: 2, selected : flase},
+  {name: 'medicina interna', id: 2, selected : flase}
+]-->

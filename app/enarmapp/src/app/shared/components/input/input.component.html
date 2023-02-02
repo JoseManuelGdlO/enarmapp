@@ -1,4 +1,4 @@
 
-<div class="inline-separe div___input">
+<div [ngClass]="{ 'inline-separe': true, 'div___input' : type === 'normal', 'div___search': type === 'search'}">
     <input [placeholder]="placeholder" type="text">
 </div>
