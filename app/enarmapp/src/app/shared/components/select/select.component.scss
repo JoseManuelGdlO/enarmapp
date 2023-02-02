@@ -1,0 +1,76 @@
+.div___principal {
+    width: 72%;
+    height: 45px;
+    background-color: white;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid #525252;
+}
+
+.border___open {
+    border: 1px solid #3B82F6;
+    box-shadow: 0px 0px 0px 4px rgba(59, 130, 246, 0.25);
+    border-radius: 6px;
+}
+
+h3 {
+    margin: 0;
+    padding: 14px 15px;
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.005em;
+    color: #6B7280;
+}
+
+h5 {
+    font-weight: bold;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #525252;
+}
+
+.div___select {
+    padding: 5px 10px;
+    padding-top: 0;
+    margin-top: 20px;
+    border: 1px solid #E5E7EB;
+    box-shadow: 0px 90px 36px rgba(0, 0, 0, 0.01), 0px 50px 30px rgba(0, 0, 0, 0.05), 0px 22px 22px rgba(0, 0, 0, 0.09), 0px 6px 12px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-height: 36.5vh;
+    overflow-y: auto;
+    position: relative;
+    z-index: 10;
+    width: 68.35%;
+    background-color: white;
+    max-width: 100%;
+}
+
+.div___position {
+    display: flex;
+    justify-content: space-between;
+}
+
+.div___position2 {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+    padding-left: 8px;
+    margin-top: 4px;
+}
+
+.svg___downarrow {
+    margin-top: 10px;
+    margin-right: 7px;
+    scale: 90%;
+}
+
+.input___search {
+    margin-top: 10px;
+    padding: 7px;
+    border-bottom: 1px solid #E5E7EB;
+    margin-bottom: 10px;
+}

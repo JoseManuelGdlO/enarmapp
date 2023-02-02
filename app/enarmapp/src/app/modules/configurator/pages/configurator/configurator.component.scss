@@ -1,0 +1,37 @@
+body {
+  background-color: #FBFBFB;
+}
+
+.h1___welcome {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 44px;
+  color: black;
+}
+
+.h1___daystoenarm {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 33px;
+  color: #818181;
+}
+
+.div___name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.div___moreExams {
+  margin-right: 25px;
+  padding-left: 26px;
+  padding-right: 26px;
+  padding-bottom: 20px;
+  margin-bottom: 50px;
+}
+
+.div___generate{
+  height: 45vh;
+}

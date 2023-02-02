@@ -11,9 +11,11 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { ProgressBarExamComponent } from './components/progress-bar-exam/progress-bar-exam.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { QuestionsBarComponent } from './components/questions-bar/questions-bar.component';
+import { SelectComponent } from './components/select/select.component';
 import { StatusExamComponent } from './components/status-exam/status-exam.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.component';
+import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.component';
 
 
 
@@ -22,6 +24,7 @@ import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.
 @NgModule({
   declarations: [
     ToastPhrasesComponent,
+    ToastQuotesComponent,
     ProgressBarExamComponent,
     ButtonComponent,
     ProgressBarComponent,
@@ -33,7 +36,8 @@ import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.
     TimerComponent,
     QuestionsBarComponent,
     PaginationComponent,
-    HeaderComponent
+    HeaderComponent,
+    SelectComponent
   ],
   imports: [
     CommonModule,
@@ -45,6 +49,7 @@ import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.
   ],
   exports: [
     ToastPhrasesComponent,
+    ToastQuotesComponent,
     ButtonComponent,
     ProgressBarComponent,
     ProgressBarExamComponent,
@@ -56,7 +61,8 @@ import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.
     PaginationComponent,
     TimerComponent,
     QuestionsBarComponent,
-    HeaderComponent
+    HeaderComponent,
+    SelectComponent
   ]
 })
 export class SharedModule { }
