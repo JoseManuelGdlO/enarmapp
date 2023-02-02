@@ -1,0 +1,32 @@
+.div___header {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    bottom: 4px;
+}
+
+h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17.9219px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 0.005em;
+    color: #212121;
+    margin: 0 8px;
+}
+
+.h1___arrow {
+    font-size: 30px;
+    font-weight: 100;
+    margin-top: -2px;
+}
+
+.currentPage {
+    font-weight: 400;
+    border: 1px solid #F1F1F1;
+    padding: 3px 13px;
+    border-radius: 25px;
+    margin-top: -4px;
+}

@@ -7,10 +7,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { InputComponent } from './components/input/input.component';
 import { ListPreviousExamsComponent } from './components/list-previous-exams/list-previous-exams.component';
 import { MiniProgressBarExamComponent } from './components/mini-progress-bar/mini-progress-bar-exam.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 import { ProgressBarExamComponent } from './components/progress-bar-exam/progress-bar-exam.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { QuestionsBarComponent } from './components/questions-bar/questions-bar.component';
 import { SelectComponent } from './components/select/select.component';
 import { StatusExamComponent } from './components/status-exam/status-exam.component';
+import { TimerComponent } from './components/timer/timer.component';
 import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.component';
 import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.component';
 
@@ -30,6 +33,9 @@ import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.com
     MiniProgressBarExamComponent,
     StatusExamComponent,
     InputComponent,
+    TimerComponent,
+    QuestionsBarComponent,
+    PaginationComponent,
     HeaderComponent,
     SelectComponent
   ],
@@ -52,6 +58,9 @@ import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.com
     GraphAverageComponent,
     StatusExamComponent,
     InputComponent,
+    PaginationComponent,
+    TimerComponent,
+    QuestionsBarComponent,
     HeaderComponent,
     SelectComponent
   ]
