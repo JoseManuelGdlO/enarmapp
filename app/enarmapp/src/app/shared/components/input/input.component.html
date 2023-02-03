@@ -1,4 +1,4 @@
 
 <div [ngClass]="{ 'inline-separe': true, 'div___input' : type === 'normal', 'div___search': type === 'search'}">
-    <input [placeholder]="placeholder" type="text">
+    <input #box (keyup)="onKey($event)" (blur)="update(box.value)" [placeholder]="placeholder" type="text">
 </div>

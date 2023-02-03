@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
     selector: 'enarm-select',
@@ -23,22 +22,23 @@ export class SelectComponent {
       { value: 'Reuma', id: 1, selected: false},
       { value: 'Endocrino', id: 1, selected: false},
       { value: 'Geria', id: 1, selected: false}]
+
+      itemsFiltered = [...this.items];
+
     @Output() onSelected = new EventEmitter()
     isHidden = true
     @Input() placeholder = 'Seleccionar subtemas'
     /* eslint-disable no-useless-constructor */
     constructor () {
     }
-    ngOnInit (): void {
-      console.log('enter')
-    }
     selected (item:any): void {
       item.selected = !item.selected
       if(item.selected == true){
         this.value = this.value.length === 0 ? item.value: item.value + ', ' + this.value
+        const index = this.items.findIndex(x => x === item);
+        this.items[index].selected = true;
       }else{
         const valueArray = this.value.split(', ')
-        console.log(valueArray)
         const indexItem = valueArray.findIndex(x => x === item.value)
         valueArray.splice(indexItem, 1)
         this.value = valueArray.join(', ')
@@ -46,6 +46,18 @@ export class SelectComponent {
       //this.isHidden = true
       this.onSelected.emit(item)
   }  
+
+  findItem(value: string) {
+    this.itemsFiltered = this.items;
+    if(value.length < 1) {
+      return
+    }
+    this.itemsFiltered = this.items.filter(x => {
+     const response = x.value.toLowerCase().includes(value.toLocaleLowerCase());
+     return response
+    });
+
+  }
 
 }
 

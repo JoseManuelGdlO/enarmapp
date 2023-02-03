@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 @Component({
     selector: 'enarm-input',
@@ -9,6 +9,8 @@ export class InputComponent implements OnInit {
 
     @Input() placeholder = '';
     @Input() type = 'normal';
+    @Output() keyPress = new EventEmitter<string>()
+    @Output() onBlur = new EventEmitter<string>()
 
     label = '';
 
@@ -18,5 +20,13 @@ export class InputComponent implements OnInit {
 
     }
     ngOnInit(): void {
+    }
+
+    onKey(event: KeyboardEvent) { 
+        this.keyPress.emit((event.target as HTMLInputElement).value );
+    }
+
+    update(value: string) {
+        this.onBlur.emit(value);
     }
 }
