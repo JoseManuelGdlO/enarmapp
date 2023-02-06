@@ -2,10 +2,12 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
+import { CheckBoxesComponent } from './components/checkboxes/checkboxes.component';
 import { GraphAverageComponent } from './components/graph-average/graph-average.component';
 import { HeaderComponent } from './components/header/header.component';
 import { InputComponent } from './components/input/input.component';
 import { ListPreviousExamsComponent } from './components/list-previous-exams/list-previous-exams.component';
+import { MenuCategoryComponent } from './components/menu-category/menu-category.component';
 import { MiniProgressBarExamComponent } from './components/mini-progress-bar/mini-progress-bar-exam.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ProgressBarExamComponent } from './components/progress-bar-exam/progress-bar-exam.component';
@@ -37,7 +39,9 @@ import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.com
     QuestionsBarComponent,
     PaginationComponent,
     HeaderComponent,
-    SelectComponent
+    SelectComponent,
+    MenuCategoryComponent,
+    CheckBoxesComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +66,9 @@ import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.com
     TimerComponent,
     QuestionsBarComponent,
     HeaderComponent,
-    SelectComponent
+    SelectComponent,
+    MenuCategoryComponent,
+    CheckBoxesComponent
   ]
 })
 export class SharedModule { }
