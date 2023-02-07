@@ -1,0 +1,6 @@
+<div class="div___position">
+  <div *ngFor="let item of category" [ngStyle]="{ 'border-bottom': item.selected ? '1px solid black' : 'none' }" (click)="select(item)">
+    <h1 class="h1___category">{{item.name}}</h1>
+  </div>
+</div>
+
