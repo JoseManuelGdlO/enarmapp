@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { PreferencesService } from "src/app/shared/services/preferences.service";
 import { API_URL } from "src/environments/environment";
 
 @Injectable({
@@ -8,19 +8,20 @@ import { API_URL } from "src/environments/environment";
 })
 export class LoginService{
     constructor(
-        public httpclient:HttpClient
+        private httpclient:HttpClient,
+        private preferenceSession: PreferencesService
     ){
 
     }
 
-    login(passwords: string):Promise<any> {
-        const url = API_URL + '/login'
+    login(email: string, password: string):Promise<any> {
+        const url = API_URL + '/auth/login'
         return new Promise ( (resolve, reject) => {
-            this.httpclient.post(url, {contrasena:passwords, usuario: 'sdfsd'}).subscribe( data => {
+            this.httpclient.post(url, {password, email}).subscribe( (data) => {
                 resolve(data)
-            }), (error: any) => {
+            }, (error: any) => {
                 reject(error)
-            }
+            })
 
         })
     }

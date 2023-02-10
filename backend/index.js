@@ -8,6 +8,14 @@ const questionsRouter = require("./routes/questions-route.js");
 const examRouter = require("./routes/exam-route.js");
 const othersRouter = require("./routes/others.js"); 
 
+const cors = require('cors');
+const corsOptions ={
+    origin:'http://localhost:4200', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
+
 app.use(express.json({limit: '25mb'}));
 app.use(
   express.urlencoded({

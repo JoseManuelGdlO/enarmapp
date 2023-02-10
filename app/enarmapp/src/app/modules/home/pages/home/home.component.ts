@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { IUser } from "src/app/shared/interfaces/user.interface";
+import { PreferencesService } from "src/app/shared/services/preferences.service";
 import { HomeService } from "../../services/home.service";
 
 @Component({
@@ -7,6 +9,8 @@ import { HomeService } from "../../services/home.service";
 })
 export class HomeComponent implements OnInit {
 
+  user!: IUser
+
   exams = [
     { id: 1, date: '12/03/23', progress: 79, questions: 162, answers: 123, status: 1 },
     { id: 2, date: '02/03/23', progress: 65, questions: 162, answers: 100, status: 2 },
@@ -14,11 +18,17 @@ export class HomeComponent implements OnInit {
     { id: 4, date: '09/01/23', progress: 15, questions: 162, answers: 32, status: 3 },
   ]
 
-  constructor() {
+  constructor(private preferencesService: PreferencesService) {
     
   }
 
   ngOnInit(): void {
+    this.getData()
+  }
+
+  getData() {
+    this.user = this.preferencesService.getItem<IUser>('USER');
+    
   }
 
   onSelect(data: any): void {

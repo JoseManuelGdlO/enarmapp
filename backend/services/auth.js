@@ -18,14 +18,12 @@ async function register(body) {
 
 async function login(body) {
     let code = 200;
-
     const rows = await db.query(
         `SELECT * FROM usuario
       WHERE email = "${body.email}"`
     );
 
     let data = helper.emptyOrRows(rows);
-    console.log('data', data[0].password, 'body', body);
     if (data.length === 0) {
         code = 404;
         return {
@@ -34,7 +32,7 @@ async function login(body) {
         }
     }
 
-    const samePass = await encrypt.encryptCompare(data[0].password, body.password);
+    const samePass = data[0].password == body.password;
     if (!samePass) {
         data = [];
         code = 403;

@@ -1,5 +1,5 @@
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginModule } from './modules/login/login.module';
+import { HeaderBeginInterceptor } from './shared/interceptors/begin-iterceptor';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LoginModule } from './modules/login/login.module';
     ReactiveFormsModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderBeginInterceptor, multi: true },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

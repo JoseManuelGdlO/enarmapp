@@ -7,6 +7,7 @@ import { GraphAverageComponent } from './components/graph-average/graph-average.
 import { HeaderComponent } from './components/header/header.component';
 import { InputComponent } from './components/input/input.component';
 import { ListPreviousExamsComponent } from './components/list-previous-exams/list-previous-exams.component';
+import { LoadingComponent } from './components/loading/loading.component';
 import { MenuCategoryComponent } from './components/menu-category/menu-category.component';
 import { MiniProgressBarExamComponent } from './components/mini-progress-bar/mini-progress-bar-exam.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
@@ -35,6 +36,7 @@ import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.com
     MiniProgressBarExamComponent,
     StatusExamComponent,
     InputComponent,
+    LoadingComponent,
     TimerComponent,
     QuestionsBarComponent,
     PaginationComponent,
@@ -55,6 +57,7 @@ import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.com
     ToastPhrasesComponent,
     ToastQuotesComponent,
     ButtonComponent,
+    LoadingComponent,
     ProgressBarComponent,
     ProgressBarExamComponent,
     MiniProgressBarExamComponent,
