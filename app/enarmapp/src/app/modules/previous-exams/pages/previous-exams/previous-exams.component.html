@@ -1,0 +1,47 @@
+<body>
+    <enarm-header></enarm-header>
+    <div class="ph-55" style="padding-top: 9%;">
+        <div class="div___name">
+            <h1 class="h1___welcome">Examenes Previos</h1>
+            <h1 class="h1___daystoenarm">
+                <img src="assets/icons/calendar-icon.svg" alt="">
+                Quedan 62 días para el ENARM 2023, ¡tu puedes!
+            </h1>
+        </div>
+        <div class="div___body">
+            <div class="row mt-30">
+                <div class="col-25">
+                    <h5 class="h5___titleTable">EXAMEN</h5>
+                </div>
+                <div class="col-25">
+                    <h5 class="h5___titleTable">FECHA</h5>
+                </div>
+                <div class="col-30">
+                    <h5 class="h5___titleTable">PROGRESO</h5>
+                </div>
+                <div class="col-30">
+
+                </div>
+            </div>
+            <div *ngFor="let item of exams" class="row">
+                <hr class="hr___divider">
+                <div class="col-25">
+                    <h5 class="h5___titleTableBody">Examen {{item.id}}</h5>
+                </div>
+                <div class="col-25">
+                    <h5 class="h5___titleTableBody">{{item.date}}</h5>
+                </div>
+                <div class="col-30">
+                    <div style="padding-right: 120px;">
+                        <enarm-mini-progress-bar-exam></enarm-mini-progress-bar-exam>
+                    </div>
+                </div>
+                <div class="col-20">
+                    <div style="padding-right: 40px; padding-left: 40px;">
+                        <enarm-button text="Revisar"></enarm-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
