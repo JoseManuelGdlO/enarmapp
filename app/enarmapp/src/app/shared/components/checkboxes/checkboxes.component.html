@@ -1,5 +1,6 @@
 <div class="div___position">
-    <div *ngFor="let item of options" [ngStyle]="{ 'border-bottom': item.selected ? '1px solid black' : 'none' }" (click)="select(item)">
-      <h1 class="h1___category">{{item.value}}</h1>
+    <div class="div___item" *ngFor="let item of options">
+      <input class="input___item" type="checkbox" (click)="select(item)">
+      <h5 class="h5___item">{{item.value}}</h5>
     </div>
   </div>

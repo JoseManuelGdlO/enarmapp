@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
-    selector: 'enarm-checkboxes',
+    selector: 'enarm-checkbox',
     templateUrl: './checkboxes.component.html',
     styleUrls: ['./checkboxes.component.scss']
 })
@@ -13,7 +13,12 @@ export class CheckBoxesComponent {
     ]
 
     select(item:any){
-
+        if(item.selected == true){
+            item.selected = false;
+        }else{
+            item.selected = true;
+        }
+        console.log(item.value + " - " + item.selected);
     }
 }
 
