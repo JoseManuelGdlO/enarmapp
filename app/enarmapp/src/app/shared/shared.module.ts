@@ -5,6 +5,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { CheckBoxesComponent } from './components/checkboxes/checkboxes.component';
 import { GraphAverageComponent } from './components/graph-average/graph-average.component';
 import { HeaderComponent } from './components/header/header.component';
+import { IconInfoComponent } from './components/icon-info/icon-info.component';
 import { InputComponent } from './components/input/input.component';
 import { ListPreviousExamsComponent } from './components/list-previous-exams/list-previous-exams.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -47,7 +48,8 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     MenuCategoryComponent,
     CheckBoxesComponent,
     RadioButtonComponent,
-    ToggleSwitchComponent
+    ToggleSwitchComponent,
+    IconInfoComponent
   ],
   imports: [
     CommonModule,
@@ -77,7 +79,8 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     MenuCategoryComponent,
     CheckBoxesComponent,
     RadioButtonComponent,
-    ToggleSwitchComponent
+    ToggleSwitchComponent,
+    IconInfoComponent
   ]
 })
 export class SharedModule { }

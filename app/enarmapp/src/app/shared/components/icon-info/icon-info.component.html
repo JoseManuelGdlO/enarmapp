@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="div-icon" (click)="isOpen = !isOpen">
+        <img src="assets/icons/circle-icon.svg">
+        <img class="div-icon2" src="assets/icons/info-icon.svg">
+    </div>
+    
+    <div *ngIf="isOpen" class="floatclass">
+        <div class="div-info">
+            <div class="triangle"></div>
+            <div class="rectangle">
+                <div class="rectangle-text">
+                    {{message}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
