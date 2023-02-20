@@ -2,7 +2,7 @@
     <enarm-header [profile]="user.nombres"></enarm-header>
     <div class="ph-55" style="padding-top: 9%;">
         <div class="div___name">
-            <h1 class="h1___welcome">Bienvenido, <span style="font-weight: 600; color: black">{{user.nombres}}
+            <h1 *ngIf="user" class="h1___welcome">Bienvenido, <span style="font-weight: 600; color: black">{{user.nombres}}
                 {{user.apellidos}}</span></h1>
             <h1 class="h1___daystoenarm">
                 <img src="assets/icons/calendar-icon.svg" alt="">

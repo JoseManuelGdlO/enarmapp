@@ -91,9 +91,55 @@ async function getEspecialidades(group) {
     }
 }
 
+async function getStudnetTypes(group) {
+    let code = 200;
+
+    const rows = await db.query(
+        `SELECT * FROM tipo_usuario`
+    );
+
+    let data = helper.emptyOrRows(rows);
+    if (data.length === 0) {
+        code = 404;
+        return {
+            data,
+            code
+        }
+    }
+
+    return {
+        data,
+        code
+    }
+}
+
+async function getEnarmDate(group) {
+    let code = 200;
+
+    const rows = await db.query(
+        `SELECT * FROM fecha_enarm`
+    );
+
+    let data = helper.emptyOrRows(rows);
+    if (data.length === 0) {
+        code = 404;
+        return {
+            data,
+            code
+        }
+    }
+
+    return {
+        data,
+        code
+    }
+}
+
 module.exports = {
     getConfigurationPerCode,
     getConfigurationPerGroup,
     getUniversidades,
-    getEspecialidades
+    getEspecialidades,
+    getStudnetTypes,
+    getEnarmDate
 }

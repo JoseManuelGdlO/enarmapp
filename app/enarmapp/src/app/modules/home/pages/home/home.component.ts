@@ -10,6 +10,7 @@ import { HomeService } from "../../services/home.service";
 export class HomeComponent implements OnInit {
 
   user!: IUser
+  responsedata!: any;
 
   exams = [
     { id: 1, date: '12/03/23', progress: 79, questions: 162, answers: 123, status: 1 },
@@ -27,7 +28,8 @@ export class HomeComponent implements OnInit {
   }
 
   getData() {
-    this.user = this.preferencesService.getItem<IUser>('USER');
+    this.responsedata = this.preferencesService.getItem<IUser>('USER');
+    this.user = this.responsedata.data as IUser
     
   }
 

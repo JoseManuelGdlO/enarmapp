@@ -49,4 +49,40 @@ export class LoginService{
 
         })
     }
+    
+    getStudentsTypes():Promise<any> {
+        const url = API_URL + '/others/student-type'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.get(url).subscribe( (data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
+
+    getEnarmDates():Promise<any> {
+        const url = API_URL + '/others/enarm-date'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.get(url).subscribe( (data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
+
+    register(body: any):Promise<any> {
+        const url = API_URL + '/auth/register'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.post(url, body).subscribe( (data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
 }
