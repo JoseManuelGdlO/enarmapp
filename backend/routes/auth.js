@@ -8,11 +8,11 @@ router.post('/login', async function (req, res, next) {
     try {
         const response = await authService.login(req.body)
         if (response.code === 200) {
-            jwt.sign({ data: response.data }, 'secretkey', (err, token) => {
+            jwt.sign( response, 'secretkey', (err, token) => {
                 res.status(response.code).json({ data: response.data, token });
             })
         } else {
-            res.status(response.code).json(response.data);
+            res.status(response.code).json(response);
         }
     } catch (err) {
         console.error(`Error while getting enarm students info `, err.message);

@@ -1,16 +1,15 @@
 .img___logo {
-    width: 300px;
+    width: 75%;
+    padding-left: 25%;
 }
 
 .div___content {
-    background: #FFFFFF;
-    box-shadow: 8px 6px 31px -4px rgba(0,0,0,0.21);
-    -webkit-box-shadow: 8px 6px 31px -4px rgba(0,0,0,0.21);
-    -moz-box-shadow: 8px 6px 31px -4px rgba(0,0,0,0.21);
+    /* background: #FFFFFF; */
+    /* box-shadow: 8px 6px 31px -4px rgb(0 0 0 / 21%); */
+    /* -webkit-box-shadow: 8px 6px 31px -4px rgb(0 0 0 / 21%); */
     border-radius: 10px;
-    margin-right: 140px;
-    min-width: 450px;
-    max-height: 550px;
+    width: 40%;
+    /* max-height: 550px; */
     overflow: overlay;
 }
 

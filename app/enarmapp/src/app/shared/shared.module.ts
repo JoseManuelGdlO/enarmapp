@@ -25,9 +25,6 @@ import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.com
 import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
 
 
-
-
-
 @NgModule({
   declarations: [
     ToastPhrasesComponent,
