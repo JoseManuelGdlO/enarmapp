@@ -149,43 +149,50 @@ body {
   margin-bottom: 25px !important;
 }
 
+.mb-50 {
+  margin-bottom: 50px !important;
+}
 
 .mt-30 {
   margin-top: 30px !important;
 }
 
-  .mt-38 {
-    margin-top: 38px !important;
-  }
-  
-  .mt-50 {
-    margin-top: 50px !important;
-  }
-  
-  
-  .mt-2 {
-    margin-top: 2px !important;
-  }
-  
-  .pt-23 {
-    padding-top: 23px !important;
-  }
-  
-  .mb-8 {
-    margin-bottom: 8px !important;
-  }
-  
-  .pr-9 {
-    padding-right: 8px !important;
-  }
-  
-  .pl-9 {
-    padding-left: 8px !important;
-  }
+.mt-38 {
+  margin-top: 38px !important;
+}
 
-  .pl-11 {
-    padding-left: 11px !important;
-  }
+.mt-50 {
+  margin-top: 50px !important;
+}
+
+
+.mt-2 {
+  margin-top: 2px !important;
+}
+
+.pt-23 {
+  padding-top: 23px !important;
+}
+
+.mb-8 {
+  margin-bottom: 8px !important;
+}
+
+.pr-5{
+  padding-right: 5px;
+}
+
+.pr-9 {
+  padding-right: 8px !important;
+}
+
+.pl-9 {
+  padding-left: 8px !important;
+}
+
+.pl-11 {
+  padding-left: 11px !important;
+}
 
 .pr-25 {
   padding-right: 25px !important;
@@ -243,31 +250,31 @@ body {
   width: 30%;
 }
 
-  .col-20{
-    float: left;
-    width: 20%;
-  }
+.col-20 {
+  float: left;
+  width: 20%;
+}
 
-  .col-10 {
-    float: left;
-    width: 10%;
-  }
+.col-10 {
+  float: left;
+  width: 10%;
+}
 
-  .col-90 {
-    float: left;
-    width: 90%;
-  }
+.col-90 {
+  float: left;
+  width: 90%;
+}
 
-  .col-5 {
-    float: left;
-    width: 5%;
-  }
+.col-5 {
+  float: left;
+  width: 5%;
+}
 
-  .col-95 {
-    float: left;
-    width: 95%;
-  }
-  
+.col-95 {
+  float: left;
+  width: 95%;
+}
+
 
 //  scroll bar
 
@@ -294,4 +301,3 @@ body {
   background: #555;
   border-radius: 8px;
 }
-

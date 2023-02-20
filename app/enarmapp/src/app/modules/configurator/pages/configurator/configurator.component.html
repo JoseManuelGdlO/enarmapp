@@ -28,11 +28,46 @@
                 <hr class="hr___divider">
                 <div class="mt-10">
                     <h5 class="h5___titles">Filtrar preguntas</h5>
+                    <div class="mt-10"></div>
+                    <enarm-checkbox></enarm-checkbox>
+                </div>
+                <hr class="hr___divider">
+                <div class="mt-10">
+                    <h5 class="h5___titles">Idioma</h5>
+                    <div class="mt-10"></div>
+                    <enarm-radiobutton option = "idioma"></enarm-radiobutton>
+                </div>
+                <hr class="hr___divider">
+                <div class="mt-10">
+                    <div class="div___doubletitle">
+                        <h5 class="h5___titles">Número de preguntas</h5>
+                        <div class="div___switch">
+                            <h5 class="h5___titles pr-9">Simular ENARM</h5>
+                            <div class="div___switch2">
+                                <enarm-toggle-switch></enarm-toggle-switch>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Aquí va un slider de preguntas</p>
+                </div>
+                <hr class="hr___divider">
+                <div class="mt-10">
+                    <div class="div___textInfo">
+                        <h5 class="h5___titles">Modo de examen</h5>
+                        <div class="div___info-icon">
+                            <enarm-icon-info message="En el Modo Simulador, tienes que contestar todas y darle a terminar 
+                            examen para poder entrar al modo de revisión."></enarm-icon-info>
+                        </div>
+                    </div>
+                    <div class="mt-10"></div>
+                    <enarm-radiobutton option = "examen"></enarm-radiobutton>
+                    <div class="mb-50"></div>
                 </div>
             </div>
             <div class="col-50">
                 <div class="mt-38 pl-25">
-                    <enarm-toast-quotes quote="Cuéntamelo y me olvidaré. enséñamelo y lo recordaré. involúcrame y lo aprenderé."
+                    <enarm-toast-quotes
+                        quote="Cuéntamelo y me olvidaré. enséñamelo y lo recordaré. involúcrame y lo aprenderé."
                         author="Benjamin Franklin"></enarm-toast-quotes>
                     <div class="mt-50 div___generate">
                         <div class="button___generate">

@@ -5,6 +5,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { CheckBoxesComponent } from './components/checkboxes/checkboxes.component';
 import { GraphAverageComponent } from './components/graph-average/graph-average.component';
 import { HeaderComponent } from './components/header/header.component';
+import { IconInfoComponent } from './components/icon-info/icon-info.component';
 import { InputComponent } from './components/input/input.component';
 import { ListPreviousExamsComponent } from './components/list-previous-exams/list-previous-exams.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -14,11 +15,13 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { ProgressBarExamComponent } from './components/progress-bar-exam/progress-bar-exam.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { QuestionsBarComponent } from './components/questions-bar/questions-bar.component';
+import { RadioButtonComponent } from './components/radiobuttons/radiobuttons.component';
 import { SelectComponent } from './components/select/select.component';
 import { StatusExamComponent } from './components/status-exam/status-exam.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.component';
 import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.component';
+import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
 
 
 @NgModule({
@@ -40,7 +43,10 @@ import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.com
     HeaderComponent,
     SelectComponent,
     MenuCategoryComponent,
-    CheckBoxesComponent
+    CheckBoxesComponent,
+    RadioButtonComponent,
+    ToggleSwitchComponent,
+    IconInfoComponent
   ],
   imports: [
     CommonModule,
@@ -68,7 +74,10 @@ import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.com
     HeaderComponent,
     SelectComponent,
     MenuCategoryComponent,
-    CheckBoxesComponent
+    CheckBoxesComponent,
+    RadioButtonComponent,
+    ToggleSwitchComponent,
+    IconInfoComponent
   ]
 })
 export class SharedModule { }
