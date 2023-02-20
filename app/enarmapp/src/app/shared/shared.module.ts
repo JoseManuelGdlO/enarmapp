@@ -21,9 +21,6 @@ import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.
 import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.component';
 
 
-
-
-
 @NgModule({
   declarations: [
     ToastPhrasesComponent,

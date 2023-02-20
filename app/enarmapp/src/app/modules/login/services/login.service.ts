@@ -25,4 +25,28 @@ export class LoginService{
 
         })
     }
+
+    getUnivercities():Promise<any> {
+        const url = API_URL + '/others/universidades'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.get(url).subscribe( (data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
+
+    getEspecialities():Promise<any> {
+        const url = API_URL + '/others/especialidades'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.get(url).subscribe( (data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
 }
