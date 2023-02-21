@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { EAcountStatus } from "src/app/shared/interfaces/account-status.enum";
 import { IUser } from "src/app/shared/interfaces/user.interface";
 import { PreferencesService } from "src/app/shared/services/preferences.service";
 import { HomeService } from "../../services/home.service";
@@ -10,6 +11,7 @@ import { HomeService } from "../../services/home.service";
 export class HomeComponent implements OnInit {
 
   user!: IUser
+  responsedata!: any;
 
   exams = [
     { id: 1, date: '12/03/23', progress: 79, questions: 162, answers: 123, status: 1 },
@@ -17,6 +19,8 @@ export class HomeComponent implements OnInit {
     { id: 3, date: '23/02/23', progress: 38, questions: 162, answers: 67, status: 2 },
     { id: 4, date: '09/01/23', progress: 15, questions: 162, answers: 32, status: 3 },
   ]
+
+  modalNew = false;
 
   constructor(private preferencesService: PreferencesService) {
     
@@ -27,8 +31,12 @@ export class HomeComponent implements OnInit {
   }
 
   getData() {
-    this.user = this.preferencesService.getItem<IUser>('USER');
+    this.responsedata = this.preferencesService.getItem<IUser>('USER');
+    this.user = this.responsedata.data as IUser
     
+    if(this.responsedata.account.estatus === EAcountStatus.NEW) {
+      this.modalNew = true;
+    }
   }
 
   onSelect(data: any): void {

@@ -1,84 +1,123 @@
-<div class="inline-center" style="position: absolute; top: 10%;" [ngStyle]="{ 'height': screenHeight + 'px;' }">
-    <div class="div___content">
-        <div style="padding: 38px 38px 0px 38px;">
-            <h3 class="h3___welcome">¡Bienvenido!</h3>
-            <h1 class="h1___login mt-10">Registrate</h1>
-            <h4 class="h4___description">Usa tus datos para registrarte en EstudiaX.</h4>
-        </div>
-        <div class="div___subcontainer mt-30">
-            <div style="background-color: #f5f5f5; border-radius: 8px; padding: 10px;">
-                <h4 class="h4___fields">Nombre</h4>
-                <div class="mt-5">
-                    <enarm-input placeholder="Jose Manuel"></enarm-input>
-                </div>
-                <h4 class="h4___fields mt-30">Apellido paterno</h4>
-                <div class="mt-5">
-                    <enarm-input placeholder="Garcia"></enarm-input>
-                </div>
-                <h4 class="h4___fields mt-30">Apellido Materno</h4>
-                <div class="mt-5">
-                    <enarm-input placeholder="de la O"></enarm-input>
-                </div>
-                <h4 class="h4___fields mt-30">Fecha de nacimiento</h4>
-                <div class="mt-5">
-                    <enarm-input placeholder="24/06/1995"></enarm-input>
-                </div>
-            </div>
-        </div>
-        <div class="div___subcontainer mt-10">
-            <div style="background-color: #f5f5f5; border-radius: 8px; padding: 10px;">
-                <h4 class="h4___fields">Soy</h4>
-                <div class="mt-5">
-                    <enarm-select placeholder="Estudiante"></enarm-select>
-                </div>
-                <h4 class="h4___fields mt-30">Universidad</h4>
-                <div class="mt-5">
-                    <enarm-select placeholder="Ujed"></enarm-select>
-                </div>
-                <h4 class="h4___fields mt-30">Especialidad de tu interes</h4>
-                <div class="mt-5">
-                    <enarm-select placeholder="Pediatria"></enarm-select>
-                </div>
-                <h4 class="h4___fields mt-30">¿Cuando aplicaras ENARM?</h4>
-                <div class="mt-5">
-                    <enarm-input placeholder="2023"></enarm-input>
-                </div>
-            </div>
-        </div>
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
 
-        <div class="div___subcontainer mt-10">
-            <div style="background-color: #f5f5f5; border-radius: 8px; padding: 10px;">
-                <h4 class="h4___fields">Correo Electronico</h4>
-                <div class="mt-5">
-                    <enarm-input placeholder="josemanuelgarciadelao@estudiax.com"></enarm-input>
-                </div>
-                <h4 class="h4___fields mt-30">Numero de telefono</h4>
-                <div class="mt-5">
-                    <enarm-input placeholder="6181020928"></enarm-input>
-                </div>
-            </div>
-        </div>
-        <div class="div___subcontainer mt-10">
-            <div style="background-color: #f5f5f5; border-radius: 8px; padding: 10px;">
-                <h4 class="h4___fields">Contraseña</h4>
-                <div class="mt-5">
-                    <enarm-input placeholder="**************"></enarm-input>
-                </div>
-                <h4 class="h4___fields mt-30">Repite contraseña</h4>
-                <div class="mt-5">
-                    <enarm-input placeholder="**************"></enarm-input>
-                </div>
-            </div>
-        </div>
-        <div style="padding: 0 38px 38px 38px;">
-            <div class="mt-30">
-                <enarm-button text="Registrate"></enarm-button>
-            </div>
-        </div>
+    <enarm-loading-outlet [isLoading]="isLoading">
+        <div class="inline-center" style="position: absolute; top: 10%;" [ngStyle]="{ 'height': screenHeight + 'px;' }">
+            <div class="div___content">
 
-    </div>
-    <div style="padding-top: 7%;">
-        <img class="img___logo" src="assets/images/enarm-logo.png" alt="">
-    </div>
+                <div style="padding: 38px 38px 0px 38px;">
+                    <h3 class="h3___welcome">¡Bienvenido!</h3>
+                    <h1 class="h1___login mt-10">Registrate</h1>
+                    <h4 class="h4___description">Usa tus datos para registrarte en EstudiaX.</h4>
+                </div>
+                <div class="div___subcontainer mt-30">
+                    <div style="background-color: #f5f5f5; border-radius: 8px; padding: 10px;">
+                        <h4 class="h4___fields">Nombre</h4>
+                        <div class="mt-5">
+                            <enarm-input required id="name" format="text" [control]="checkoutForm.controls.name"
+                                formControlName="name" placeholder="Jose Manuel"></enarm-input>
+                        </div>
+                        <h4 class="h4___fields mt-30">Apellido paterno</h4>
+                        <div class="mt-5">
+                            <enarm-input required id="lastname" format="text" [control]="checkoutForm.controls.lastname"
+                                formControlName="lastname" placeholder="Garcia"></enarm-input>
+                        </div>
+                        <h4 class="h4___fields mt-30">Apellido Materno</h4>
+                        <div class="mt-5">
+                            <enarm-input required id="secondlastname" format="text"
+                                [control]="checkoutForm.controls.secondlastname" formControlName="secondlastname"
+                                placeholder="de la O"></enarm-input>
+                        </div>
+                        <h4 class="h4___fields mt-30">Fecha de nacimiento</h4>
+                        <div class="mt-5">
+                            <enarm-input required id="birthdate" format="date"
+                                [control]="checkoutForm.controls.birthdate" formControlName="birthdate"
+                                placeholder="24/06/1995"></enarm-input>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 0 0 38px 0;">
+                    <div class="div___subcontainer mt-10">
+                        <div style="background-color: #f5f5f5; border-radius: 8px; padding: 10px;">
+                            <h4 class="h4___fields">Soy</h4>
+                            <div class="mt-5">
+                                <enarm-select [multiple]="false" [setitems]="studentTypes" id="studenttype"
+                                    format="text" [control]="checkoutForm.controls.studenttype"
+                                    formControlName="studenttype" placeholder="Estudiante"></enarm-select>
+                            </div>
+                            <h4 class="h4___fields mt-30">Universidad</h4>
+                            <div class="mt-5">
+                                <enarm-select [multiple]="false" [setitems]="universidades" id="studies" format="text"
+                                    [control]="checkoutForm.controls.studies" formControlName="studies"
+                                    placeholder="Ujed"></enarm-select>
+                            </div>
+                            <h4 class="h4___fields mt-30">Especialidad de tu interes</h4>
+                            <div class="mt-5">
+                                <enarm-select [multiple]="false" [setitems]="especialities" id="especility"
+                                    format="text" [control]="checkoutForm.controls.especility"
+                                    formControlName="especility" placeholder="Pediatria"></enarm-select>
+                            </div>
+                            <h4 class="h4___fields mt-30">¿Cuando aplicaras ENARM?</h4>
+                            <div class="mt-5">
+                                <enarm-select [multiple]="false" [setitems]="enarmDate"
+                                    [control]="checkoutForm.controls.enarmdate" formControlName="enarmdate"
+                                    placeholder="2023"></enarm-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-</div>
+
+            </div>
+            <div style="padding-top: 7%; width: 40%;">
+                <img class="img___logo" src="assets/images/enarm-logo.png" alt="">
+                <div class="div___subcontainer mt-10">
+                    <div style="background-color: #f5f5f5; border-radius: 8px; padding: 10px;">
+                        <h4 class="h4___fields">Correo Electronico</h4>
+                        <div class="mt-5">
+                            <enarm-input required id="email" format="email" [control]="checkoutForm.controls.email"
+                                formControlName="email" placeholder="josemanuelgarciadelao@estudiax.com"></enarm-input>
+                        </div>
+                        <h4 class="h4___fields mt-30">Numero de telefono</h4>
+                        <div class="mt-5">
+                            <enarm-input required id="phonenumber" format="number"
+                                [control]="checkoutForm.controls.phonenumber" formControlName="phonenumber"
+                                placeholder="6181020928"></enarm-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="div___subcontainer mt-10">
+                    <div style="background-color: #f5f5f5; border-radius: 8px; padding: 10px;">
+
+                        <h4 class="h4___fields">Contraseña <img style="cursor: pointer; width: 6%;"
+                                (click)="passwordInfo = !passwordInfo" src="assets/icons/question.svg"></h4>
+                        <div style="background-color: white; border-radius: 8px; padding: 2vw; margin-bottom: 2vh;"
+                            *ngIf="passwordInfo">
+                            <h6>De 7 a 15 caracteres que contengan sólo caracteres, dígitos numéricos, guión bajo y el
+                                primer carácter debe ser una letra</h6>
+                        </div>
+                        <div class="mt-5">
+                            <enarm-input required id="password" format="password"
+                                [control]="checkoutForm.controls.password" formControlName="password"
+                                placeholder="**************"></enarm-input>
+                        </div>
+                        <h4 class="h4___fields mt-30">Repite contraseña</h4>
+                        <div class="mt-5">
+                            <enarm-input required id="repypassword" format="password"
+                                [control]="checkoutForm.controls.repypassword" formControlName="repypassword"
+                                placeholder="**************"></enarm-input>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 0 38px 38px 38px;">
+                    <div class="mt-30">
+                        <enarm-button style="width: 100%;" type="submit" text="Registrate"></enarm-button>
+                    </div>
+                </div>
+                <alert *ngIf="message" type="danger">
+                    {{message}}
+                </alert>
+            </div>
+
+        </div>
+    </enarm-loading-outlet>
+</form>

@@ -6,7 +6,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
-
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 
 
@@ -19,6 +20,8 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     CommonModule,
     LoginRoutingModule,
     FormsModule,
+    AlertModule.forRoot(),
+    PopoverModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule

@@ -1,4 +1,7 @@
-
 <div [ngClass]="{ 'inline-separe': true, 'div___input' : type === 'normal', 'div___search': type === 'search'}">
-    <input #box [type]="format" (keyup)="onKey($event)" [name]="name" ngDefaultControl [(ngModel)]="ngModel" (blur)="update(box.value)" [placeholder]="placeholder">
+    <input *ngIf="control" #box [type]="format" (keyup)="onKey($event)" [id]="name" [name]="name"
+        ngDefaultControl [disabled]="disabled" [(ngModel)]="ngModel" (blur)="update(box.value); onChange($event, box.value)" [placeholder]="placeholder">
 </div>
+    <div style="height:0px;" *ngIf="!control.pristine && !control.valid" class="error">
+        <p style="color: red; font-size: 12px;" *ngFor="let error of errors">{{error}}</p>
+    </div>

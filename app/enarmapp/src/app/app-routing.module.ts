@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthRoutingGuard } from './shared/services/auth-routing.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},{
@@ -8,6 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
+    canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/home/home.module').then(
         (mod) => mod.HomeModule
@@ -15,6 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'configurator',
+    canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/configurator/configurator.module').then(
         (mod) => mod.ConfiguratorModule
@@ -22,6 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'exam',
+    canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/exam/exam.module').then(
         (mod) => mod.ExamModule
@@ -29,6 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'previous-exams',
+    canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/previous-exams/previous-exams.module').then(
         (mod) => mod.PreviousExamsModule

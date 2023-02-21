@@ -6,7 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginModule } from './modules/login/login.module';
 import { HeaderBeginInterceptor } from './shared/interceptors/begin-iterceptor';
 
 @NgModule({
@@ -18,7 +17,7 @@ import { HeaderBeginInterceptor } from './shared/interceptors/begin-iterceptor';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderBeginInterceptor, multi: true },

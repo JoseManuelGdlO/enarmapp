@@ -28,6 +28,11 @@ export class LoginComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.isLoading = true;
+    if(await this.preferencesServices.getItem('RMBR')) {
+      this.router.navigateByUrl('home')
+    }
+    this.isLoading = false;
     this.screenHeight = window.innerHeight;
     this.socialAuthService.authState.subscribe((user) => {
       console.log(user);
@@ -57,11 +62,9 @@ export class LoginComponent implements OnInit {
     try {
       const response: any = await this.loginService.login(this.email, this.password)
       if (response) {
-        if (this.rememberme) {
-
-          this.preferencesServices.setItem('AUTH_TOKEN', response.token)
-          this.preferencesServices.setItem('USER', response.data[0]);
-        }
+        this.preferencesServices.setItem('RMBR', this.rememberme)
+        this.preferencesServices.setItem('AUTH_TOKEN', response.token)
+        this.preferencesServices.setItem('USER', response.data);
         this.router.navigateByUrl('home')
       }
 
