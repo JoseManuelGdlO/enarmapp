@@ -11,6 +11,7 @@ import { ListPreviousExamsComponent } from './components/list-previous-exams/lis
 import { LoadingComponent } from './components/loading/loading.component';
 import { MenuCategoryComponent } from './components/menu-category/menu-category.component';
 import { MiniProgressBarExamComponent } from './components/mini-progress-bar/mini-progress-bar-exam.component';
+import { ModalPaymentComponent } from './components/modal-payment/payment.modal';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ProgressBarExamComponent } from './components/progress-bar-exam/progress-bar-exam.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
@@ -49,6 +50,7 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     ToggleSwitchComponent,
     IconInfoComponent,
     RangeSliderComponent
+    ModalPaymentComponent
   ],
   imports: [
     CommonModule,
@@ -73,6 +75,7 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     PaginationComponent,
     TimerComponent,
     QuestionsBarComponent,
+    ModalPaymentComponent,
     HeaderComponent,
     SelectComponent,
     MenuCategoryComponent,
