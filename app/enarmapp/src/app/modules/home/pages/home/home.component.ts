@@ -20,7 +20,9 @@ export class HomeComponent implements OnInit {
     { id: 4, date: '09/01/23', progress: 15, questions: 162, answers: 32, status: 3 },
   ]
 
-  modalNew = false;
+  isNew = false;
+  isTryAccount = false;
+  isExpireAccount = false;
 
   constructor(private preferencesService: PreferencesService) {
     
@@ -34,9 +36,19 @@ export class HomeComponent implements OnInit {
     this.responsedata = this.preferencesService.getItem<IUser>('USER');
     this.user = this.responsedata.data as IUser
     
-    if(this.responsedata.account.estatus === EAcountStatus.NEW) {
-      this.modalNew = true;
-    }
+    switch(this.responsedata.account.estatus) {
+      case EAcountStatus.NEW:
+        this.isNew = true;
+        break;
+
+      case EAcountStatus.TRY:
+        this.isTryAccount = true;
+        break;
+
+      case EAcountStatus.EXPIRE:
+        this.isExpireAccount = true;
+        break;
+    } 
   }
 
   onSelect(data: any): void {

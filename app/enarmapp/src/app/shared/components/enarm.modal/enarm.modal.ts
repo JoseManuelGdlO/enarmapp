@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 
 @Component({
-    selector: 'enarm-payment-modal',
-    templateUrl: './payment.modal.html',
-    styleUrls: ['./payment.modal.scss']
+    selector: 'enarm-modal',
+    templateUrl: './enarm.modal.html',
+    styleUrls: ['./enarm.modal.scss']
 })
-export class ModalPaymentComponent implements OnInit {
+export class EnarmModalComponent implements OnInit {
 
     @Output() dismiss = new EventEmitter();
 

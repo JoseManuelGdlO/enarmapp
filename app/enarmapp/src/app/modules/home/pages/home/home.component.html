@@ -2,8 +2,9 @@
     <enarm-header [profile]="user.nombres"></enarm-header>
     <div class="ph-55" style="padding-top: 9%;">
         <div class="div___name">
-            <h1 *ngIf="user" class="h1___welcome">Bienvenido, <span style="font-weight: 600; color: black">{{user.nombres}}
-                {{user.apellidos}}</span></h1>
+            <h1 *ngIf="user" class="h1___welcome">Bienvenido, <span
+                    style="font-weight: 600; color: black">{{user.nombres}}
+                    {{user.apellidos}}</span></h1>
             <h1 class="h1___daystoenarm">
                 <img src="assets/icons/calendar-icon.svg" alt="">
                 Quedan 62 días para el ENARM 2023, ¡tu puedes!
@@ -69,9 +70,7 @@
                             </div>
                         </div>
                         <div class="col-20">
-                            <div style="padding-right: 20px;">
-                                <enarm-status-exam [type]="item.status"></enarm-status-exam>
-                            </div>
+                            <enarm-status-exam [type]="item.status"></enarm-status-exam>
                         </div>
                     </div>
                 </div>
@@ -91,5 +90,130 @@
             </div>
         </div>
     </div>
-    <enarm-payment-modal *ngIf="modalNew" (dismiss)="modalNew = false;"></enarm-payment-modal>
+    <enarm-modal *ngIf="isNew">
+        <div style="text-align: center;">
+            <img style="width: 50%;" src="assets/images/happines.jpg" alt="">
+            <h2>Felicidades</h2>
+            <h4>Estas a un solo paso 🔥</h4>
+            <h6 class="mt-3">para completar y poder hacer uso de esta gran herramienta es necesario hacer los siguientes
+                pasos para subscribirte en una de nuestras membrecias</h6>
+            <h6>Es importante platicarte que nuestras membrecias tienen los siguientes costos</h6>
+            <ul class="costos">
+                <li>1 mes - 60 pesos</li>
+                <li>2 meses - 120 pesos</li>
+                <li>6 meses - 340 pesos </li>
+                <li>12 meses - 1300 pesos</li>
+            </ul>
+        </div>
+        <div class="buttonLeftContainer mt-20">
+            <h4 class="buttonText" numberOfLines={2}>Información acerca de la CLABE como pago</h4>
+        </div>
+
+        <div class="cardContainer">
+            <div class="rowAlign">
+                <div class="circle">
+                    <h4 class="number">1</h4>
+                </div>
+                <h4 class="instructionsDescription">Accede a tu banca en línea.</h4>
+            </div>
+            <div style="align-self: center">
+                <img src="assets/images/exampleWeb.png" width={50} />
+            </div>
+            <div class="rowAlign">
+                <div class="circle">
+                    <h4 class="number">2</h4>
+                </div>
+                <h4 class="instructionsDescription">Da de alta la CLABE en esta ficha.
+                    <h4 class="instructionsTitle">El banco
+                        <h4 class="instructionsTitle">deberá de ser STP (Sistema de Transferencia y Pagos).
+                        </h4>
+                    </h4>
+                </h4>
+            </div>
+
+            <div style="align-self: center">
+                <img src="assets/images/exampleScreenBank.png" width={30} />
+            </div>
+
+            <div class="rowAlign">
+                <div class="circle">
+                    <h4 class="number">3</h4>
+                </div>
+                <h4 class="instructionsDescription">Realiza la transferencia correspondiente por la cantidad exacta en
+                    esta
+                    ficha,
+                    <h4 class="instructionsTitle">de lo contrario se rechazará el cargo.
+                    </h4>
+                </h4>
+
+            </div>
+            <div style="align-self: center">
+                <img src="assets/images/exampleTransferBank.png" width={30} />
+            </div>
+
+            <div class="rowAlign">
+                <div class="circle">
+                    <h4 class="number">4</h4>
+                </div>
+                <h4 class="instructionsDescription">Al confirmar tu pago, el portal de tu banco generará un comprobante
+                    digital.
+                    <h4 class="instructionsTitle"> En el podrás verificar que se haya realizado correctamente. </h4>
+                    Conserva este comprobante de pago.
+                </h4>
+            </div>
+
+            <div style="align-self: center">
+                <img src="assets/images/exampleVaoucherBank.png" width={30} />
+            </div>
+            <div style="width: 100%; text-align: center; padding: 5% 20%;">
+                <enarm-button (click)="isNew = false" text="Entendido"></enarm-button>
+            </div>
+        </div>
+    </enarm-modal>
+    <enarm-modal *ngIf="isTryAccount">
+        <div style="padding: 0 5%;">
+            <img class="mt-20" style="width: 50%;" src="assets/images/trial-version@4x.png" alt="">
+            <h1 style="margin-top: -40px;">Estas en una version prueba🤘</h1>
+            <h6 class="mt-20">
+                ¡Hola! Quería compartirte una excelente noticia. Ahora tienes acceso de prueba a
+                nuestra plataforma. Esto significa que podras explorar y experimentar con algunas características y
+                funcionalidades que ofrece la plataforma de manera gratuita por un período determinado.
+                <br><br>
+                Queremos que tengas la oportunidad de probar nuestra plataforma de evaluación, por lo que te hemos
+                otorgado acceso a 5 exámenes con 5 preguntas cada uno. Durante este tiempo, esperamos que puedas
+                descubrir cómo funciona nuestra plataforma de evaluación.
+                <br><br>
+                Si después de probar nuestra plataforma, deses adquirir una suscripción para poder disfrutar de todas
+                las funcionalidades, puede contactarnos a través de nuestro equipo de soporte.
+                <br><br>
+                Esperamos que disfrutes de nuestro acceso de prueba y esperamos poder ayudarte en el futuro. ¡Gracias
+                por elegirnos!
+            </h6>
+            <div style="width: 100%; text-align: center; padding: 5% 0">
+                <enarm-button (click)="isTryAccount = false" text="Entendido"></enarm-button>
+            </div>
+        </div>
+    </enarm-modal>
+    <enarm-modal *ngIf="isExpireAccount">
+        <div style="padding: 0 5%;">
+            <img class="mt-20" style="width: 50%;" src="assets/images/expire-account@2x.png" alt="">
+            <h1>Cuenta vencida 😞</h1>
+            <h6 class="mt-20">
+                ¡Hola! Quería comunicarte que hemos detectado que tu cuenta en nuestra plataforma se encuentra vencida
+                debido a una falta de pago. Lamentablemente, esto significa que no podrás acceder a los servicios y
+                beneficios que ofrecemos hasta que se solucione la situación.
+                <br><br>
+                Para solucionar esta situación, te invitamos a que accedas a tu cuenta y realices el pago
+                correspondiente lo antes posible. Si necesitas ayuda para realizar el pago o tienes alguna duda, nuestro
+                equipo de soporte estará disponible para ayudarte.
+                <br><br>
+                Recuerda que es importante mantener tu cuenta al día para que puedas seguir disfrutando de los servicios
+                y beneficios que ofrecemos en la plataforma. Si tienes cualquier pregunta o necesitas más información
+                sobre la situación de tu cuenta, no dudes en contactarnos.
+                <br><br>
+                Esperamos que puedas solucionar pronto esta situación y recuperar el acceso a tu cuenta. ¡Gracias por tu
+                atención!
+            </h6>
+        </div>
+    </enarm-modal>
 </body>
