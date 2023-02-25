@@ -17,6 +17,7 @@ import { ProgressBarExamComponent } from './components/progress-bar-exam/progres
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { QuestionsBarComponent } from './components/questions-bar/questions-bar.component';
 import { RadioButtonComponent } from './components/radiobuttons/radiobuttons.component';
+import { RangeSliderComponent } from './components/range-slider/range-slider.component';
 import { SelectComponent } from './components/select/select.component';
 import { StatusExamComponent } from './components/status-exam/status-exam.component';
 import { TimerComponent } from './components/timer/timer.component';
@@ -48,7 +49,8 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     RadioButtonComponent,
     ToggleSwitchComponent,
     IconInfoComponent,
-    EnarmModalComponent
+    EnarmModalComponent,
+    RangeSliderComponent
   ],
   imports: [
     CommonModule,
@@ -80,7 +82,8 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     CheckBoxesComponent,
     RadioButtonComponent,
     ToggleSwitchComponent,
-    IconInfoComponent
+    IconInfoComponent,
+    RangeSliderComponent
   ]
 })
 export class SharedModule { } 

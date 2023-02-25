@@ -1,0 +1,31 @@
+.div___rangeSlider{
+    display: flex;
+    justify-content: space-between;
+}
+
+.div___marker {
+    display: flex;
+    orientation: landscape;
+    justify-items: center;
+    width: 1px;
+    height: 15px;
+    background: #9CA3AF;
+}
+
+.bar___default {
+    width: 701px;
+    height: 6px;
+    left: calc(50% - 701px/2);
+    top: calc(50% - 6px/2 - 4.5px);   
+    background: #E5E7EB;
+    border-radius: 999px;
+}
+
+.bar___active {
+    width: 329px;
+    height: 6px;
+    left: -6px;
+    top: 0px;
+    background: #000000;
+    border-radius: 999px;
+}
