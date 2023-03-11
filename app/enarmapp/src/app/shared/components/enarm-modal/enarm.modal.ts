@@ -5,12 +5,7 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
     templateUrl: './enarm.modal.html',
     styleUrls: ['./enarm.modal.scss']
 })
-export class EnarmModalComponent implements OnInit {
+export class EnarmModalComponent {
 
     @Output() dismiss = new EventEmitter();
-
-    ngOnInit(): void {
-        throw new Error("Method not implemented.");
-    }
-
 }

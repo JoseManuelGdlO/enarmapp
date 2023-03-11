@@ -14,21 +14,24 @@
             <div class="col-50 mt-38">
                 <div style="display: flex;" class="pr-25">
                     <div class="col-50">
+                        <google-chart #chart [title]="title" [type]="type" [data]="data" [columnNames]="columnNames"
+                            [options]="options" [width]="width" [height]="height">
+                        </google-chart>
                     </div>
                     <div class="col-50 div__exam">
                         <h3 class="h3___titleexam">Examen actual</h3>
-                        <h4 class="h4___titleexam mt-14">Examen 5</h4>
+                        <h4 class="h4___titleexam mt-14">Examen {{currentExam ? currentExam.id : ''}}</h4>
+                        <div class="mt-8" style="display: flex;"><img src="assets/icons/check-icon.svg" alt="">
+                            <h6 class="h6___litext pl-5">{{currentExam? currentExam.numeroPreguntas : ''}} preguntas</h6>
+                        </div>
                         <div class="mt-12" style="display: flex;"><img src="assets/icons/check-icon.svg" alt="">
-                            <h6 class="h6___litext pl-5">5 módulos</h6>
+                            <h6 class="h6___litext pl-5">{{currentExam? currentExam.respondidas : ''}} preguntas respondidas</h6>
                         </div>
                         <div class="mt-8" style="display: flex;"><img src="assets/icons/check-icon.svg" alt="">
-                            <h6 class="h6___litext pl-5">85 preguntas</h6>
-                        </div>
-                        <div class="mt-8" style="display: flex;"><img src="assets/icons/check-icon.svg" alt="">
-                            <h6 class="h6___litext pl-5">Español</h6>
+                            <h6 class="h6___litext pl-5">{{currentExam && currentExam.isEspanol ? 'Español' : 'English'}}</h6>
                         </div>
                         <div class="mt-18">
-                            <enarm-progress-bar-exam percentage="50"></enarm-progress-bar-exam>
+                            <enarm-progress-bar-exam [percentage]="currentExam ? (currentExam.respondidas*100/currentExam.numeroPreguntas).toString() : ''"></enarm-progress-bar-exam>
                         </div>
                         <div class="mt-30">
                             <enarm-button text="Retomar examen"></enarm-button>
@@ -38,11 +41,11 @@
                 <div class="mt-50 div___moreExams">
                     <div class="div___headerExams mt-20">
                         <h1 class="h1___exams">Exámenes previos</h1>
-                        <div class="buttonSeeAll">
+                        <div *ngIf="exams.length !== 0" class="buttonSeeAll">
                             <h3 class="h3___seeAll">Ver todos</h3>
                         </div>
                     </div>
-                    <div class="row mt-30">
+                    <div *ngIf="exams.length !== 0" class="row mt-30">
                         <div class="col-25">
                             <h5 class="h5___titleTable">EXAMEN</h5>
                         </div>
@@ -62,16 +65,19 @@
                             <h5 class="h5___titleTableBody">Examen {{item.id}}</h5>
                         </div>
                         <div class="col-25">
-                            <h5 class="h5___titleTableBody">{{item.date}}</h5>
+                            <h5 class="h5___titleTableBody">{{item.creationDate | date : 'dd/MM/yy'}}</h5>
                         </div>
                         <div class="col-30">
                             <div style="padding-right: 40px;">
-                                <enarm-mini-progress-bar-exam></enarm-mini-progress-bar-exam>
+                                <enarm-mini-progress-bar-exam [percentage]="(item.respondidas*100/item.numeroPreguntas).toString()" [subtitle]="item.respondidas +'/'+item.numeroPreguntas"></enarm-mini-progress-bar-exam>
                             </div>
                         </div>
                         <div class="col-20">
                             <enarm-status-exam [type]="item.status"></enarm-status-exam>
                         </div>
+                    </div>
+                    <div class="div___noexamlist" *ngIf="exams.length === 0">
+                        <h1 class="h1___exams">Aun no tienes exámenes registrados 😓!</h1>
                     </div>
                 </div>
             </div>
@@ -166,7 +172,7 @@
                 <img src="assets/images/exampleVaoucherBank.png" width={30} />
             </div>
             <div style="width: 100%; text-align: center; padding: 5% 20%;">
-                <enarm-button (click)="isNew = false" text="Entendido"></enarm-button>
+                <enarm-button (click)="changeToTail()" text="Entendido"></enarm-button>
             </div>
         </div>
     </enarm-modal>
@@ -175,19 +181,17 @@
             <img class="mt-20" style="width: 50%;" src="assets/images/trial-version@4x.png" alt="">
             <h1 style="margin-top: -40px;">Estas en una version prueba🤘</h1>
             <h6 class="mt-20">
-                ¡Hola! Quería compartirte una excelente noticia. Ahora tienes acceso de prueba a
-                nuestra plataforma. Esto significa que podras explorar y experimentar con algunas características y
-                funcionalidades que ofrece la plataforma de manera gratuita por un período determinado.
+                ¡Hola! Queremos compartirte una excelente noticia. Te daremos un acceso de prueba a nuestra plataforma:
+                podrás acceder de manera gratuita a dos exámenes de 10 preguntas cada uno, con el que podrás explorar y
+                experimentar las características y funcionalidades que ofrecemos.
                 <br><br>
-                Queremos que tengas la oportunidad de probar nuestra plataforma de evaluación, por lo que te hemos
-                otorgado acceso a 5 exámenes con 5 preguntas cada uno. Durante este tiempo, esperamos que puedas
-                descubrir cómo funciona nuestra plataforma de evaluación.
+                Las opciones para conseguir una suscripción están en el apartado correspondiente del menú de inicio.
                 <br><br>
-                Si después de probar nuestra plataforma, deses adquirir una suscripción para poder disfrutar de todas
-                las funcionalidades, puede contactarnos a través de nuestro equipo de soporte.
+                Esperamos que la plataforma sea de tu agrado, ya que le estamos metiendo todas las ganas para hacerla lo
+                más interactiva y agradable posible, además de que el contenido te sirva para prepararte de la mejor
+                manera!
                 <br><br>
-                Esperamos que disfrutes de nuestro acceso de prueba y esperamos poder ayudarte en el futuro. ¡Gracias
-                por elegirnos!
+                ¡Gracias por elegirnos!
             </h6>
             <div style="width: 100%; text-align: center; padding: 5% 0">
                 <enarm-button (click)="isTryAccount = false" text="Entendido"></enarm-button>

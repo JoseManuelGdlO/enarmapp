@@ -98,6 +98,23 @@ async function getExamsListPerUser(id) {
       FROM examen WHERE idUsuario = ${id} LIMIT ${offset},${config.listPerPage}`
     );
     
+    for (const exam of rows) {
+
+        const answers = await db.query(
+            `SELECT * 
+                FROM preguntas_examen WHERE idExamen = ${exam.id}`
+        );
+        let responses = 0
+        for (const answer of answers) {
+            if(answer.idRespuesta) {
+                responses++
+            }
+        }
+
+        exam.respondidas = responses
+
+    }
+
     const data = helper.emptyOrRows(rows);
   
     return {
