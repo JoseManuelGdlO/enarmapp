@@ -6,6 +6,12 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
     styleUrls: ['./menu-category.component.scss']
 })
 export class MenuCategoryComponent {  
+    @Input() set getCategories(value:any){
+        this.category = value;
+    }
+    
+    @Output() selectedCategory = new EventEmitter<any>()
+
     category = [
         {name: 'Medicina Interna', id: 2, selected : false},
         {name: 'Cirugía', id: 2, selected : false},
@@ -19,7 +25,7 @@ export class MenuCategoryComponent {
     }
 
     select(item:any){
-
+        this.selectedCategory.emit(item);
     }
 }
 

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 
 @Component({
     selector: 'enarm-toggle-switch',
@@ -7,9 +7,14 @@ import { Component } from "@angular/core";
 })
 export class ToggleSwitchComponent {  
     isSelected = false;
+    @Output() onChangedValue: EventEmitter<boolean> = new EventEmitter();
 
     select(){
-        console.log(this.isSelected);
+        if(this.isSelected == false){
+            this.onChangedValue.emit(true);
+        }else if(this.isSelected == true){
+            this.onChangedValue.emit(false);
+        }
     }
 }
 

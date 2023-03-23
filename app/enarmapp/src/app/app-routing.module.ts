@@ -39,6 +39,13 @@ const routes: Routes = [
         (mod) => mod.PreviousExamsModule
       )
   },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./modules/admin/admin.module').then(
+        (mod) => mod.AdminModule
+      )
+  },
 ];
 
 @NgModule({

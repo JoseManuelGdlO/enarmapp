@@ -50,7 +50,7 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     ToggleSwitchComponent,
     IconInfoComponent,
     EnarmModalComponent,
-    RangeSliderComponent
+    RangeSliderComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 
+
 @Component({
     selector: 'enarm-toast-phrases',
     templateUrl: './toast-phrases.component.html',
@@ -9,15 +10,18 @@ export class ToastPhrasesComponent implements OnInit {
     
     @Input() encabezado = '';
     @Input() cuerpo = '';
+    datos = [];
+
     constructor(
-        
+
     ){
 
     }
 
-    async ngOnInit(): Promise<void> {
+    async ngOnInit() {
         console.log('encABRZADO', this.encabezado);
         console.log('cuerpo', this.cuerpo);
-        
     }
+
+
 }
