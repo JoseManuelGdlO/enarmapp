@@ -11,7 +11,7 @@ import { ListPreviousExamsComponent } from './components/list-previous-exams/lis
 import { LoadingComponent } from './components/loading/loading.component';
 import { MenuCategoryComponent } from './components/menu-category/menu-category.component';
 import { MiniProgressBarExamComponent } from './components/mini-progress-bar/mini-progress-bar-exam.component';
-import { ModalPaymentComponent } from './components/modal-payment/payment.modal';
+import { EnarmModalComponent } from './components/enarm-modal/enarm.modal';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ProgressBarExamComponent } from './components/progress-bar-exam/progress-bar-exam.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
@@ -49,8 +49,8 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     RadioButtonComponent,
     ToggleSwitchComponent,
     IconInfoComponent,
+    EnarmModalComponent,
     RangeSliderComponent,
-    ModalPaymentComponent
   ],
   imports: [
     CommonModule,
@@ -75,7 +75,7 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     PaginationComponent,
     TimerComponent,
     QuestionsBarComponent,
-    ModalPaymentComponent,
+    EnarmModalComponent,
     HeaderComponent,
     SelectComponent,
     MenuCategoryComponent,
@@ -86,4 +86,4 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     RangeSliderComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule { } 

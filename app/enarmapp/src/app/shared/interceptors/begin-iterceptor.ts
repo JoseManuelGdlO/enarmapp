@@ -6,7 +6,7 @@ import { map, filter } from 'rxjs/operators';
 @Injectable()
 export class HeaderBeginInterceptor implements HttpInterceptor {
   intercept(httpRequest: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('begin');
+
     httpRequest.headers.append("Access-Control-Allow-Origin", "*")
     httpRequest.headers.append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
     let modifiedReq = httpRequest.clone({ 

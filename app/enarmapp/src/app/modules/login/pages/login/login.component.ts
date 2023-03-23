@@ -35,20 +35,42 @@ export class LoginComponent implements OnInit {
     this.isLoading = false;
     this.screenHeight = window.innerHeight;
     this.socialAuthService.authState.subscribe((user) => {
-      console.log(user);
+      if(user.email) {
+        this.socialMediaLogin(user)
+      }else {
+        
+    this.isLoading = false;
+      }
     });
 
-    this.socialAuthService.authState.subscribe((user) => {
-      console.log(user);
-    });
   }
 
   loginFacebook(): void {
+    this.isLoading = true;
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   loginGoogle(): void {
     this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  async socialMediaLogin(user: any) {
+    try {
+      const response = await this.loginService.loginForId(user.email, user.id);
+      this.preferencesServices.setItem('RMBR', true)
+      this.preferencesServices.setItem('AUTH_TOKEN', response.token)
+      this.preferencesServices.setItem('USER', response.data);
+      this.router.navigateByUrl('home')
+      this.isLoading = false;
+      
+    } catch (error: any) {
+      this.isLoading = false;
+      if(error.status === 404) {
+        this.preferencesServices.setItem('USER_MEDIA', user)
+        this.router.navigateByUrl('login/sign-up')
+      }
+      
+    }
   }
 
   async login() {

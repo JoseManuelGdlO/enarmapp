@@ -31,6 +31,9 @@ import { LoginService } from "../../services/login.service";
     studentTypes = [];
     enarmDate = [];
 
+    user: any;
+    fromSocialMedia = false;
+
     message = '';
     passwordInfo = false;
     isLoading = false;
@@ -44,7 +47,19 @@ import { LoginService } from "../../services/login.service";
 
     async ngOnInit() {
       this.getCatalogues();
+      this.getInfo()
       this.screenHeight = window.innerHeight;
+    }
+
+    getInfo() {
+      this.user = this.preferencesServices.getItem('USER_MEDIA');
+      if(this.user) {
+        this.fromSocialMedia = true;
+        this.checkoutForm.controls.name.setValue(this.user.firstName)
+        this.checkoutForm.controls.email.setValue(this.user.email)
+        this.checkoutForm.controls.password.clearValidators()
+        this.checkoutForm.controls.repypassword.clearValidators()
+      }
     }
 
     async getCatalogues() {
@@ -89,28 +104,33 @@ import { LoginService } from "../../services/login.service";
         idUniversidad: idUniversidad.id,
         idFechaEnarm: idFechaEnarm.id,
         idEspecialidad: idEspecialidad.id,
-        sexo: 'Masculino'
+        sexo: 'Masculino',
+        id_social_media: this.user.id ? this.user.id : null
       }
       console.log("TRATO DE MANDAR:\n"+object.nombres+"\n"+object.idUniversidad+"\n"+object.idEspecialidad);
 
       const passw=  /^[A-Za-z]\w{7,14}$/;
-      if(!object.password?.match(passw)) 
+      if(!this.fromSocialMedia && !object.password?.match(passw)) 
       { 
         this.message = 'La contraseña no cumple con los requisitos';
         return;
       }
 
-      if(object.password !== object.replyPassword) {
+      if(!this.fromSocialMedia && object.password !== object.replyPassword) {
         this.message = 'Las contraseñas no coinciden';
         return;
       }
-
+      
       this.isLoading = true;
       try {
         await this.loginService.register(object);
-        const response = await this.loginService.login(String(object.email), object.password)
+        let response;
+        if(this.user){
+          response = await this.loginService.loginForId(String(object.email), this.user.id)
+        }else {
+          response = await this.loginService.login(String(object.email), object.password ? object.password : '')
+        }
 
-        console.log(response);
         this.preferencesServices.setItem('AUTH_TOKEN', response.token)
         this.preferencesServices.setItem('USER', response.data);
         this.isLoading = false

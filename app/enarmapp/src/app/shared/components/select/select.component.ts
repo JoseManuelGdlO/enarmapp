@@ -53,11 +53,9 @@ export class SelectComponent {
   }
 
   writeValue(selected: any) {
-    console.log(selected, 'seleccionado');
   }
 
   onChange = (selected: any) => {
-    console.log(selected, 'onchange');
     
   };
   onTouched = () => {};
