@@ -107,6 +107,7 @@ import { LoginService } from "../../services/login.service";
         sexo: 'Masculino',
         id_social_media: this.user.id ? this.user.id : null
       }
+      console.log("TRATO DE MANDAR:\n"+object.nombres+"\n"+object.idUniversidad+"\n"+object.idEspecialidad);
 
       const passw=  /^[A-Za-z]\w{7,14}$/;
       if(!this.fromSocialMedia && !object.password?.match(passw)) 

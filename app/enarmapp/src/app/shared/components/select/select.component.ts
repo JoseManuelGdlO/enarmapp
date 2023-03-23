@@ -19,6 +19,7 @@ export class SelectComponent {
   //selected: string = '';
 
   @Input() value = ''
+  
 
   @Input() set setitems (items: any) {
     this.items = items

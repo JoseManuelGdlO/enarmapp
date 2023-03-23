@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'enarmapp';
+  title = 'Enarmapp';
   constructor(){
-    console.log('HolaTroka');
+
   }
 }
