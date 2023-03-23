@@ -6,11 +6,32 @@ import { API_URL } from "src/environments/environment";
 @Injectable({
     providedIn: 'root'
 })
-export class ConfiguratorService{
+export class ConfiguratorService {
     constructor(
-        public httpclient:HttpClient
-    ){
+        public httpclient: HttpClient
+    ) {
 
     }
 
+    getCategories(): Promise<any> {
+        const url = API_URL + '/questions/categories'
+        return new Promise((resolve, reject) => {
+            this.httpclient.get(url).subscribe((data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+        })
+    }
+
+    getPhrases(): Promise<any> {
+        const url = API_URL + '/others/frases'
+        return new Promise((resolve, reject) => {
+            this.httpclient.get(url).subscribe((data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+        })
+    }
 }

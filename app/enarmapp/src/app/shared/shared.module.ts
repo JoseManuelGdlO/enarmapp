@@ -49,7 +49,7 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     RadioButtonComponent,
     ToggleSwitchComponent,
     IconInfoComponent,
-    RangeSliderComponent
+    RangeSliderComponent,
     ModalPaymentComponent
   ],
   imports: [

@@ -69,6 +69,28 @@ async function getUniversidades(group) {
     }
 }
 
+async function getFrases(group) {
+    let code = 200;
+
+    const rows = await db.query(
+        'SELECT * FROM frases'
+    );
+
+    let data = helper.emptyOrRows(rows);
+    if (data.length === 0) {
+        code = 404;
+        return {
+            data,
+            code
+        }
+    }
+
+    return {
+        data,
+        code
+    }
+}
+
 async function getEspecialidades(group) {
     let code = 200;
 
@@ -139,6 +161,7 @@ module.exports = {
     getConfigurationPerCode,
     getConfigurationPerGroup,
     getUniversidades,
+    getFrases,
     getEspecialidades,
     getStudnetTypes,
     getEnarmDate

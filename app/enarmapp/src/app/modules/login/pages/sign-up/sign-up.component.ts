@@ -91,6 +91,7 @@ import { LoginService } from "../../services/login.service";
         idEspecialidad: idEspecialidad.id,
         sexo: 'Masculino'
       }
+      console.log("TRATO DE MANDAR:\n"+object.nombres+"\n"+object.idUniversidad+"\n"+object.idEspecialidad);
 
       const passw=  /^[A-Za-z]\w{7,14}$/;
       if(!object.password?.match(passw)) 

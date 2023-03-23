@@ -36,6 +36,16 @@ router.get('/configuration-group', async function(req, res, next) {
     }
   });
 
+  router.get('/frases', async function(req, res, next) {
+    try {
+      const response = await configurations.getFrases()
+      res.status(response.code).json(response.data);
+    } catch (err) {
+      console.error('Error while getting phrases /others/frases', err.message);
+      next(err);
+    }
+  });
+
   router.get('/especialidades', async function(req, res, next) {
     try {
       const response = await configurations.getEspecialidades()
