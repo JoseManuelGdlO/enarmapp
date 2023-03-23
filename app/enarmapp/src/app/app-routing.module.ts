@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthRoutingGuard } from './shared/services/auth-routing.guard';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},{
+  { path: '', redirectTo: 'login', pathMatch: 'full'},{
     path: 'login',
     loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
   },
@@ -41,6 +41,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/admin/admin.module').then(
         (mod) => mod.AdminModule

@@ -14,6 +14,27 @@ router.get('/configuration', async function (req, res, next) {
   }
 });
 
+router.get('/configuration-all', async function (req, res, next) {
+  try {
+    const response = await configurations.getConfiguration()
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
+router.put('/configuration', async function (req, res, next) {
+  try {
+    let body = req.body;
+    const response = await configurations.updateConfiguration(body)
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
 router.get('/configuration-group', async function (req, res, next) {
   try {
 
@@ -36,29 +57,30 @@ router.get('/universidades', async function (req, res, next) {
   }
 });
 
-  router.get('/frases', async function(req, res, next) {
-    try {
-      const response = await configurations.getFrases()
-      res.status(response.code).json(response.data);
-    } catch (err) {
-      console.error('Error while getting phrases /others/frases', err.message);
-      next(err);
-    }
-  });
+router.get('/frases', async function (req, res, next) {
+  try {
+    const response = await configurations.getFrases()
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error('Error while getting phrases /others/frases', err.message);
+    next(err);
+  }
+});
 
-  router.get('/especialidades', async function(req, res, next) {
-    try {
-      const response = await configurations.getEspecialidades()
-      res.status(response.code).json(response.data);
-    } catch (err) {
-      console.error(`Error while getting enarm students info `, err.message);
-      next(err);
-    }
-  });
+router.get('/especialidades', async function (req, res, next) {
+  try {
+    const response = await configurations.getEspecialidades()
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
 
 router.get('/student-type', async function (req, res, next) {
   try {
-    const response = await configurations.getStudnetTypes()
+    const type = req.query.type;
+    const response = await configurations.getStudnetTypes(type)
     res.status(response.code).json(response.data);
   } catch (err) {
     console.error(`Error while getting enarm students info `, err.message);
@@ -75,6 +97,38 @@ router.get('/enarm-date', async function (req, res, next) {
     next(err);
   }
 });
+
+router.get('/subscripciones', async function (req, res, next) {
+  try {
+    const response = await configurations.getSubscripciones()
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
+router.put('/subscription', async function (req, res, next) {
+  try {
+    let body = req.body;
+    const response = await configurations.updateSubscriptions(body)
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
+router.get('/laboratory', async function (req, res, next) {
+  try {
+    const response = await configurations.getLaboratories()
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
 router.get('/frases', async function (req, res, next) {
   try {
     const response = await configurations.getFrases()

@@ -7,8 +7,7 @@ const fs = require("fs");
 const upload = require('../libs/storage');
 
 
-router.get('/', headers.verifyToken, async function(req, res, next) {
-
+router.get('/', async function(req, res, next) {
  
   try {
     res.json(await enarmStudents.getMultiple(req.query.page));
@@ -18,13 +17,10 @@ router.get('/', headers.verifyToken, async function(req, res, next) {
   }
 });
 
-router.post('/upload-profile', upload.single('image'), async function(req, res, next) {
+router.put('/upload-profile', async function(req, res, next) {
   try {
-
-    const {image} = req.body;
-    const imagenCoverted = fs.writeFileSync("new-path.jpg", image);
-    
-    //upload.single(imagenCoverted);
+    let body = req.body;
+    res.json(await enarmStudents.updateProfile(body));
   } catch (err) {
     console.error(`Error while getting enarm students info `, err.message);
     next(err);

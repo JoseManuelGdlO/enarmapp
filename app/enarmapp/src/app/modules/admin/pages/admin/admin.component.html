@@ -1,0 +1,163 @@
+<enarm-admin-menu></enarm-admin-menu>
+
+<div class="container-fluid">
+    <enarm-loading-outlet [isLoading]="isLoading">
+        <p class="h3 mt-5">Usuarios</p>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Filtrar</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                (keypress)="filter($event)">
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Nombres</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Subscripcion</th>
+                            <th scope="col">Cuenta</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users?.data">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.email }}</td>
+                            <td class="col-2 text-truncate">{{ user.nombres }}</td>
+                            <td class="col-2 text-truncate">{{ user.apellidos }}</td>
+                            <td class="col-2 text-truncate">{{ user.tipo }}</td>
+                            <td>{{ user.suscripcion }}</td>
+                            <td>{{ user.estatusString }}</td>
+                            <td>
+                                <button type="button" (click)="setValuesForm(user)" class="btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </enarm-loading-outlet>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div [ngClass]="{'show': error}" class="toast align-items-center text-white bg-danger border-0"
+        style="position: absolute; top: 4%; right: 5%;" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Falta informacion por llenar
+            </div>
+            <button (click)="error = false" type="button" class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="modal-dialog">
+            <div *ngIf="isLoadingModal" style="position: absolute; margin: 50%; z-index: 99;"
+                class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="modal-header" [ngClass]="{ 'opacity-25' : isLoadingModal}">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edicion de Usuario</h1>
+                    <button type="button" #myModalClose class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body" [ngClass]="{ 'opacity-25' : isLoadingModal}">
+
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Nombre*</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                            formControlName="nombres" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Apellidos*</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                            formControlName="apellidos" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Email</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                            formControlName="email" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Edad*</span>
+                        <input type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                            formControlName="cumpleanos" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Estatus de la cuenta*</span>
+                        <select formControlName="estatus" class="form-select" aria-label="" required>
+                            <option [value]="88">Eliminado</option>
+                            <option [value]="99">Vencido</option>
+                            <option [value]="0">Nuevo</option>
+                            <option [value]="1">Corriente</option>
+                            <option [value]="3">Prueba</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Subscripcion*</span>
+                        <select formControlName="idSuscripcion" class="form-select" aria-label="" required>
+                            <option *ngFor="let sub of subscriptions" [value]="sub.id"><span><b>{{sub.descripcion |
+                                        titlecase}}</b> Duracion <b>{{ sub.duracionMes}} mes</b> Costo <b>{{sub.costo}}
+                                        pesos</b></span></option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Tipo de usuario*</span>
+                        <select formControlName="idTipoUsuario" class="form-select" aria-label="" required>
+                            <option *ngFor="let type of userType" [value]="type.id"><span><b>{{type.tipo |
+                                        titlecase}}</b></span></option>
+                        </select>
+                    </div>
+
+                    <div *ngIf="resetPassword" class="card">
+                        <div class="card-body">
+                            <h1 class="h5 text-danger">Estas seguro?</h1>
+                            <h2 class="h6 mb-2 text-muted">Esta accion creara una contraseña nueva al usuario
+                            </h2>
+                            <h2 *ngIf="responsePassword" class="h6 mb-2 text-muted">Listo! la nueva contraseña es.-
+                                <b>{{responsePassword?.randomstring}}</b>
+                            </h2>
+                            <div *ngIf="loadingPassword" class="spinner-border text-success" role="status">
+                            </div>
+                            <a (click)="resetPasswordFunc()" class="card-link" role="button">{{ responsePassword ?
+                                'Reintentar' :'Aceptar'}}</a>
+                            <a (click)="resetPassword = false" class="card-link" role="button">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" [ngClass]="{ 'opacity-25' : isLoadingModal}">
+                    <button type="button" (click)="resetPassword = false;" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                    <button type="button" (click)="resetPassword = true;" class="btn btn-danger">Restablecer
+                        Contraseña</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div [ngClass]="{'show': resultSave}" class="toast align-items-center text-white bg-success border-0"
+    style="position: absolute; top: 4%; right: 5%;" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            Datos guardados exitosamente
+        </div>
+        <button (click)="resultSave = false" type="button" class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>

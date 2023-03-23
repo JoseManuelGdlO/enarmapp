@@ -56,4 +56,15 @@ router.post('/change-account-status', async function (req, res, next) {
     }
 });
 
+router.put('/reset-password', async function (req, res, next) {
+    try {
+        console.log('req', req.body);
+        const id = parseInt(req.body.id);
+        res.status(201).json(await authService.resetPassword(id));
+    } catch (err) {
+        console.error(`Error while getting enarm students info `, err.message);
+        next(err);
+    }
+});
+
 module.exports = router;

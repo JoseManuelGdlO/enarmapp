@@ -24,6 +24,9 @@ import { TimerComponent } from './components/timer/timer.component';
 import { ToastPhrasesComponent } from './components/toast-phrases/toast-phrases.component';
 import { ToastQuotesComponent } from './components/toast-quotes/toast-quotes.component';
 import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
+import { AdminMenuComponent } from './components/admin-menu/admin-menu.component';
+import { allIcons } from 'ngx-bootstrap-icons';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 
 @NgModule({
@@ -50,12 +53,14 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     ToggleSwitchComponent,
     IconInfoComponent,
     EnarmModalComponent,
-    RangeSliderComponent,
+    AdminMenuComponent,
+    RangeSliderComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxBootstrapIconsModule.pick(allIcons)
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -76,6 +81,7 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
     TimerComponent,
     QuestionsBarComponent,
     EnarmModalComponent,
+    AdminMenuComponent,
     HeaderComponent,
     SelectComponent,
     MenuCategoryComponent,
