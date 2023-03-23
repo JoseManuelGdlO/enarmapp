@@ -65,7 +65,7 @@ export class LoginService{
     }
     
     getStudentsTypes():Promise<any> {
-        const url = API_URL + '/others/student-type'
+        const url = API_URL + '/others/student-type?type=signup'
         return new Promise ( (resolve, reject) => {
             this.httpclient.get(url).subscribe( (data) => {
                 resolve(data)

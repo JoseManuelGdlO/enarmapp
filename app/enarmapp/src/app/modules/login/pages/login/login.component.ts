@@ -29,17 +29,17 @@ export class LoginComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    if(await this.preferencesServices.getItem('RMBR')) {
+    if (await this.preferencesServices.getItem('RMBR')) {
       this.router.navigateByUrl('home')
     }
     this.isLoading = false;
     this.screenHeight = window.innerHeight;
     this.socialAuthService.authState.subscribe((user) => {
-      if(user.email) {
+      if (user?.email) {
         this.socialMediaLogin(user)
-      }else {
-        
-    this.isLoading = false;
+      } else {
+
+        this.isLoading = false;
       }
     });
 
@@ -60,16 +60,20 @@ export class LoginComponent implements OnInit {
       this.preferencesServices.setItem('RMBR', true)
       this.preferencesServices.setItem('AUTH_TOKEN', response.token)
       this.preferencesServices.setItem('USER', response.data);
-      this.router.navigateByUrl('home')
+      if (response.data.data.idTipoUsuario === 5) {
+        this.router.navigateByUrl('admin')
+      } else {
+        this.router.navigateByUrl('home')
+      }
       this.isLoading = false;
-      
+
     } catch (error: any) {
       this.isLoading = false;
-      if(error.status === 404) {
+      if (error.status === 404) {
         this.preferencesServices.setItem('USER_MEDIA', user)
         this.router.navigateByUrl('login/sign-up')
       }
-      
+
     }
   }
 
@@ -87,7 +91,11 @@ export class LoginComponent implements OnInit {
         this.preferencesServices.setItem('RMBR', this.rememberme)
         this.preferencesServices.setItem('AUTH_TOKEN', response.token)
         this.preferencesServices.setItem('USER', response.data);
-        this.router.navigateByUrl('home')
+        if (response.data.data.idTipoUsuario === 5) {
+          this.router.navigateByUrl('admin')
+        } else {
+          this.router.navigateByUrl('home')
+        }
       }
 
       this.isLoading = false;

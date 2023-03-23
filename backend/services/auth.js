@@ -11,11 +11,21 @@ async function register(body) {
     );
     const data = helper.emptyOrRows(rows);
 
-    await db.query(
-        `INSERT INTO account_estatus (idUsuario, estatus)
-    VALUES (${data.insertId}, 0);`
+    const exist = await db.query(
+        `select * from account_estatus WHERE idUsuario = ${data.insertId};`
     );
 
+    const flagExist = helper.emptyOrRows(exist).length !== 0;
+
+    if (flagExist) {
+        await db.query(
+            `UPDATE account_estatus SET estatus = 0 WHERE idUsuario = ${data.insertId};`
+        );
+    } else {
+        await db.query(
+            `INSERT INTO account_estatus (idUsuario, estatus) VALUES (${data.insertId}, 0);`
+        );
+    }
     return {
         data
     }
@@ -77,7 +87,7 @@ async function loginForId(body) {
         }
     }
 
-    if(user[0].id_social_media.length === 0) {
+    if (user[0].id_social_media.length === 0) {
         await db.query(
             `UPDATE usuario
           set id_social_media = ${body.id} WHERE id = "${user[0].id}"`
@@ -104,10 +114,24 @@ async function changeAccountStatus(body) {
         `UPDATE account_estatus
         set estatus = ${body.status} WHERE idUsuario = ${body.id}`
     );
-    const data = helper.emptyOrRows(rows);;
+    const data = helper.emptyOrRows(rows);
 
     return {
         data
+    }
+}
+
+async function resetPassword(id) {
+
+    randomstring = Math.random().toString(36).slice(-12);
+
+    await db.query(
+        `UPDATE usuario
+        set password = '${randomstring}' WHERE id = ${id}`
+    );
+
+    return {
+        randomstring
     }
 }
 
@@ -115,5 +139,6 @@ module.exports = {
     register,
     login,
     loginForId,
+    resetPassword,
     changeAccountStatus
 }
