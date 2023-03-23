@@ -8,7 +8,7 @@
                     <h3 *ngIf="!fromSocialMedia" class="h3___welcome">¡Bienvenido!</h3>
                     <h3 *ngIf="fromSocialMedia" class="h3___welcome">¡Estas a un solo paso!</h3>
                     <h1 class="h1___login mt-10">Registrate</h1>
-                    <h4 class="h4___description">Usa tus datos para registrarte en EstudiaX.</h4>
+                    <h4 class="h4___description">Usa tus datos para registrarte en MedBrain.</h4>
                 </div>
                 <div class="div___subcontainer mt-30">
                     <div style="background-color: #f5f5f5; border-radius: 8px; padding: 10px;">
@@ -51,13 +51,13 @@
                                     [control]="checkoutForm.controls.studies" formControlName="studies"
                                     placeholder="Ujed"></enarm-select>
                             </div>
-                            <h4 class="h4___fields mt-30">Especialidad de tu interes</h4>
+                            <h4 class="h4___fields mt-30">Especialidad de tu interés</h4>
                             <div class="mt-5">
                                 <enarm-select [multiple]="false" [setitems]="especialities" id="especility"
                                     format="text" [control]="checkoutForm.controls.especility"
                                     formControlName="especility" placeholder="Pediatria"></enarm-select>
                             </div>
-                            <h4 class="h4___fields mt-30">¿Cuando aplicaras ENARM?</h4>
+                            <h4 class="h4___fields mt-30">¿Cuándo aplicarás ENARM?</h4>
                             <div class="mt-5">
                                 <enarm-select [multiple]="false" [setitems]="enarmDate"
                                     [control]="checkoutForm.controls.enarmdate" formControlName="enarmdate"
@@ -73,12 +73,12 @@
                 <img class="img___logo" src="assets/images/enarm-logo.png" alt="">
                 <div class="div___subcontainer mt-10">
                     <div style="background-color: #f5f5f5; border-radius: 8px; padding: 10px;">
-                        <h4 class="h4___fields">Correo Electronico</h4>
+                        <h4 class="h4___fields">Correo Electrónico</h4>
                         <div class="mt-5">
                             <enarm-input required id="email" format="email" [control]="checkoutForm.controls.email"
                                 formControlName="email" placeholder="josemanuelgarciadelao@estudiax.com"></enarm-input>
                         </div>
-                        <h4 class="h4___fields mt-30">Numero de telefono</h4>
+                        <h4 class="h4___fields mt-30">Numero de teléfono</h4>
                         <div class="mt-5">
                             <enarm-input required id="phonenumber" format="number"
                                 [control]="checkoutForm.controls.phonenumber" formControlName="phonenumber"
