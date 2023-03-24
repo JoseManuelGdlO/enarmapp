@@ -55,9 +55,8 @@ export class SelectComponent {
   writeValue(selected: any) {
   }
 
-  onChange = (selected: any) => {
-    
-  };
+  onChange = (selected: any) => { };
+
   onTouched = () => {};
 
   registerOnChange(onChange: any) {
@@ -81,6 +80,7 @@ export class SelectComponent {
 
 
   selected(item: any): void {
+    debugger
     this.markAsTouched();
     if(this.disabled) {
       return

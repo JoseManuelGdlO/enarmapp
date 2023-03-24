@@ -105,7 +105,7 @@ import { LoginService } from "../../services/login.service";
         idFechaEnarm: idFechaEnarm.id,
         idEspecialidad: idEspecialidad.id,
         sexo: 'Masculino',
-        id_social_media: this.user.id ? this.user.id : null
+        id_social_media: this.user?.id ? this.user.id : null
       }
       console.log("TRATO DE MANDAR:\n"+object.nombres+"\n"+object.idUniversidad+"\n"+object.idEspecialidad);
 
