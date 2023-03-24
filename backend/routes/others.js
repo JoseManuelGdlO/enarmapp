@@ -57,6 +57,16 @@ router.get('/universidades', async function (req, res, next) {
   }
 });
 
+router.get('/frases', async function (req, res, next) {
+  try {
+    const response = await configurations.getFrases()
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error('Error while getting phrases /others/frases', err.message);
+    next(err);
+  }
+});
+
 router.get('/especialidades', async function (req, res, next) {
   try {
     const response = await configurations.getEspecialidades()
@@ -70,7 +80,7 @@ router.get('/especialidades', async function (req, res, next) {
 router.get('/student-type', async function (req, res, next) {
   try {
     const type = req.query.type;
-    const response = await configurations.getStudnetTypes()
+    const response = await configurations.getStudnetTypes(type)
     res.status(response.code).json(response.data);
   } catch (err) {
     console.error(`Error while getting enarm students info `, err.message);
