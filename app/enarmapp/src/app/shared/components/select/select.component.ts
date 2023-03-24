@@ -80,7 +80,6 @@ export class SelectComponent {
 
 
   selected(item: any): void {
-    debugger
     this.markAsTouched();
     if(this.disabled) {
       return
