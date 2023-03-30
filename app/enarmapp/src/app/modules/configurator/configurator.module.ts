@@ -5,6 +5,7 @@ import { ConfiguratorRoutingModule } from './configurator-routing.module';
 import { ConfiguratorComponent } from './pages/configurator/configurator.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 
@@ -19,7 +20,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    MatSliderModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

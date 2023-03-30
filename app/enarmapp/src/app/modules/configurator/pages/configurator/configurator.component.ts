@@ -70,7 +70,7 @@ export class ConfiguratorComponent implements OnInit {
     this.configExam.subtemas = this.subtemasArray;
     this.configExam.filtro_preguntas = this.filtro_preguntas;
     this.configExam.idioma = this.idioma;
-    this.configExam.numero_preguntas = 66;
+    this.configExam.numero_preguntas = this.numero_preguntas;
     this.configExam.simular_enarm = this.simular_enarm;
     this.configExam.modo_examen = this.modo_examen;
     console.log(this.configExam);
@@ -121,6 +121,19 @@ export class ConfiguratorComponent implements OnInit {
   getSimulatorValue(args: boolean){
     console.log("Recibo del toggle: "+args);
     this.simular_enarm = args;
+  }
+
+  formatLabel(value: number): string {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return `${value}`;
+  }
+
+  getSliderValue(args: any){
+    console.log(args.value);
+    this.numero_preguntas = args.value;
   }
 
 }
