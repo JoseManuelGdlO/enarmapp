@@ -7,6 +7,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderBeginInterceptor } from './shared/interceptors/begin-iterceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HeaderBeginInterceptor } from './shared/interceptors/begin-iterceptor';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderBeginInterceptor, multi: true },
