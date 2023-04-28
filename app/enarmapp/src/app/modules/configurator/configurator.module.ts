@@ -6,6 +6,7 @@ import { ConfiguratorComponent } from './pages/configurator/configurator.compone
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 
@@ -21,7 +22,8 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    NgxBootstrapIconsModule.pick(allIcons)
+    NgxBootstrapIconsModule.pick(allIcons),
+    MatSliderModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
