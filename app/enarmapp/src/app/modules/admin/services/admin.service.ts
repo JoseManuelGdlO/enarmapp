@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { ICategory } from "src/app/shared/interfaces/categories.interface";
 import { IConfiguration } from "src/app/shared/interfaces/configurations.interface";
 import { ILaboratory } from "src/app/shared/interfaces/laboratory.interface";
 import { ISubscription } from "src/app/shared/interfaces/subscriptions.interface";
@@ -85,6 +86,38 @@ export class AdminService{
         return new Promise((resolve, reject) => {
             this.httpclient.get(`${API_URL}/others/laboratory`).subscribe((response: any) => {
                 resolve(response as Array<ILaboratory>);
+            }, reject);
+        })
+    }
+
+    getCategories(): Promise<Array<ICategory>>{
+        return new Promise((resolve, reject) => {
+            this.httpclient.get<Array<ICategory>>(`${API_URL}/questions/categories`).subscribe((response: any) => {
+                resolve(response.response as Array<ICategory>);
+            }, reject);
+        })
+    }
+
+    addCategory(body: any): Promise<any>{
+        return new Promise((resolve, reject) => {
+            this.httpclient.post(`${API_URL}/questions/add-category`, body).subscribe((response: any) => {
+                resolve(response);
+            }, reject);
+        })
+    }
+
+    addSubCategory(body: any): Promise<any>{
+        return new Promise((resolve, reject) => {
+            this.httpclient.post(`${API_URL}/questions/add-subcategory`, body).subscribe((response: any) => {
+                resolve(response);
+            }, reject);
+        })
+    }
+
+    editSubCategory(body: any): Promise<any>{
+        return new Promise((resolve, reject) => {
+            this.httpclient.put(`${API_URL}/questions/edit-subcategory`, body).subscribe((response: any) => {
+                resolve(response);
             }, reject);
         })
     }

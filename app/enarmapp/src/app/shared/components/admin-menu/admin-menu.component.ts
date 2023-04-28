@@ -33,6 +33,12 @@ export class AdminMenuComponent implements OnInit {
             case 'laboratory':
                 this.router.navigate(['/admin/laboratory'])
                 break;
+            case 'categories':
+                this.router.navigate(['/admin/categories'])
+                break;
+            case 'questions':
+                this.router.navigate(['/admin/questions'])
+                break;
             default:
                 break;
         }

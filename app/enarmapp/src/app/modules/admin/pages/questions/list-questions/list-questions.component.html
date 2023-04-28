@@ -1,0 +1,47 @@
+<enarm-admin-menu current="questions"></enarm-admin-menu>
+
+<div class="container-fluid">
+    <enarm-loading-outlet [isLoading]="isLoading">
+        <p class="h3 mt-5">Preguntas</p>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Filtrar</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                (keypress)="filter($event)">
+            <button type="button" (click)="chooseQuestion()" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Añadir Pregunta</button>
+            <button type="button" (click)="chooseQuestion()" class="btn btn-warning" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Añadir Masivamente</button>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Pregunta</th>
+                            <th scope="col">Resumen</th>
+                            <th scope="col">Nombre del caso clinico</th>
+                            <th scope="col">Estatus</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let question of questions">
+                            <td>{{ question.id }}</td>
+                            <td>{{ question.pregunta }}</td>
+                            <td class="col-2 text-truncate">{{ question.resumen }}</td>
+                            <td class="col-2 text-truncate">{{ question.clinic_name }}</td>
+                            <td>{{ question.active === 1 ? 'Activa' : "Desactivada" }}</td>
+                            <td>
+                                <button type="button" (click)="chooseQuestion(question)" class="btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </enarm-loading-outlet>
+</div>

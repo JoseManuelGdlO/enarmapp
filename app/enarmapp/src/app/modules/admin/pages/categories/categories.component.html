@@ -1,0 +1,112 @@
+<enarm-admin-menu current="categories"></enarm-admin-menu>
+
+<div class="container-fluid">
+    <enarm-loading-outlet [isLoading]="isLoading">
+        <p class="h3 mt-5">Categorias</p>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Filtrar</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                (keypress)="filter($event)">
+            <button type="button" (click)="setValuesForm(); selection = TYPE_SELECTION.ADD" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Añadir Categoria</button>
+        </div>
+        <div class="row">
+            <div *ngFor="let cat of categories" class="col-4">
+                <div class="card border-primary mb-3">
+                    <div class="card-header">Categoria.- <b>{{cat.name | titlecase }}</b></div>
+                    <div class="card-body text-primary">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Subcategoria</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let subcategory of cat.subcategoria">
+                                    <td>{{ subcategory.id }}</td>
+                                    <td>{{ subcategory.Nombre }}</td>
+                                    <td>
+                                        <button type="button" (click)="setValuesForm(subcategory); selection = TYPE_SELECTION.EDIT"
+                                            class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">Editar</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button type="button" (click)="setValuesForm(cat); selection = TYPE_SELECTION.ADD_SUBCATEGORY" class="btn btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </enarm-loading-outlet>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div [ngClass]="{'show': error}" class="toast align-items-center text-white bg-danger border-0"
+        style="position: absolute; top: 4%; right: 5%;" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Falta informacion por llenar
+            </div>
+            <button (click)="error = false" type="button" class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    <form [formGroup]="categorieForm" (ngSubmit)="selection === TYPE_SELECTION.ADD ? addCategory() : chooseSubcategory(selection)">
+        <div class="modal-dialog">
+            <div *ngIf="isLoadingModal" style="position: absolute; margin: 50%; z-index: 99;"
+                class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="modal-header" [ngClass]="{ 'opacity-25' : isLoadingModal}">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{selection === TYPE_SELECTION.ADD ? 'Añadir': 'Editar'}} Categoria</h1>
+                    <button type="button" #myModalClose class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body" [ngClass]="{ 'opacity-25' : isLoadingModal}">
+
+
+                    <div *ngIf="selection === TYPE_SELECTION.ADD" class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Categoria*</span>
+                        <input type="text" class="form-control" aria-label="Nombre" aria-describedby="basic-addon1"
+                            formControlName="Nombre">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Subcategoria*</span>
+                        <input type="text" class="form-control" aria-label="subCategoria" aria-describedby="basic-addon1"
+                            formControlName="subCategoria">
+                    </div>
+
+                </div>
+                <div class="modal-footer" [ngClass]="{ 'opacity-25' : isLoadingModal}">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div [ngClass]="{'show': resultSave}" class="toast align-items-center text-white bg-success border-0"
+    style="position: absolute; top: 4%; right: 5%;" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            Datos guardados exitosamente
+        </div>
+        <button (click)="resultSave = false" type="button" class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>

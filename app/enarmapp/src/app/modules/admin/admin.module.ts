@@ -10,13 +10,22 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { SubscriptionComponent } from './pages/subscriptions/subscription.component';
 import { ConfigurationsComponent } from './pages/configurations/configurations.component';
 import { LaboratoryComponent } from './pages/laboratory/laboratory.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
+import { ListQuestionsComponent } from './pages/questions/list-questions/list-questions.component';
+import { QuestionsComponent } from './pages/questions/questions/questions.component';
+import { QuillModule } from 'ngx-quill';
+import { QuestionComponent } from './pages/questions/questions/components/question.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     SubscriptionComponent,
     ConfigurationsComponent,
-    LaboratoryComponent
+    LaboratoryComponent,
+    CategoriesComponent,
+    QuestionsComponent,
+    QuestionComponent,
+    ListQuestionsComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +33,7 @@ import { LaboratoryComponent } from './pages/laboratory/laboratory.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    QuillModule.forRoot(),
     NgxBootstrapIconsModule.pick(allIcons),
     SharedModule
   ],

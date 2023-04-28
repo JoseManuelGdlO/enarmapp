@@ -1,0 +1,89 @@
+<body>
+    <!-- Just an image -->
+    <nav style="position: fixed; width: 100%; top: 0%; z-index: 99;" class="navbar navbar-dark bg-dark p-lg-3">
+        <a class="navbar-brand pl-4 " style="cursor: pointer;" (click)="router.navigateByUrl('/admin/questions')">
+            <i-bs name="arrow-return-left" width="30" height="30"></i-bs> Regresar
+        </a>
+    </nav>
+
+    <div style="height: 80px;"></div>
+    <div class="p-4 m-5 border-4 shadow-lg">
+        <h4>Agregar casos clinicos</h4>
+        <form>
+            <div class="w-100 float-start">
+                <div class="row">
+                    <div class="col-lg p-0 mb-20">
+                        <div class="form-group">
+                            <label for="case_name">Nombre del caso clinico</label>
+                            <input type="text" class="form-control mt-5" style="height: 45px;" id="case_name"
+                                aria-describedby="clinicCaseHelp" placeholder="agrega el nombre">
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="case_category">Selecciona la categoria</label>
+                            <enarm-select id="case_category" [multiple]="false"></enarm-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg">
+                        <div>
+                            <div class="mb-4 d-flex justify-content-center">
+                                <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
+                                    alt="example placeholder" style="width: 300px;" />
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <div class="btn btn-primary btn-rounded">
+                                    <label class="form-label text-white m-1" for="customFile1">Selecciona archivo</label>
+                                    <input type="file" class="form-control d-none" id="customFile1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <h6 for="case_category">Idioma del caso clinico<br></h6>
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="btnradio" id="radioEsp" autocomplete="off"
+                                checked>
+                            <label class="btn btn-outline-primary" for="radioEsp">Español</label>
+
+                            <input type="radio" class="btn-check" name="btnradio" id="radioEng" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="radioEng">Ingles</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-30">
+                <label for="descripcion">Descripcion del Caso Clinico</label>
+                <div class="mt-5">
+                    <quill-editor [styles]="{height: '200px'}" placeholder="ingresa aqui la descripcion"></quill-editor>
+                </div>
+            </div>
+
+            <!-- preguntas -->
+            <div class="mt-18 mb-25">
+                <button (click)="addQuestion()" class="btn btn-success">Añadir Pregunta</button>
+                <div *ngFor="let question of questions; index as index; first as first">
+                    <hr *ngIf="!first" class="border border-info border-2 opacity-50">
+                    <enarm-admin-question (remove)="removeQuestion(index)"></enarm-admin-question> 
+                </div>  
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+</body>
+
+
+<div [ngClass]="{'show': showError.length !== 0}" class="toast align-items-center text-white bg-danger border-0"
+    style="position: fixed; top: 9%;" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            {{showError}}
+        </div>
+        <button (click)="showError = ''" type="button" class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>

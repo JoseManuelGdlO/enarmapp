@@ -5,7 +5,7 @@ const config = require('../config');
 async function getMultiple(page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT usuario.*, account_estatus.estatus FROM usuario LEFT JOIN account_estatus ON usuario.id = account_estatus.idUsuario LIMIT ${offset},${config.listPerPage}`
+    `SELECT usuario.*, account_estatus.estatus FROM usuario LEFT JOIN account_estatus ON usuario.id = account_estatus.idUsuario`
   );
 
   const data = helper.emptyOrRows(rows);

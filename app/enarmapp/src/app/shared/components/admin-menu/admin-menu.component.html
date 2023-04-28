@@ -13,13 +13,13 @@
                     </span></a>
             </li>
             <li class="nav-item">
-                <a role="button" (click)="current = 'preguntas'" class="nav-link">Preguntas<span *ngIf="current === 'preguntas'"
+                <a role="button" (click)="current = 'questions'; go()" class="nav-link">Preguntas<span *ngIf="current === 'questions'"
                         class="sr-only">
                         <i-bs name="award" style="color:blue" width="20" height="20"></i-bs>
                     </span></a>
             </li>
             <li class="nav-item">
-                <a role="button" (click)="current = 'categorias'" class="nav-link">Categorias<span *ngIf="current === 'categorias'"
+                <a role="button" (click)="current = 'categories'; go()" class="nav-link">Categorias<span *ngIf="current === 'categories'"
                         class="sr-only">
                         <i-bs name="award" style="color:blue" width="20" height="20"></i-bs>
                     </span></a>
