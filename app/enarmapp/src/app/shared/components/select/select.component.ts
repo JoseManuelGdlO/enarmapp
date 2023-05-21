@@ -22,8 +22,10 @@ export class SelectComponent {
   
 
   @Input() set setitems (items: any) {
-    this.items = items
-    this.itemsFiltered = [...this.items];
+    if(items){
+      this.items = items
+      this.itemsFiltered = [...this.items];
+    }
   }
   @Input() items = [
     { value: 'Cardio', id: 1, selected: false },

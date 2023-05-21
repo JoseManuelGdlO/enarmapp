@@ -15,14 +15,14 @@
                     <div class="col-lg p-0 mb-20">
                         <div class="form-group">
                             <label for="case_name">Nombre del caso clinico</label>
-                            <input type="text" class="form-control mt-5" style="height: 45px;" id="case_name"
+                            <input type="text" [(ngModel)]="clinicCase.name" name="name" class="form-control mt-5" style="height: 45px;" id="case_name"
                                 aria-describedby="clinicCaseHelp" placeholder="agrega el nombre">
                         </div>
                     </div>
                     <div class="col-lg">
-                        <div class="form-group">
+                        <div *ngIf="categories.length > 0" class="form-group">
                             <label for="case_category">Selecciona la categoria</label>
-                            <enarm-select id="case_category" [multiple]="false"></enarm-select>
+                            <enarm-select id="case_category" [setitems]="categories" (onSelected)="clinicCase.category = $event" [multiple]="false"></enarm-select>
                         </div>
                     </div>
                 </div>
@@ -30,13 +30,13 @@
                     <div class="col-lg">
                         <div>
                             <div class="mb-4 d-flex justify-content-center">
-                                <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
-                                    alt="example placeholder" style="width: 300px;" />
+                                <img [src]="clinicCase.image ? clinicCase.image : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg'"
+                                    alt="example placeholder" style="width: 300px; height: 200px; object-fit: contain;" />
                             </div>
                             <div class="d-flex justify-content-center">
                                 <div class="btn btn-primary btn-rounded">
                                     <label class="form-label text-white m-1" for="customFile1">Selecciona archivo</label>
-                                    <input type="file" class="form-control d-none" id="customFile1" />
+                                    <input type="file" name="image" accept="image/png, image/gif, image/jpeg" (change)="reviewClinickImage($event, clinicCase)" class="form-control d-none" id="customFile1" />
                                 </div>
                             </div>
                         </div>
@@ -44,11 +44,11 @@
                     <div class="col-lg">
                         <h6 for="case_category">Idioma del caso clinico<br></h6>
                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="btnradio" id="radioEsp" autocomplete="off"
+                            <input type="radio" class="btn-check" name="btnradioLen" [(ngModel)]="clinicCase.lenguague" id="radioEsp" value="es" autocomplete="off"
                                 checked>
                             <label class="btn btn-outline-primary" for="radioEsp">Español</label>
 
-                            <input type="radio" class="btn-check" name="btnradio" id="radioEng" autocomplete="off">
+                            <input type="radio" class="btn-check" name="btnradioLen" [(ngModel)]="clinicCase.lenguague" id="radioEng" value="en" autocomplete="off">
                             <label class="btn btn-outline-primary" for="radioEng">Ingles</label>
                         </div>
                     </div>
@@ -57,20 +57,20 @@
             <div class="mt-30">
                 <label for="descripcion">Descripcion del Caso Clinico</label>
                 <div class="mt-5">
-                    <quill-editor [styles]="{height: '200px'}" placeholder="ingresa aqui la descripcion"></quill-editor>
+                    <quill-editor #editor (onEditorChanged)="quillChange($event, clinicCase)" [styles]="{height: '200px'}"  placeholder="ingresa aqui la descripcion"></quill-editor>
                 </div>
             </div>
 
             <!-- preguntas -->
             <div class="mt-18 mb-25">
                 <button (click)="addQuestion()" class="btn btn-success">Añadir Pregunta</button>
-                <div *ngFor="let question of questions; index as index; first as first">
+                <div *ngFor="let question of clinicCase.questions; index as index; first as first">
                     <hr *ngIf="!first" class="border border-info border-2 opacity-50">
-                    <enarm-admin-question (remove)="removeQuestion(index)"></enarm-admin-question> 
+                    <enarm-admin-question [index]="index" [question]="question" (remove)="removeQuestion(index)"></enarm-admin-question> 
                 </div>  
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button (click)="save()" class="btn btn-primary">Guardar caso clinico</button>
         </form>
     </div>
 
@@ -84,6 +84,17 @@
             {{showError}}
         </div>
         <button (click)="showError = ''" type="button" class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
+
+<div [ngClass]="{'show': succesMessage.length !== 0}" class="toast align-items-center text-white bg-success border-0"
+    style="position: fixed; top: 9%;" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            {{succesMessage}}
+        </div>
+        <button (click)="succesMessage = ''" type="button" class="btn-close btn-close-white me-2 m-auto"
             data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
 </div>

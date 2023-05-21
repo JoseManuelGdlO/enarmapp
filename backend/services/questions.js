@@ -29,7 +29,7 @@ async function AddQuesiton(body) {
                 VALUES (${caseClinic.insertId},"${question.orden}","${question.pregunta}","${question.imagen}",${question.subrayadoInicio},${question.subrayadoFin},"${question.resumen}","${question.bibliografia}");`
                 );
 
-                for (let pregunta of question.preguntas) {
+                for (let pregunta of question.answers) {
                     await connection.execute(
                         `INSERT INTO respuesta ( idPregunta, respuesta, isCorrecta, retroalimentacion)
                     VALUES (${rows.insertId},"${pregunta.respuesta}",${pregunta.isCorrecta},"${pregunta.retroalimentacion}");`
@@ -144,9 +144,13 @@ async function getCategories() {
 }
 
 async function getQuestions() {
+
     const rows = await db.query(
-        `SELECT p.id, p.active, p.bibliografia, p.idCasoclinico, p.imagen, p.orden, p.pregunta, p.resumen, p.subrayadoInicio, p.subrayadoFin, c.descripcion as clinic_description, c.idSubcategoria as clinic_subcategory, c.imagen as clinic_image, c.isEspanol as clinic_isEspanol, c.nombre as clinic_name FROM pregunta p LEFT JOIN caso_clinico c ON c.id = p.idCasoclinico;`
+        `SELECT c.id, c.descripcion as clinic_description, c.idSubcategoria as clinic_subcategory, c.imagen as clinic_image, c.isEspanol as clinic_isEspanol, c.nombre as clinic_name FROM caso_clinico c `
     );
+    // const rows = await db.query(
+    //     `SELECT p.id, p.active, p.bibliografia, p.idCasoclinico, p.imagen, p.orden, p.pregunta, p.resumen, p.subrayadoInicio, p.subrayadoFin, c.descripcion as clinic_description, c.idSubcategoria as clinic_subcategory, c.imagen as clinic_image, c.isEspanol as clinic_isEspanol, c.nombre as clinic_name FROM pregunta p LEFT JOIN caso_clinico c ON c.id = p.idCasoclinico;`
+    // );
 
     // for (let item of rows) {
     //     const responses = await db.query(
@@ -165,11 +169,38 @@ async function getQuestions() {
     }
 }
 
+async function getQuestion(id) {
+    const clinicCase = await db.query(
+        `SELECT * FROM caso_clinico WHERE id = ${id}`
+    );
+
+    const clinicCaseData = helper.emptyOrRows(clinicCase)[0];
+
+    const question = await db.query(
+        `SELECT * FROM pregunta WHERE idCasoclinico = ${id}`
+    );
+
+    const questionData = helper.emptyOrRows(question);
+
+    for (let item of questionData) {
+        const responses = await db.query(
+            `SELECT * FROM respuesta WHERE idPregunta = ${item.id}`
+        );
+        item.answers = responses
+    }
+    clinicCaseData.questions = questionData
+
+    return {
+        clinicCaseData
+    }
+}
+
 module.exports = {
     AddQuesiton,
     CreateCateogry,
     getCategories,
     addSubCategory,
     getQuestions,
-    editSubCategory
+    editSubCategory,
+    getQuestion
 }

@@ -6,33 +6,33 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Pregunta</span>
         </div>
-        <input type="text" class="form-control" placeholder="Pregunta" aria-label="Username"
+        <input type="text" class="form-control" [(ngModel)]="question.pregunta" name="question" placeholder="Pregunta" aria-label="Username"
             aria-describedby="basic-addon1">
     </div>
     <div class="mt-15">
         <label for="descripcion">Descripcion de la pregunta</label>
         <div class="mt-5">
-            <quill-editor [styles]="{height: '150px'}" placeholder="ingresa aqui la descripcion"></quill-editor>
+            <quill-editor #editor (onEditorCreated)="createQuillDescirption($event)" (onEditorChanged)="quillChange($event, 'resumen')" [styles]="{height: '150px'}" placeholder="ingresa aqui la descripcion"></quill-editor>
         </div>
     </div>
     <div class="mt-15">
         <div class="row">
             <div class="col">
                 <div class="mb-4 d-flex justify-content-center">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" alt="example placeholder"
-                        style="width: 300px;" />
+                    <img [src]="question.imagen ? question.imagen : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg'" alt="example placeholder"
+                        style="width: 300px; height: 200px; object-fit: contain;" />
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="btn btn-primary btn-rounded">
-                        <label class="form-label text-white m-1" for="customFile1">Elige imagen</label>
-                        <input type="file" class="form-control d-none" id="customFile1" />
+                        <label class="form-label text-white m-1" [for]="'customFile2'+indexQuestion">Elige imagen</label>
+                        <input type="file" accept="image/png, image/gif, image/jpeg" (change)="getImage($event, question)" class="form-control d-none" [id]="'customFile2'+indexQuestion" />
                     </div>
                 </div>
             </div>
             <div class="col">
                 <label for="descripcion">Bibliografia</label>
                 <div class="mt-5">
-                    <quill-editor [styles]="{height: '100px'}"
+                    <quill-editor #biblio (onEditorCreated)="createQuillBiblio($event)" [styles]="{height: '100px'}" (onEditorChanged)="quillChange($event, 'bibliografia')"
                         placeholder="ingresa aqui la bibiliografia y referencias"></quill-editor>
                 </div>
             </div>
@@ -41,7 +41,7 @@
     <!-- Respuestas -->
     <div class="mt-18 mb-25">
         <button (click)="addAnswer()" class="btn btn-success">Añadir Respuesta</button>
-        <div *ngFor="let answer of answers; index as index" class="p-2 m-2 rounded shadow-lg">
+        <div *ngFor="let answer of question.answers; index as index" class="p-2 m-2 rounded shadow-lg">
             <div class="float-end">
                 <button (click)="removeAnswer(index)" class="btn btn-close"></button>
             </div>
@@ -51,24 +51,24 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Respuesta</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Pregunta" aria-label="Username"
+                        <input type="text" [(ngModel)]="answer.respuesta" class="form-control" placeholder="Escribe la repuesta" aria-label="Username"
                             aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col mt-5">
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="btnradio" id="correcta" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="correcta">Correcta</label>
+                        <input type="radio" class="btn-check" [name]="'btnradio'+indexQuestion+index"  [(ngModel)]="answer.isCorrecta" [value]="true" [id]="'correcta'+indexQuestion+index" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" [for]="'correcta'+indexQuestion+index">Correcta</label>
 
-                        <input type="radio" class="btn-check" name="btnradio" id="incorrecta" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="incorrecta">Incorrecta</label>
+                        <input type="radio" class="btn-check" [name]="'btnradio'+indexQuestion+index"  [(ngModel)]="answer.isCorrecta" [value]="false" [id]="'incorrecta'+indexQuestion+index" autocomplete="off">
+                        <label class="btn btn-outline-primary" [for]="'incorrecta'+indexQuestion+index">Incorrecta</label>
                     </div>
                 </div>
             </div>
             <div class="mt-15">
                 <label for="descripcion">Retroalimentacion</label>
                 <div class="mt-5">
-                    <quill-editor [styles]="{height: '100px'}"
+                    <quill-editor (onEditorCreated)="createQuill($event, answer)" [styles]="{height: '100px'}" (onEditorChanged)="quillAnsewerChange($event, answer)"
                         placeholder="ingresa aqui la retroalimentacion"></quill-editor>
                 </div>
             </div>
@@ -84,7 +84,7 @@
         <div class="toast-body">
             {{showError}}
         </div>
-        <button (click)="showError = ''" type="button" class="btn-close btn-close-white me-2 m-auto"
-            data-bs-dismiss="toast" aria-label="Close"></button>
+        <!-- <button (click)="showError = ''" type="button" class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast" aria-label="Close"></button> -->
     </div>
 </div>

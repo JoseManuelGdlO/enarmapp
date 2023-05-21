@@ -10,7 +10,7 @@
             <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
                 (keypress)="filter($event)">
             <button type="button" (click)="chooseQuestion()" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">Añadir Pregunta</button>
+                data-bs-target="#exampleModal">Añadir Caso clinico</button>
             <button type="button" (click)="chooseQuestion()" class="btn btn-warning" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">Añadir Masivamente</button>
         </div>
@@ -20,9 +20,8 @@
                     <thead>
                         <tr>
                             <th scope="col">id</th>
-                            <th scope="col">Pregunta</th>
-                            <th scope="col">Resumen</th>
                             <th scope="col">Nombre del caso clinico</th>
+                            <th scope="col">Resumen</th>
                             <th scope="col">Estatus</th>
                             <th scope="col">Actions</th>
                         </tr>
@@ -30,9 +29,8 @@
                     <tbody>
                         <tr *ngFor="let question of questions">
                             <td>{{ question.id }}</td>
-                            <td>{{ question.pregunta }}</td>
-                            <td class="col-2 text-truncate">{{ question.resumen }}</td>
-                            <td class="col-2 text-truncate">{{ question.clinic_name }}</td>
+                            <td>{{ question.clinic_name }}</td>
+                            <td class="col-2 text-truncate"><div [innerHTML]="question.clinic_description"></div></td>
                             <td>{{ question.active === 1 ? 'Activa' : "Desactivada" }}</td>
                             <td>
                                 <button type="button" (click)="chooseQuestion(question)" class="btn btn-primary"

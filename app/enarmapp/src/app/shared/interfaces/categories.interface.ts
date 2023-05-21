@@ -9,4 +9,5 @@ export interface ISubcategory {
     categoria: string;
     fkid_categoria: number;
     id: number;
+    value?: string;
 }

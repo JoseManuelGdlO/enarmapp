@@ -58,6 +58,16 @@ router.get('/all', async function (req, res, next) {
   }
 });
 
+router.get('/question', async function (req, res, next) {
+  try {
+    const id = req.query.id
+    res.json(await questions.getQuestion(id));
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
 router.post('/add-question', async function(req, res, next) {
   try {
     const body = req.body;

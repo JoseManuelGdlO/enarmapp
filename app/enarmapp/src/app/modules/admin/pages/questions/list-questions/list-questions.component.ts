@@ -4,6 +4,7 @@ import { IUserType } from "src/app/shared/interfaces/user-type.interface";
 import { AdminQuestionService } from "../../../services/admin-question.service";
 import { IQuestion } from "src/app/shared/interfaces/question.interface";
 import { Router } from "@angular/router";
+import { transformTextb64 } from "src/app/shared/utils/transform.utils";
 
 @Component({
     templateUrl: './list-questions.component.html',
@@ -38,6 +39,9 @@ export class ListQuestionsComponent implements OnInit {
 
     async getQuestions() {
         this.questions = await this.adminQuesitonService.getQuestions();
+        this.questions.forEach((x: IQuestion) => {
+            x.clinic_description = transformTextb64(x.clinic_description, false)
+        })
     }
 
 
@@ -54,7 +58,11 @@ export class ListQuestionsComponent implements OnInit {
     }
 
     chooseQuestion(question?: IQuestion){
-        this.router.navigateByUrl('/admin/questions/add')
+        if(question) {
+            this.router.navigateByUrl(`/admin/questions/edit/${question.id}`)
+        } else {
+            this.router.navigateByUrl('/admin/questions/add')
+        }
     }
 
 
