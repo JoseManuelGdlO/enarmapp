@@ -7,6 +7,7 @@ import { SubscriptionComponent } from './pages/subscriptions/subscription.compon
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { ListQuestionsComponent } from './pages/questions/list-questions/list-questions.component';
 import { QuestionsComponent } from './pages/questions/questions/questions.component';
+import { MasiveQuestions } from './pages/questions/masive-question/masive-questions.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
       {
         path: 'edit/:id',
         component: QuestionsComponent
+      },
+      {
+        path: 'masive-questions',
+        component: MasiveQuestions
       }
     ]
   },

@@ -65,6 +65,10 @@ export class ListQuestionsComponent implements OnInit {
         }
     }
 
+    masiveQuestion() {
+        this.router.navigateByUrl('/admin/questions/masive-questions')
+    }
+
 
 
 

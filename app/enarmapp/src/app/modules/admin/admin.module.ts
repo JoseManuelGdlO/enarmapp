@@ -15,12 +15,14 @@ import { ListQuestionsComponent } from './pages/questions/list-questions/list-qu
 import { QuestionsComponent } from './pages/questions/questions/questions.component';
 import { QuillModule } from 'ngx-quill';
 import { QuestionComponent } from './pages/questions/questions/components/question.component';
+import { MasiveQuestions } from './pages/questions/masive-question/masive-questions.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     SubscriptionComponent,
     ConfigurationsComponent,
+    MasiveQuestions,
     LaboratoryComponent,
     CategoriesComponent,
     QuestionsComponent,

@@ -1,0 +1,31 @@
+<body>
+    <!-- Just an image -->
+    <nav style="position: fixed; width: 100%; top: 0%; z-index: 99;" class="navbar navbar-dark bg-dark p-lg-3">
+        <a class="navbar-brand pl-4 " style="cursor: pointer;" (click)="router.navigateByUrl('/admin/questions')">
+            <i-bs name="arrow-return-left" width="30" height="30"></i-bs> Regresar
+        </a>
+    </nav>
+
+    <div style="padding-top: 10vh; text-align: center; padding-left: 5vw; padding-right: 5vw;">
+        <p class="text-sm-left"><span style="font-size: 2vw;"><strong>Estimado usuario</strong></span><br>
+        
+        Para poder procesar la información de manera adecuada, necesitamos que el archivo que subas esté en formato <strong>CSV</strong>
+        (Comma-Separated Values). El formato <strong>CSV</strong> es una manera simple y efectiva de almacenar datos en forma de tabla, donde
+        cada línea representa una fila y los valores de cada columna están separados por comas.<br>
+        <br><strong>Cómo convertir tu archivo de Excel a formato <strong>CSV</strong>:</strong></p>
+        <div style="text-align: left;">
+            <ul class="list-group">
+                <li class="list-group-item">1.-Abre tu archivo de Excel con los datos que deseas subir.</li>
+                <li class="list-group-item">2.-Ve al menú "Archivo" en la parte superior izquierda de la ventana de Excel y selecciona "Guardar como".</li>
+                <li class="list-group-item">3.-En la ventana "Guardar como", elige la ubicación donde deseas guardar el archivo y asigna un nombre para el archivo CSV.</li>
+                <li class="list-group-item">4.-Desde el menú desplegable "Guardar como tipo", selecciona "<strong>CSV</strong> (delimitado por comas) (*.csv)".</li>
+                <li class="list-group-item">5.-A continuación, haz clic en "Guardar".</li>
+            </ul>
+        </div>
+        <input style="width: 100%; margin-top: 5vh;" type="file" value="Subir ccv" class="btn btn-primary" accept=".csv"/>
+        <div style="padding-top: 2vh;">
+            <button style="width: 100%;" type="button" class="btn btn-primary btn-lg btn-block" disabled>Guardar</button>
+        </div>
+    </div>
+
+    </body>
