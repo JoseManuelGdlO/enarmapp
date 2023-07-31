@@ -81,13 +81,15 @@ export class ConfiguratorComponent implements OnInit {
     this.subcategorySelected = value.subcategoria;
   }
 
-  getSubcatValue(args: string) {
-    console.log("Recibo subcat value" + args)
+  getSubcatValue(args: any) {
+    console.log("Recibo subcat value " + args)
     let arrelgo: string[] = [];
-    args.split(/\s*,\s*/).forEach(function (myString) {
+    if (args.length > 1){
+      args.split(/\s*,\s*/).forEach(function (myString:any) {
         console.log(myString);
         arrelgo.push(myString);
     });
+    }
     this.subtemasArray = arrelgo;
   }
 
