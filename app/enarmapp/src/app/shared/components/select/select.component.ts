@@ -19,7 +19,7 @@ export class SelectComponent {
   //selected: string = '';
 
   @Input() value = ''
-  
+  value2 = '';
 
   @Input() set setitems (items: any) {
     if(items){
@@ -100,7 +100,9 @@ export class SelectComponent {
   isMultiple(item: any) {
     item.selected = !item.selected
     if (item.selected == true) {
-      this.value = this.value.length === 0 ? item.value : item.value + ', ' + this.value
+      //this.value = this.value.length === 0 ? item.value : item.value + ', ' + this.value; //AQUI LE MOVIMOS, no va el item.index, pero recibimos 5Cardiologia (Problema es que solo cuando es 2do seleccionado)
+      this.value = this.value.length === 0 ? item.value : item.value + ', ' + this.value;
+      this.value2 = this.value.length === 0 ? item.index : item.index + ", " + this.value2;
       const index = this.items.findIndex(x => x === item);
       this.items[index].selected = true;
     } else {
@@ -108,9 +110,13 @@ export class SelectComponent {
       const indexItem = valueArray.findIndex(x => x === item.value)
       valueArray.splice(indexItem, 1)
       this.value = valueArray.join(', ')
+      const valueArray2 = this.value2.split(', ')
+      const indexItem2 = valueArray2.findIndex(x => x === item.value2)
+      valueArray2.splice(indexItem2, 1)
+      this.value2 = valueArray2.join(', ')
     }
     this.onChange(this.value);
-    this.onSelected.emit(this.value)
+    this.onSelected.emit(this.value2)
   }
 
   findItem(value: string) {

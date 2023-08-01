@@ -15,7 +15,8 @@
     <enarm-input (keyPress)="findItem($event)" type="search" placeholder="Buscar subtema"></enarm-input>
   </div>
   <div class="div___position2 cursor"*ngFor="let item of itemsFiltered" (click)="selected(item)">
-    <h5 style="padding-top: 5px;">{{item.value}}</h5>
+    <h5 style="padding-top: 5px">{{item.value}}</h5>
+    <h5 style="visibility: hidden;">{{item.id}}</h5>
     <img *ngIf="item.selected" src="assets/icons/check-select.svg">
   </div>
 </div>
