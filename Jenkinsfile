@@ -10,6 +10,22 @@ pipeline{
 
     stages{
         stage('Requisites') {
+            steps {
+                echo 'Node installation'
+                sh 'node -v'
+                echo 'npm installation'
+                sh 'npm -v'
+                echo 'Angular installation'
+                sh 'ng version'
+                echo 'Express installation'
+                sh 'npm list express'
+                echo '*************INSTALLING MODULES***************'
+                //sh 'rm -rf node_modules'
+                sh '''
+                    npm i
+                    npm i --legacy-peer-deps
+                '''
+            }
             // steps{
             //     echo 'Install Python'
             //     sh 'python3 --version'
@@ -22,7 +38,7 @@ pipeline{
 
         stage('Static Code Analysis (SonarQube)') {
             steps {
-                // echo 'Static Code Analysis'
+                echo 'Static Code Analysis'
                 // withSonarQubeEnv('SonarCloud') {
                 //     sh '''${scannerHome}/bin/sonar-scanner \
                 //         -Dsonar.organization=aleksdeveloper \
@@ -36,7 +52,17 @@ pipeline{
         stage('Build') {
             steps {
                 echo 'This is the build stage'
-
+                sh '''
+                    cd app
+                    cd enarmapp
+                    npm run start
+                '''
+                sh '''
+                    cd ..
+                    cd ..
+                    cd backend
+                    node index.js
+                '''
                 // sh '''
                 //     docker build . -t flasktice-aleks
                 //     docker tag flasktice-aleks alejandrodjc/flasktice-aleks
