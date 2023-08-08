@@ -7,8 +7,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 })
 export class TimerComponent implements OnInit {
     
-    @Input() hour = '01:05:41';
-    @Output() onClick = new EventEmitter();
+    @Input() hour = '01:00:10';
+    @Output() onPause = new EventEmitter();
 
     onpause = false;
 
@@ -31,16 +31,16 @@ export class TimerComponent implements OnInit {
         let seconds =  Number(separe[2])
         setInterval( () => {
             if(!this.onpause) {
-                seconds++
+                seconds--
             }
 
-            if(seconds === 60) {
-                seconds = 0
-                minute++
-                if(minute === 60) {
-                    minute = 0
-                    hour++
+            if(seconds === 0) {
+                seconds = 60
+                if(minute === 0) {
+                    minute = 60
+                    hour--
                 }
+                minute--
             }
             const HOUR = hour.toString().length == 1 ? '0' + hour : hour;
             const MINUTES = minute.toString().length == 1 ? '0' + minute : minute;
@@ -52,6 +52,9 @@ export class TimerComponent implements OnInit {
 
     stop() {
         this.onpause = !this.onpause
+        if (this.onpause) {
+            this.onPause.emit('pause')
+        }
     }
 
 }

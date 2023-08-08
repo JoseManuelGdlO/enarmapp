@@ -6,6 +6,9 @@ import { Component, Input, OnInit} from "@angular/core";
     styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent implements OnInit {
+
+    @Input() currentQuestion = 1;
+    @Input() totalQuestions = 1;
     
 
     constructor(
