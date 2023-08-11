@@ -17,10 +17,8 @@ pipeline{
                 sh 'npm -v'
                 echo 'Angular installation'
                 sh 'ng version'
-                echo 'Express installation'
-                sh 'npm list express'
                 echo '*************INSTALLING MODULES***************'
-                //sh 'rm -rf node_modules'
+                sh 'rm -rf node_modules'
                 sh '''
                     npm i
                     npm i --legacy-peer-deps
@@ -55,13 +53,11 @@ pipeline{
                 sh '''
                     cd app
                     cd enarmapp
-                    npm run start
+                    nohup ng serve --host 0.0.0.0 > output.log &
                 '''
                 sh '''
-                    cd ..
-                    cd ..
                     cd backend
-                    node index.js
+                    nohup node index.js
                 '''
                 // sh '''
                 //     docker build . -t flasktice-aleks
