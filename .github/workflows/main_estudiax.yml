@@ -4,14 +4,12 @@
 name: Build and deploy Node.js app to Azure Web App - estudiax
 
 on:
-  push:
-    branches:
-      - main
+  push
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -46,11 +44,4 @@ jobs:
         with:
           name: node-app
 
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
-        with:
-          app-name: 'estudiax'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BBBC26DBA02745A9B19B04D2D153F666 }}
-          package: .
+
