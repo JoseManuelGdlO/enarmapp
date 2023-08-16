@@ -17,13 +17,23 @@ pipeline{
                 sh 'npm -v'
                 echo 'Angular installation'
                 sh 'ng version'
-                echo 'Express installation'
-                sh 'npm list express'
+                //echo 'Express installation'
+                //sh 'npm install express'
+                //sh 'npm list express'
                 echo '*************INSTALLING MODULES***************'
-                //sh 'rm -rf node_modules'
+                sh 'rm -rf node_modules'
                 sh '''
-                    npm i
-                    npm i --legacy-peer-deps
+                    pwd
+                    ls -la
+                    cd app
+                    cd enarmapp
+                    npm install
+                '''
+                sh '''
+                    pwd
+                    ls -la
+                    cd backend
+                    npm install
                 '''
             }
             // steps{
@@ -55,11 +65,11 @@ pipeline{
                 sh '''
                     cd app
                     cd enarmapp
-                    npm run start
+                    nohup ng serve --host 0.0.0.0 > output.log &
                 '''
                 sh '''
-                    cd ..
-                    cd ..
+                    pwd
+                    ls
                     cd backend
                     node index.js
                 '''
@@ -74,6 +84,15 @@ pipeline{
         stage('Deployment') {
             steps {
                 echo 'This is the deployment'
+                script {
+                    try {
+                        sh '''
+                        docker rm -vf $(docker ps -aq)
+                        '''
+                    }catch(error){
+                        echo error.getMessage()
+                    }
+                }
                 // script {
                 //     try {
                 //         sh '''
