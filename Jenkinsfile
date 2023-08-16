@@ -17,9 +17,6 @@ pipeline{
                 sh 'npm -v'
                 echo 'Angular installation'
                 sh 'ng version'
-                //echo 'Express installation'
-                //sh 'npm install express'
-                //sh 'npm list express'
                 echo '*************INSTALLING MODULES***************'
                 sh 'rm -rf node_modules'
                 sh '''
@@ -68,10 +65,8 @@ pipeline{
                     nohup ng serve --host 0.0.0.0 > output.log &
                 '''
                 sh '''
-                    pwd
-                    ls
                     cd backend
-                    node index.js
+                    nohup node index.js
                 '''
                 // sh '''
                 //     docker build . -t flasktice-aleks
