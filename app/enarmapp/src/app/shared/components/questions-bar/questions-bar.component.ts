@@ -7,7 +7,12 @@ import { Component, Input, OnInit } from "@angular/core";
 })
 export class QuestionsBarComponent implements OnInit {
 
-    @Input() questions: Array<{ id: number, questions: number, total?: Array<{ id: number, selected: boolean, question: number }> }> = [ { id: 1, questions: 4 }, { id: 2, questions: 3 }, { id: 3, questions: 3 }, { id: 4, questions: 4 }]
+    questions: Array<{ id: number, questions: number, total?: Array<{ id: number, selected: boolean, question: number }> }> = [{ id: 1, questions: 4 }, { id: 2, questions: 3 }, { id: 3, questions: 3 }, { id: 4, questions: 4 }]
+
+    @Input('questions') set value(value: Array<{ id: number, questions: number, total?: Array<{ id: number, selected: boolean, question: number }> }>) {
+        this.questions = value;
+        this.startQuestions()
+    }
 
     @Input() selected = { clinic: 2, id: 2}
 
@@ -16,6 +21,10 @@ export class QuestionsBarComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.startQuestions()
+    }
+
+    startQuestions(){
         for(let item of this.questions) {
             item.total = new Array()
             for(let subitem = 0; subitem < item.questions; subitem++) {
@@ -26,8 +35,7 @@ export class QuestionsBarComponent implements OnInit {
                 item.total.push({ selected, question: subitem + 1, id: subitem + 1 })
             }
         }
-        console.log(this.questions);
         
-                
+
     }
 }

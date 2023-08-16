@@ -165,6 +165,13 @@ async function getExamdetail(id) {
 
         rows[0].respuestas = answers;
 
+        const caseClinic = await db.query(
+            `SELECT * 
+            FROM caso_clinico WHERE id = ${rows[0].idCasoclinico}`
+        );
+
+        rows[0].casoClinico = caseClinic[0];
+
         questionResponse.push(rows[0])
     }
 

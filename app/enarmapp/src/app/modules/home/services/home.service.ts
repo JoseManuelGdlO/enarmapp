@@ -36,4 +36,28 @@ export class HomeService{
         })
     }
 
+    getConfigs(code: string): Promise<any> {
+        const url = API_URL + '/others/configuration?code=' + code
+        return new Promise((resolve, reject) => {
+            this.httpclient.get(url).subscribe((data: any) => {
+                resolve(data[0].valor)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
+
+    getPhrase(): Promise<any> {
+        const url = API_URL + '/others/frases'
+        return new Promise((resolve, reject) => {
+            this.httpclient.get(url).subscribe((data: any) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
+
 }

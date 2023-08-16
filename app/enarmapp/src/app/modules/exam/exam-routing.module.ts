@@ -4,7 +4,7 @@ import { ExamComponent } from './pages/exam/exam.component';
 
 const routes: Routes = [
     {
-        path: '',
+        path: ':id',
         component: ExamComponent
     }
 ];

@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require('morgan');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const enarmStundetsRouter = require("./routes/enarmStudents"); 
 const authRouter = require("./routes/auth"); 
 const questionsRouter = require("./routes/questions-route.js");
@@ -10,7 +10,7 @@ const othersRouter = require("./routes/others.js");
 
 const cors = require('cors');
 const corsOptions ={
-    origin:'http://localhost:4200', 
+    origin:'http://3.230.92.106:4200', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
@@ -42,5 +42,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Example app listening at YOUR_IP_INSTANCE${port}`);
 });

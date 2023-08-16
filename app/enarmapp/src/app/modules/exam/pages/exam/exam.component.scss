@@ -47,26 +47,46 @@
     display: flex;
     justify-content: left;
     padding: 15px 20px;
-    border-bottom: 1px solid #E5E7EB;;
+    border-bottom: 1px solid #E5E7EB;
+    transition: background 0.2s ease-in-out;
+    transition: opacity 0.2s;
+}
+
+.div___answer:hover {
+    background: #eb89ff;
+    cursor: pointer;
+}
+
+.div___answer:active {
+    opacity: .5;
+}
+
+.selectedAnswer {
+    background: #b862ac56;
+}
+
+.borderNone {
+    border: none;
 }
 
 .h1___typeanswerdselected {
     font-size: 15px;
-    color: white;
-    background-color: black;
-    border-radius: 18px;
-    width: 25px;
-    text-align: center;
-    padding: 1px 0px 0px 0px;
+        color: white;
+        background-color: black;
+        border-radius: 18px;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        padding: 4px 0px 0px 0px;
 }
 
 .h1___typeanswerd {
     font-size: 15px;
     border-radius: 18px;
-    width: 23px;
+    width: 25px;height: 25px;
     text-align: center;
     border: 1px solid black;
-    padding: 1px 0px 0px 0px;
+    padding: 4px 0px 0px 0px;
 }
 
 .h1___answered {

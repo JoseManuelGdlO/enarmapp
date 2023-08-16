@@ -4,6 +4,7 @@ import { EAcountStatus } from "src/app/shared/interfaces/account-status.enum";
 import { IUser } from "src/app/shared/interfaces/user.interface";
 import { PreferencesService } from "src/app/shared/services/preferences.service";
 import { HomeService } from "../../services/home.service";
+import { Router } from "@angular/router";
 
 @Component({
   templateUrl: './home.component.html',
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
    };
    width = 280
    height = 280;
+   examDate = 0
 
   exams = [
     { id: 1, progress: 79, questions: 162, answers: 123, status: 1, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
@@ -37,19 +39,46 @@ export class HomeComponent implements OnInit {
     { id: 4, progress: 15, questions: 162, answers: 32, status: 3, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
   ]
 
+  phrase: { autor: string, frase: string, id: number } = { autor: '', frase: '', id: 0 }
+
   isNew = false;
   isTryAccount = false;
   isExpireAccount = false;
 
   currentExam!: { isEspanol: number, id: number, progress: number, questions: number, answers: number, status: number, creationDate: string, respondidas: number, numeroPreguntas: number };
 
-  constructor(private preferencesService: PreferencesService, private homeService: HomeService) {
+  constructor(private preferencesService: PreferencesService, private homeService: HomeService, public router: Router) {
 
   }
 
   ngOnInit(): void {
     this.getData()
     this.getExams();
+    this.getExamDate();
+    this.getPhrase()
+  }
+
+  async getPhrase(): Promise<void>{
+    try {
+    const response = await this.homeService.getPhrase()
+      this.phrase = response[(Math.floor(Math.random() * response.length))];
+    }catch(error: any) {
+      console.error(error);
+      
+    }
+  }
+
+  async getExamDate(): Promise<void> {
+    try {
+      const response = await this.homeService.getConfigs('EXAM_DATE')
+      const date = new Date(response)
+      const Difference_In_Time = date.getTime() - new Date().getTime();
+      const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+      this.examDate = Math.round(Difference_In_Days)
+    } catch(error) {
+      console.error(error);
+    }
+
   }
 
   getData() {

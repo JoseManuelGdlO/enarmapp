@@ -7,12 +7,12 @@
                     {{user.apellidos}}</span></h1>
             <h1 class="h1___daystoenarm">
                 <img src="assets/icons/calendar-icon.svg" alt="">
-                Quedan 62 días para el ENARM 2023, ¡tu puedes!
+                Quedan {{examDate}} días para el ENARM 2023, ¡tu puedes!
             </h1>
         </div>
         <div class="row">
             <div class="col-50 mt-38">
-                <div style="display: flex;" class="pr-25">
+                <div *ngIf="currentExam" style="display: flex;" class="pr-25">
                     <div class="col-50">
                         <google-chart #chart [title]="title" [type]="type" [data]="data" [columnNames]="columnNames"
                             [options]="options" [width]="width" [height]="height">
@@ -34,7 +34,7 @@
                             <enarm-progress-bar-exam [percentage]="currentExam ? (currentExam.respondidas*100/currentExam.numeroPreguntas).toString() : ''"></enarm-progress-bar-exam>
                         </div>
                         <div class="mt-30">
-                            <enarm-button text="Retomar examen"></enarm-button>
+                            <enarm-button (onClick)="router.navigateByUrl('exam/'+currentExam.id)" text="Retomar examen"></enarm-button>
                         </div>
                     </div>
                 </div>
@@ -83,8 +83,8 @@
             </div>
             <div class="col-50">
                 <div class="mt-38 pl-25">
-                    <enarm-toast-phrases encabezado="¿Sabías qué?"
-                        cuerpo="La micosis fungoide no tiene nada que ver con hongos, y se trata más bien de un linfoma No Hodgkin de células T que afecta la piel"></enarm-toast-phrases>
+                    <enarm-toast-phrases [encabezado]="phrase.autor"
+                        [cuerpo]="phrase.frase"></enarm-toast-phrases>
                     <div class="div___add mt-38">
                         <div class="button___add">
                             <h1 style="font-size: 50px;">+</h1>
