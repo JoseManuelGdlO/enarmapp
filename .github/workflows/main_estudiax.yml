@@ -60,6 +60,9 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
+          SCRIPT BEFORE: |
+            ls
+            whoami
           SCRIPT_AFTER: |
             echo hola
       - name: Revoke Runner IP Address on SG
