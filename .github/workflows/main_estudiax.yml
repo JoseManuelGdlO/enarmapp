@@ -29,9 +29,26 @@ jobs:
     needs: build
     environment:
       name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    env:
+      AWS_INSTANCE_SG_ID: ${{ secrets.ID_SG_GHA_MEDBRAIN }}
 
     steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-acces-key-id: ${{ secrets.AWS_CARRILLO_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_CARRILLO_SECRET_KEY }}
+          aws-region: us-east-1
+      - name: Get Runner IP Address
+        id: ip
+        uses: haythem/public-ip@v1.2
+      - name: Whitelist Runner IP Address on SG
+        run: |
+          aws ec2 authorize-security-group-ingress \
+            --group-id $AWS_INSTANCE_SG_ID \
+            --protocol tcp \
+            --port 22 \
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32
       - uses: actions/checkout@v2
       - name: Deploy to Server
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
