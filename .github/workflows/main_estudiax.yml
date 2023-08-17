@@ -64,5 +64,12 @@ jobs:
             echo "just to see if it works"
             npm install
             sudo systemctl restart backend.service
+      - name: Revoke Runner IP Address on SG
+        run: |
+          aws ec2 revoke-security-group-ingress \
+            --group-id $AWS_INSTANCE_SG_ID \
+            --protocol tcp \
+            --port 22 \
+            --cidr ${{ steps.ip.outputs.ipv4 }}//32
 
 
