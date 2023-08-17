@@ -63,6 +63,7 @@ jobs:
           SCRIPT BEFORE: |
             ls
           SCRIPT_AFTER: |
+            cd backend
             npm install
             sudo systemctl restart backend
       - name: Revoke Runner IP Address on SG
