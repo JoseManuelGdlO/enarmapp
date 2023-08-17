@@ -62,16 +62,15 @@ jobs:
           TARGET: ${{ secrets.REMOTE_TARGET }}
           SCRIPT BEFORE: |
             ls
-            whoami
-            pwd
           SCRIPT_AFTER: |
-            echo hola
+            npm install
+            sudo systemctl restart backend
       - name: Revoke Runner IP Address on SG
         run: |
           aws ec2 revoke-security-group-ingress \
             --group-id $AWS_INSTANCE_SG_ID \
             --protocol tcp \
             --port 22 \
-            --cidr ${{ steps.ip.outputs.ipv4 }}//32
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
 
