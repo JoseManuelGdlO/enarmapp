@@ -61,6 +61,7 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
           SCRIPT_AFTER: |
+            echo "just to see if it works"
             npm install
             sudo systemctl restart backend.service
 
