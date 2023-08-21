@@ -55,7 +55,7 @@ jobs:
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
       - uses: actions/checkout@v2
-      - name: Deploy to Server
+      - name: Deploy Backend to Server
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: easingthemes/ssh-deploy@main
         env:
@@ -65,12 +65,30 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
-          SCRIPT BEFORE: |
+          SCRIPT_BEFORE: |
             ls
           SCRIPT_AFTER: |
             cd backend
             npm install
             sudo systemctl restart backend
+            ls
+            pwd
+      - name: Deploy Frontend to Server
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i"
+          SOURCE: "app/enarmapp"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET_FRONT }}
+          SCRIPT_BEFORE: |
+            ls
+          SCRIPT_AFTER: |
+            cd frontend
+            npm install
+            sudo systemctl restart frontend
             ls
             pwd
       - name: Revoke Runner IP Address on SG
