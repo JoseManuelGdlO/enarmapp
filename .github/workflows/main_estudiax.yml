@@ -23,6 +23,11 @@ jobs:
           cd backend
           npm install
           npm run build --if-present
+
+      - name: angular install, build and test
+        run: |
+          cd app/enarmapp
+          npm install
       
   deploy:
     runs-on: ubuntu-latest
@@ -66,6 +71,8 @@ jobs:
             cd backend
             npm install
             sudo systemctl restart backend
+            ls
+            pwd
       - name: Revoke Runner IP Address on SG
         run: |
           aws ec2 revoke-security-group-ingress \
