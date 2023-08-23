@@ -106,6 +106,12 @@ jobs:
             --protocol tcp \
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
+      - name: Where am I and Who I am
+        run: |
+          pwd
+          ls -la
+          cd ..
+          ls -la
       - name: Deploy Frontend to Server
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: easingthemes/ssh-deploy@main
