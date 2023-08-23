@@ -74,6 +74,8 @@ jobs:
             sudo systemctl restart backend
             ls
             pwd
+      - name: Intermediary to rsc
+        run: echo "A ver si pasa algo"
       - name: Deploy Frontend to Server
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: easingthemes/ssh-deploy@main
