@@ -110,8 +110,11 @@ jobs:
         run: |
           pwd
           ls -la
+      - name: Move one up
+        run: |
           cd ..
           ls -la
+          pwd
       - name: Deploy Frontend to Server
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: easingthemes/ssh-deploy@main
