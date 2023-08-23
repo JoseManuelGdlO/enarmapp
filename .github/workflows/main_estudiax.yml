@@ -86,7 +86,7 @@ jobs:
           SCRIPT_BEFORE: |
             ls
           SCRIPT_AFTER: |
-            cd frontend
+            cd frontend/enarmapp
             npm install
             sudo systemctl restart frontend
             ls
