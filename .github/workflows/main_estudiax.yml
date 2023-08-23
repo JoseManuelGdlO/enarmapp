@@ -55,6 +55,15 @@ jobs:
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
       - uses: actions/checkout@v2
+      - name: Where am I and Who I am
+        run: |
+          pwd
+          ls -la
+      - name: Move one up
+        run: |
+          cd ..
+          ls -la
+          pwd
       - name: Deploy Backend to Server
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: easingthemes/ssh-deploy@main
