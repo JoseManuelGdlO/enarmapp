@@ -115,6 +115,7 @@ jobs:
             --protocol tcp \
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
+      - uses: actions/checkout@v2            
       - name: Where am I and Who I am
         run: |
           pwd
