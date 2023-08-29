@@ -2,7 +2,7 @@
 <div class="row" style="padding-top: 9%;">
     <enarm-loading-outlet [isLoading]="isLoading">
         <div class="col-10">
-            <enarm-questions-bar [questions]="questionbar" [selected]="selectedQuestion"></enarm-questions-bar>
+            <enarm-questions-bar [questions]="questionbar" [select]="selectedQuestion"></enarm-questions-bar>
         </div>
         <div class="col-90">
             <div class="div___header">
@@ -18,22 +18,54 @@
             </div>
             <div *ngIf="questions" class="div___body">
                 <h4 class="h4___examquestion">
-                    <span *ngIf="questions[selectedQuestion.clinic-1][selectedQuestion.id-1].casoClinico.nombre"
+                    <span *ngIf="questions[selectedQuestion.index][selectedQuestion.id-1].casoClinico.nombre"
                         style="font-size: 24px; font-weight: bold;">
-                        {{questions[selectedQuestion.clinic-1][selectedQuestion.id-1].casoClinico.nombre}}<br><br></span>
-                    {{questions[selectedQuestion.clinic-1][selectedQuestion.id-1].casoClinico.descripcion}}
+                        {{questions[selectedQuestion.index][selectedQuestion.id-1].casoClinico.nombre}}<br><br></span>
+                    {{questions[selectedQuestion.index][selectedQuestion.id-1].casoClinico.descripcion}}
                 </h4>
-                <h4 class="h4___question mt-30">{{questions[selectedQuestion.clinic-1][selectedQuestion.id-1].pregunta}}
+                <div *ngIf="isAnswered" class="div___resume">
+                    <h1 class="h1___retro"><span style="font-size: 20; font-weight: bold;">Resumen
+                            <br><br></span>{{questions[selectedQuestion.index][selectedQuestion.id-1].resumen}}</h1>
+                </div>
+                <h4 class="h4___question mt-30">{{questions[selectedQuestion.index][selectedQuestion.id-1].pregunta}}
                 </h4>
                 <div class="div___answereds mt-15">
-                    <div *ngFor="let answer of questions[selectedQuestion.clinic-1][selectedQuestion.id-1].respuestas; index as index; last as last"
-                        class="div___answer" [ngClass]="{'borderNone': last, 'selectedAnswer': answer.selected}" (click)="select(answer, questions[selectedQuestion.clinic-1][selectedQuestion.id-1].respuestas)">
-                        <h1 class="h1___typeanswerdselected">{{answerSelection[index]}}</h1>
-                        <h1 class="h1___answered">{{answer.respuesta}}</h1>
+                    <div *ngFor="let answer of questions[selectedQuestion.index][selectedQuestion.id-1].respuestas; index as index; last as last"
+                        class="divAnswersComplete" [ngClass]="{'borderNone': last}">
+                        <div class="div___answer"
+                            [ngClass]="{'selectedAnswer': answer.selected, 'correctAnswer': (answer.selected && answer.isCorrecta === 1) || (isAnswered && answer.isCorrecta === 1), 'incorrectAnswer': (answer.selected && answer.isCorrecta===0) || (isAnswered && answer.isCorrecta===0)}"
+                            (click)="select(answer, questions[selectedQuestion.index][selectedQuestion.id-1].respuestas)">
+                            <h1 class="h1___typeanswerdselected">{{answerSelection[index]}}</h1>
+                            <h1 class="h1___answered">{{answer.respuesta}}</h1>
+                        </div>
+                        <div *ngIf="isAnswered" class="div___resume"
+                            [ngClass]="{'correctAnswer': answer.isCorrecta === 1, 'incorrectAnswer': answer.isCorrecta===0}">
+                            <h1 class="h1___retro"><span style="font-size: 20; font-weight: bold;">Retroalimientacion
+                                    <br><br></span>{{answer.retroalimentacion}}</h1>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <enarm-pagination *ngIf="fromApiQuesitons" [currentQuestion]="currentQuestion" [totalQuestions]="fromApiQuesitons.length"></enarm-pagination>
+        <enarm-pagination (nextQuestion)="newxtQuestion()" *ngIf="fromApiQuesitons" [currentQuestion]="currentQuestion"
+            [totalQuestions]="fromApiQuesitons.length"></enarm-pagination>
     </enarm-loading-outlet>
 </div>
+
+<enarm-modal *ngIf="isFinish">
+    <h4 class="h4___examquestion">
+        <span style="font-size: 40px; font-weight: bold;">
+            <br><br>
+            ¡Felicidades!<br><br></span>
+    </h4>
+    <img style="width: 30%;" src="assets/images/trofeo.png" alt="" srcset="">
+    <h4 class="h4___examquestion">
+        <span style="font-size: 20px; font-weight: bold;">
+            <br>
+            Has termiado el bloque de preguntas.</span>
+    </h4>
+    <div style="width: 100%; text-align: center; padding: 5% 20%;">
+        <enarm-button backgroundcolor="#ffc107" (click)="continue()" text="Continuar"></enarm-button>
+    </div>
+
+</enarm-modal>

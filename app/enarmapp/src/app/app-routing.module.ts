@@ -38,13 +38,20 @@ const routes: Routes = [
       import('./modules/previous-exams/previous-exams.module').then(
         (mod) => mod.PreviousExamsModule
       )
-  },
+  }, 
   {
     path: 'admin',
     canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/admin/admin.module').then(
         (mod) => mod.AdminModule
+      )
+  },
+  {
+    path: 'others',
+    loadChildren: () =>
+      import('./modules/others/others.module').then(
+        (mod) => mod.OthersModule
       )
   },
 ];

@@ -26,7 +26,20 @@ router.post('/add-exam', async function(req, res, next) {
       console.error(`Error while getting enarm students info `, err.message);
       next(err);
     }
-  });
+});
+
+router.put('/save-answer', async function (req, res, next) {
+  try {
+
+    const body = req.body;
+    const response = await exam.saveAnswer(body)
+    console.log('res', response);
+    res.status(response).json();
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
 
   router.get('/exam-user-list', async function(req, res, next) {
     try {

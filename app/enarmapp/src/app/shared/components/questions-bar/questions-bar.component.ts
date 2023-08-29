@@ -14,7 +14,12 @@ export class QuestionsBarComponent implements OnInit {
         this.startQuestions()
     }
 
-    @Input() selected = { clinic: 2, id: 2}
+    selected = { clinic: 2, id: 2, index: 2 }
+
+    @Input() set select(value: { clinic: number, id: number, index: number } ) {    
+        this.selected = value
+        this.startQuestions()
+    }
 
     constructor()
     {
@@ -25,7 +30,7 @@ export class QuestionsBarComponent implements OnInit {
     }
 
     startQuestions(){
-        for(let item of this.questions) {
+        for(let item of this.questions) {            
             item.total = new Array()
             for(let subitem = 0; subitem < item.questions; subitem++) {
                 let selected = false;

@@ -25,6 +25,10 @@ export class MenuCategoryComponent {
     }
 
     select(item:any){
+        this.category.forEach((element:any) => {
+            element.selected = false
+        });
+        item.selected = true
         this.selectedCategory.emit(item);
     }
 }

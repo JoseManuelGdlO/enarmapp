@@ -32,6 +32,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .div___add {
@@ -90,6 +91,7 @@ ul {
 }
 
 .buttonSeeAll {
+  cursor: pointer;
   background: #000000;
   border-radius: 4px;
   padding: 5px;

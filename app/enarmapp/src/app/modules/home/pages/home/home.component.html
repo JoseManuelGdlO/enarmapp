@@ -34,14 +34,14 @@
                             <enarm-progress-bar-exam [percentage]="currentExam ? (currentExam.respondidas*100/currentExam.numeroPreguntas).toString() : ''"></enarm-progress-bar-exam>
                         </div>
                         <div class="mt-30">
-                            <enarm-button (onClick)="router.navigateByUrl('exam/'+currentExam.id)" text="Retomar examen"></enarm-button>
+                            <enarm-button (onClick)="router.navigateByUrl('exam/work/'+currentExam.id)" text="Retomar examen"></enarm-button>
                         </div>
                     </div>
                 </div>
                 <div class="mt-50 div___moreExams">
                     <div class="div___headerExams mt-20">
                         <h1 class="h1___exams">Exámenes previos</h1>
-                        <div *ngIf="exams.length !== 0" class="buttonSeeAll">
+                        <div (click)="seeAllExams()" *ngIf="exams.length !== 0" class="buttonSeeAll">
                             <h3 class="h3___seeAll">Ver todos</h3>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                     <enarm-toast-phrases [encabezado]="phrase.autor"
                         [cuerpo]="phrase.frase"></enarm-toast-phrases>
                     <div class="div___add mt-38">
-                        <div class="button___add">
+                        <div (click)="router.navigateByUrl('configurator')" class="button___add">
                             <h1 style="font-size: 50px;">+</h1>
                             <h1 class="h1___add" style="margin-left: 15px;"> Armar nuevo examen</h1>
                         </div>

@@ -3,7 +3,7 @@
     <h1>Anterior</h1>
     <h1 class="currentPage">{{currentQuestion}}</h1>
     <h1>de <span style="margin-left: 8px;">{{totalQuestions}}</span></h1>
-    <h1>Siguiente</h1>
-    <h1 class="h1___arrow">{{'>'}}</h1>
+    <h1 (click)="nextQuestion.emit()">Siguiente</h1>
+    <h1 (click)="nextQuestion.emit()" class="h1___arrow">{{'>'}}</h1>
 
 </div>

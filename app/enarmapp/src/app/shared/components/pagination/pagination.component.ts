@@ -1,24 +1,22 @@
-import { Component, Input, OnInit} from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 
 @Component({
     selector: 'enarm-pagination',
     templateUrl: './pagination.component.html',
     styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
 
     @Input() currentQuestion = 1;
     @Input() totalQuestions = 1;
+
+    @Output() nextQuestion = new EventEmitter();
     
 
     constructor(
         
     ){
 
-    }
-
-    async ngOnInit(): Promise<void> {
-        
     }
 
 }

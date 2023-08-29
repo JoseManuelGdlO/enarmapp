@@ -25,4 +25,18 @@ export class ExamService{
         })
     }
 
+    selectAnswer(data: any): Promise<any> {
+        console.log('data', data);
+        
+        const url = API_URL + '/exam/save-answer'
+        return new Promise((resolve, reject) => {
+            this.httpclient.put(url, data).subscribe((data: any) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
+
 }

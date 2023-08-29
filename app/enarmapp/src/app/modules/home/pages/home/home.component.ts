@@ -143,5 +143,9 @@ export class HomeComponent implements OnInit {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
+  seeAllExams() {
+    this.router.navigateByUrl('exam/exams')
+  }
+
 
 }

@@ -11,7 +11,7 @@ const ARR_UTILS = require('../libs/utils-arr')
 async function createExam(body) {
 
     try {
-        
+
         const examsUser = await db.query(
             `SELECT id FROM examen WHERE idUsuario = ${body.idUsuario};`
         );
@@ -30,15 +30,15 @@ async function createExam(body) {
 
         const uniqAnswers = getAnswers.filter((value, index, self) => {
             return self.indexOf(value) === index;
-          })
+        })
 
         const getCompleteAswers = await db.query(
             `Select id from pregunta where id NOT IN (${uniqAnswers.toString()}) AND isEspanol = ${body.isEspanol} ORDER BY RAND() LIMIT ${body.numeroPreguntas};`
         );
-        
+
         console.log('complete', getCompleteAswers);
 
-        if(getCompleteAswers.length === 0) {
+        if (getCompleteAswers.length === 0) {
             return 404
         }
 
@@ -53,12 +53,36 @@ async function createExam(body) {
         VALUES (${exam.insertId}, ${pregunta.id}, null);`);
         }
 
+
         return 201
     } catch (error) {
         console.error(error);
         return 405
     }
 
+
+}
+
+/**
+ * 
+ * @param {idExamen, idPregunta, idRespuesta}
+ * @returns 
+ */
+async function saveAnswer(body) {
+
+    try {
+        const result = await db.query(
+            `UPDATE preguntas_examen
+                 SET idRespuesta = ${body.idRespuesta}
+                 WHERE idExamen=${body.idExamen} AND idPregunta=${body.idPregunta}`
+        );
+
+        console.log('result', result);
+        return 201
+    } catch (error) {
+        console.error(error);
+        return 405
+    }
 
 }
 
@@ -94,10 +118,10 @@ async function getExamsListPerUser(id) {
 
     const offset = helper.getOffset(undefined, config.listPerPage);
     const rows = await db.query(
-      `SELECT * 
+        `SELECT * 
       FROM examen WHERE idUsuario = ${id} LIMIT ${offset},${config.listPerPage}`
     );
-    
+
     for (const exam of rows) {
 
         const answers = await db.query(
@@ -106,7 +130,7 @@ async function getExamsListPerUser(id) {
         );
         let responses = 0
         for (const answer of answers) {
-            if(answer.idRespuesta) {
+            if (answer.idRespuesta) {
                 responses++
             }
         }
@@ -116,9 +140,9 @@ async function getExamsListPerUser(id) {
     }
 
     const data = helper.emptyOrRows(rows);
-  
+
     return {
-      data
+        data
     }
 
 }
@@ -131,31 +155,31 @@ async function getExamsListPerUser(id) {
 async function getExamdetail(id) {
 
     let rows = await db.query(
-      `SELECT     E.id, E.numeroPreguntas
+        `SELECT     E.id, E.numeroPreguntas
         , C.idPregunta, C.idRespuesta
         FROM        examen E
         INNER JOIN  preguntas_examen C
         ON      C.idExamen = E.id
         WHERE E.id = ${id}`
     );
-    
+
     const exam = helper.emptyOrRows(rows);
-    if(!exam){
+    if (!exam) {
         return {
-            response: null, 
+            response: null,
             code: 404
         }
     }
 
     let questionResponse = []
 
-    for(let question of exam ) {
+    for (let question of exam) {
         console.log('quesiton', question);
         rows = await db.query(
             `SELECT * 
             FROM pregunta WHERE id = ${question.idPregunta}`
         );
-        
+
         rows[0].idRespuesta = question.idRespuesta
 
         const answers = await db.query(
@@ -176,16 +200,16 @@ async function getExamdetail(id) {
     }
 
     questionResponse = helper.emptyOrRows(questionResponse);
-    if(!questionResponse){
+    if (!questionResponse) {
         return {
-            response: null,            
+            response: null,
             code: 404
         }
     }
-      
+
     return {
-      response: { id: exam.id, questionResponse},
-      code: 200
+        response: { id: exam.id, questionResponse },
+        code: 200
     }
 
 }
@@ -200,5 +224,6 @@ module.exports = {
     addExamType,
     getExamsListPerUser,
     getExamdetail,
-    createExam
+    createExam,
+    saveAnswer
 }
