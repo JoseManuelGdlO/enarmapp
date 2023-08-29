@@ -5,11 +5,11 @@ name: Build and Deploy Node.js app to AWS EC2 - MedBrain
 on:
   #push
   workflow_dispatch:
-    inputs:
-      releaseType:
-        description: 'What to do (build or deploy-front or deploy-back)?'
-        required: true
-        default: 'build'
+    #inputs:
+      #releaseType:
+        #description: 'What to do (build or deploy-front or deploy-back)?'
+        #required: true
+        #default: 'build'
 
 jobs:
   build:
