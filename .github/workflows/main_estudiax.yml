@@ -1,9 +1,15 @@
 # Comment to start the pipeline
 
-name: Build and deploy Node.js app to Azure Web App - estudiax
+name: Build and Deploy Node.js app to AWS EC2 - MedBrain
 
 on:
-  push
+  #push
+  workflow_dispatch:
+    inputs:
+      releaseType:
+        description: 'What to do (build or deploy-front or deploy-back)?'
+        required: true
+        default: 'build'
 
 jobs:
   build:
@@ -29,7 +35,7 @@ jobs:
           cd app/enarmapp
           npm install
       
-  deploy:
+  deploy-back:
     runs-on: ubuntu-latest
     needs: build
     environment:
