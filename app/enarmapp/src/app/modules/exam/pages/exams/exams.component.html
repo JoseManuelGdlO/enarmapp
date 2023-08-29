@@ -1,0 +1,43 @@
+<body>
+    <enarm-header [profile]="user.nombres"></enarm-header>
+    <div class="mt-150 div___moreExams">
+        <div class="div___headerExams mt-20">
+            <h1 class="h1___exams">Exámenes previos</h1>
+        </div>
+        <div *ngIf="exams.length !== 0" class="row mt-30">
+            <div class="col-25">
+                <h5 class="h5___titleTable">EXAMEN</h5>
+            </div>
+            <div class="col-25">
+                <h5 class="h5___titleTable">FECHA</h5>
+            </div>
+            <div class="col-30">
+                <h5 class="h5___titleTable">PROGRESO</h5>
+            </div>
+            <div class="col-20">
+                <h5 class="h5___titleTable">ESTATUS</h5>
+            </div>
+        </div>
+        <div *ngFor="let item of exams" class="row mt-20">
+            <div class="div___line"></div>
+            <div class="col-25">
+                <h5 class="h5___titleTableBody">Examen {{item.id}}</h5>
+            </div>
+            <div class="col-25">
+                <h5 class="h5___titleTableBody">{{item.creationDate | date : 'dd/MM/yy'}}</h5>
+            </div>
+            <div class="col-30">
+                <div style="padding-right: 40px;">
+                    <enarm-mini-progress-bar-exam [percentage]="(item.respondidas*100/item.numeroPreguntas).toString()"
+                        [subtitle]="item.respondidas +'/'+item.numeroPreguntas"></enarm-mini-progress-bar-exam>
+                </div>
+            </div>
+            <div class="col-20">
+                <enarm-status-exam [type]="item.status"></enarm-status-exam>
+            </div>
+        </div>
+        <div class="div___noexamlist" *ngIf="exams.length === 0">
+            <h1 class="h1___exams">Aun no tienes exámenes registrados 😓!</h1>
+        </div>
+    </div>
+</body>
