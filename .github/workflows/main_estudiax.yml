@@ -99,7 +99,7 @@ jobs:
             
   deploy-front:
     runs-on: ubuntu-latest
-    needs: build
+    needs: deploy-back
     environment:
       name: Production
     env:
