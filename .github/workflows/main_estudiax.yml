@@ -38,8 +38,7 @@ jobs:
   deploy-back:
     runs-on: ubuntu-latest
     needs: build
-    environment:
-      name: 'Production'
+    environment: Staging
     env:
       AWS_INSTANCE_SG_ID: ${{ secrets.ID_SG_GHA_MEDBRAIN }}
 
@@ -100,8 +99,7 @@ jobs:
   deploy-front:
     runs-on: ubuntu-latest
     needs: deploy-back
-    environment:
-      name: Production
+    environment: Staging
     env:
       AWS_INSTANCE_SG_ID: ${{ secrets.ID_SG_GHA_MEDBRAIN }}
     steps:
