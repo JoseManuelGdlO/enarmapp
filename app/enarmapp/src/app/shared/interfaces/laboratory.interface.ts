@@ -5,9 +5,9 @@ export interface ILaboratory {
 }
 
 export interface ILaboratorySubcategory {
-    id: number;
-    fk_category: number;
+    id?: number;
+    fk_category?: number;
     name: string;
-    ejemplo: string;
-    valor: string;
+    ejemplo?: string;
+    valor?: string;
 }

@@ -129,6 +129,73 @@ router.get('/laboratory', async function (req, res, next) {
   }
 });
 
+router.post('/laboratory', async function (req, res, next) {
+  try {
+    let body = req.body;
+    const response = await configurations.addLaboratory(body)
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
+router.put('/laboratory', async function (req, res, next) {
+  try {
+    let body = req.body;
+    const response = await configurations.addLaboratory(body)
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
+router.delete('/laboratory', async function (req, res, next) {
+  try {
+    const id = req.query.id;
+    const response = await configurations.removeLaboratory(id)
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
+router.post('/laboratory-subcategory', async function (req, res, next) {
+  try {
+    let body = req.body;
+    const response = await configurations.addLaboratorySubcategory(body)
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
+router.put('/laboratory-subcategory', async function (req, res, next) {
+  try {
+    let body = req.body;
+    const response = await configurations.addLaboratorySubcategory(body)
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
+
+router.delete('/laboratory-subcategory', async function (req, res, next) {
+  try {
+    const id = req.query.id;
+    const response = await configurations.removeLaboratorySubcategory(id)
+    res.status(response.code).json(response.data);
+  } catch (err) {
+    console.error(`Error while getting enarm students info `, err.message);
+    next(err);
+  }
+});
+
 router.get('/frases', async function (req, res, next) {
   try {
     const response = await configurations.getFrases()

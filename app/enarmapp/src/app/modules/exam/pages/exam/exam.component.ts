@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ExamService } from "../../services/exam.service";
 import { ActivatedRoute } from "@angular/router";
 import * as lodash from 'lodash';
+import { AdminService } from "src/app/modules/admin/services/admin.service";
+import { ILaboratory } from "src/app/shared/interfaces/laboratory.interface";
 
 @Component({
   templateUrl: './exam.component.html',
@@ -20,12 +22,17 @@ export class ExamComponent implements OnInit {
   answered = 0
   corrects = 0
   isAnswered = false;
-  isFinish = true
+  isFinish = false
+
+  showLaboratories = false
+
+  Laboratories!: ILaboratory[]
 
   currentQuestion = 1;
 
   constructor(
     public examService: ExamService,
+    public adminService: AdminService,
     public route: ActivatedRoute
   ) {
 
@@ -36,6 +43,18 @@ export class ExamComponent implements OnInit {
       this.examId = params.id;
       this.getExam(params.id);
     });
+
+    this.getLaboratory()
+  }
+
+  async getLaboratory() {
+    try {
+      this.Laboratories = await this.adminService.getLaboratories()
+      console.log('response', this.Laboratories);
+      
+    } catch (error) {
+      console.log('error', error);
+    }
   }
 
   async getExam(id: number): Promise<void> {
@@ -118,6 +137,11 @@ export class ExamComponent implements OnInit {
 
   continue() {
     console.log('continue');
+    
+  }
+
+  openLaboratories() {
+    this.showLaboratories = !this.showLaboratories
     
   }
 

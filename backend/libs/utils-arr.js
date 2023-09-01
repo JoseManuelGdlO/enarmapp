@@ -39,7 +39,30 @@ function CovertArrayString(arr, val) {
     return ids;
 }
 
+/**
+ * 
+ * @param {Array} arr 
+ * @param {String} val
+ */
+function CovertArrayStringComma(arr) {
+    //Recorremos el arreglo 
+    let ids = ''
+
+    let index = 0;
+    arr.forEach(x => {
+        if(index === 0) {
+            ids = '"'+ x + '"'
+        } else {
+            ids = ids + ', "'+ x + '"'
+        }
+        index++
+    })
+
+    return ids;
+}
+
 module.exports = {
     GroupArrBy,
-    CovertArrayString
+    CovertArrayString,
+    CovertArrayStringComma
 }

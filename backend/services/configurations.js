@@ -290,6 +290,113 @@ async function getLaboratories() {
     }
 }
 
+async function addLaboratory(body) {
+    let code = 200;
+    let rows
+
+    if (body.id) {
+        rows = await db.query(
+            `UPDATE laboratory_category SET name = '${body.name}' WHERE id = ${body.id}`
+        );
+    } else {
+        rows = await db.query(
+            `INSERT INTO laboratory_category (name) VALUES ('${body.name}')`
+        );
+    }
+
+    let data = helper.emptyOrRows(rows);
+    if (data.length === 0) {
+        code = 404;
+        return {
+            data,
+            code
+        }
+    }
+
+    return {
+        data,
+        code
+    }
+}
+
+async function removeLaboratory(id) {
+    let code = 200;
+    let rows
+
+    rows = await db.query(
+        `DELETE FROM laboratory_values WHERE fk_category = ${id}`
+    );
+
+    rows = await db.query(
+        `DELETE FROM laboratory_category WHERE id = ${id}`
+    );
+
+
+    let data = helper.emptyOrRows(rows);
+    if (data.length === 0) {
+        code = 404;
+        return {
+            code
+        }
+    }
+
+    return {
+        code
+    }
+}
+
+async function addLaboratorySubcategory(body) {
+    let code = 200;
+    let rows
+
+    if (body.id) {
+        rows = await db.query(
+            `UPDATE laboratory_values SET name = '${body.name}', ejemplo = '${body.ejemplo}', valor = '${body.valor}' WHERE id = ${body.id}`
+        );
+    } else {
+        rows = await db.query(
+            `INSERT INTO laboratory_values (fk_category, name, ejemplo, valor) VALUES (${body.fk_category}, '${body.name}', '${body.ejemplo}', '${body.valor}')`
+        );
+    }
+
+    let data = helper.emptyOrRows(rows);
+    if (data.length === 0) {
+        code = 404;
+        return {
+            data,
+            code
+        }
+    }
+
+    return {
+        data,
+        code
+    }
+}
+
+async function removeLaboratorySubcategory(id) {
+    let code = 200;
+    let rows
+    console.log('id', id);
+
+    rows = await db.query(
+        `DELETE FROM laboratory_values WHERE id = ${id}`
+    )
+
+    let data = helper.emptyOrRows(rows);
+    if (data.length === 0) {
+        code = 404;
+        return {
+            code
+        }
+    }
+
+    return {
+        code
+    }
+
+}
+
 module.exports = {
     getConfigurationPerCode,
     getLaboratories,
@@ -302,5 +409,9 @@ module.exports = {
     getStudnetTypes,
     updateSubscriptions,
     getEnarmDate,
-    getSubscripciones
+    getSubscripciones,
+    removeLaboratory,
+    addLaboratory,
+    addLaboratorySubcategory,
+    removeLaboratorySubcategory
 }

@@ -4,7 +4,7 @@
         <div class="col-10">
             <enarm-questions-bar [questions]="questionbar" [select]="selectedQuestion"></enarm-questions-bar>
         </div>
-        <div class="col-90">
+        <div [ngClass]="{ 'col-90': !showLaboratories, 'col-50': showLaboratories }">
             <div class="div___header">
                 <div *ngIf="fromApiQuesitons" style="width: 280px; margin-right: 80px;">
                     <enarm-mini-progress-bar-exam [questions]="fromApiQuesitons.length" [answered]="answered"
@@ -14,7 +14,7 @@
                     <h5 class="h5___time">Tiempo Restante: </h5>
                     <enarm-timer (onPause)="onPauseTimer()"></enarm-timer>
                 </div>
-                <h2 class="h2___laboratories">Laboratorio</h2>
+                <h2 (click)="openLaboratories()" class="h2___laboratories">Laboratorio</h2>
             </div>
             <div *ngIf="questions" class="div___body">
                 <h4 class="h4___examquestion">
@@ -43,6 +43,33 @@
                             <h1 class="h1___retro"><span style="font-size: 20; font-weight: bold;">Retroalimientacion
                                     <br><br></span>{{answer.retroalimentacion}}</h1>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="showLaboratories" class="col-40 div___laboratories tx-center">
+            <div class="div___laboratory" *ngFor="let laboratory of Laboratories">
+                <h4 class="h4___examquestion" style="border-bottom: 1px solid rgb(149, 19, 193); padding-bottom: 5px;"><strong>{{laboratory.name | titlecase }}</strong></h4>
+                <div class="row div___laboratory___row" style="margin: 0; width: 101%;">
+                    <div class="col-33 div___laboratory___padding div___laboratory___borderRight div___laboratory___border">
+                        <h4 class="h4___examquestion"><strong>Nombre</strong></h4>
+                    </div>
+                    <div class="col-33 div___laboratory___padding div___laboratory___border">
+                        <h4 class="h4___examquestion"><strong>Ejemplo</strong></h4>
+                    </div>
+                    <div class="col-33 div___laboratory___padding div___laboratory___borderLeft div___laboratory___border">
+                        <h4 class="h4___examquestion"><strong>Valor</strong></h4>
+                    </div>
+                </div>
+                <div *ngFor="let sub of laboratory.subcategories; let last = last" class="row div___laboratory___row" style="margin: 0; width: 101%;">
+                    <div class="col-33 div___laboratory___padding div___laboratory___borderRight" [ngClass]="{ 'div___laboratory___border': !last }">
+                        <h4 class="h4___examquestion">{{sub.name }}</h4>
+                    </div>
+                    <div class="col-33 div___laboratory___padding" [ngClass]="{ 'div___laboratory___border': !last }">
+                        <h4 class="h4___examquestion">{{sub.ejemplo }}</h4>
+                    </div>
+                    <div class="col-33 div___laboratory___padding div___laboratory___borderLeft" [ngClass]="{ 'div___laboratory___border': !last }">
+                        <h4 class="h4___examquestion">{{sub.valor }}</h4>
                     </div>
                 </div>
             </div>

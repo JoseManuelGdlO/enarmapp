@@ -11,14 +11,14 @@ import { API_URL } from "src/environments/environment";
 @Injectable({
     providedIn: 'root'
 })
-export class AdminService{
+export class AdminService {
     constructor(
-        public httpclient:HttpClient
-    ){
+        public httpclient: HttpClient
+    ) {
 
     }
 
-    getUsers(): Promise<any>{
+    getUsers(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpclient.get(`${API_URL}/enarm-students`).subscribe((response: any) => {
                 resolve(response);
@@ -26,7 +26,7 @@ export class AdminService{
         })
     }
 
-    getUserTypes(): Promise<Array<IUserType>>{
+    getUserTypes(): Promise<Array<IUserType>> {
         return new Promise((resolve, reject) => {
             this.httpclient.get<IUserType>(`${API_URL}/others/student-type`).subscribe((response: any) => {
                 resolve(response as Array<IUserType>);
@@ -34,7 +34,7 @@ export class AdminService{
         })
     }
 
-    getSusbcriptions(): Promise<Array<ISubscription>>{
+    getSusbcriptions(): Promise<Array<ISubscription>> {
         return new Promise((resolve, reject) => {
             this.httpclient.get(`${API_URL}/others/subscripciones`).subscribe((response: any) => {
                 resolve(response as Array<ISubscription>);
@@ -42,7 +42,7 @@ export class AdminService{
         })
     }
 
-    updateUser(body: any): Promise<any>{
+    updateUser(body: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpclient.put(`${API_URL}/enarm-students/upload-profile`, body).subscribe((response: any) => {
                 resolve(response);
@@ -50,15 +50,15 @@ export class AdminService{
         })
     }
 
-    resetPassword(id: number): Promise<any>{
+    resetPassword(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpclient.put(`${API_URL}/auth/reset-password`, {id}).subscribe((response: any) => {
+            this.httpclient.put(`${API_URL}/auth/reset-password`, { id }).subscribe((response: any) => {
                 resolve(response);
             }, reject);
         })
     }
 
-    updateSubscription(body: any): Promise<any>{
+    updateSubscription(body: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpclient.put(`${API_URL}/others/subscription`, body).subscribe((response: any) => {
                 resolve(response);
@@ -66,7 +66,7 @@ export class AdminService{
         })
     }
 
-    getAllConfigurations(): Promise<Array<IConfiguration>>{
+    getAllConfigurations(): Promise<Array<IConfiguration>> {
         return new Promise((resolve, reject) => {
             this.httpclient.get(`${API_URL}/others/configuration-all`).subscribe((response: any) => {
                 resolve(response as Array<IConfiguration>);
@@ -74,7 +74,7 @@ export class AdminService{
         })
     }
 
-    updateConfigurations(body: any): Promise<any>{
+    updateConfigurations(body: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpclient.put(`${API_URL}/others/configuration`, body).subscribe((response: any) => {
                 resolve(response);
@@ -82,7 +82,7 @@ export class AdminService{
         })
     }
 
-    getLaboratories(): Promise<Array<ILaboratory>>{
+    getLaboratories(): Promise<Array<ILaboratory>> {
         return new Promise((resolve, reject) => {
             this.httpclient.get(`${API_URL}/others/laboratory`).subscribe((response: any) => {
                 resolve(response as Array<ILaboratory>);
@@ -90,7 +90,53 @@ export class AdminService{
         })
     }
 
-    getCategories(): Promise<Array<ICategory>>{
+    updateLaboratory(body: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (body.id) {
+                this.httpclient.put(`${API_URL}/others/laboratory`, body).subscribe((response: any) => {
+                    resolve(response);
+                }, reject);
+                return
+            } else {
+                this.httpclient.post(`${API_URL}/others/laboratory`, { name: body.name }).subscribe((response: any) => {
+                    resolve(response);
+                }, reject);
+            }
+        })
+    }
+
+    removeLaboratory(id: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.httpclient.delete(`${API_URL}/others/laboratory?id=${id}`).subscribe((response: any) => {
+                resolve(response);
+            }, reject);
+        })
+    }
+
+    removeLaboratorySubcategory(id: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.httpclient.delete(`${API_URL}/others/laboratory-subcategory?id=${id}`).subscribe((response: any) => {
+                resolve(response);
+            }, reject);
+        })
+    }
+
+    laboratorySubCategory(body: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (body.id) {
+                this.httpclient.put(`${API_URL}/others/laboratory-subcategory`, body).subscribe((response: any) => {
+                    resolve(response);
+                }, reject);
+                return
+            } else {
+                this.httpclient.post(`${API_URL}/others/laboratory-subcategory`, body).subscribe((response: any) => {
+                    resolve(response);
+                }, reject);
+            }
+        })
+    }
+
+    getCategories(): Promise<Array<ICategory>> {
         return new Promise((resolve, reject) => {
             this.httpclient.get<Array<ICategory>>(`${API_URL}/questions/categories`).subscribe((response: any) => {
                 resolve(response.response as Array<ICategory>);
@@ -98,7 +144,7 @@ export class AdminService{
         })
     }
 
-    addCategory(body: any): Promise<any>{
+    addCategory(body: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpclient.post(`${API_URL}/questions/add-category`, body).subscribe((response: any) => {
                 resolve(response);
@@ -106,7 +152,7 @@ export class AdminService{
         })
     }
 
-    addSubCategory(body: any): Promise<any>{
+    addSubCategory(body: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpclient.post(`${API_URL}/questions/add-subcategory`, body).subscribe((response: any) => {
                 resolve(response);
@@ -114,7 +160,7 @@ export class AdminService{
         })
     }
 
-    editSubCategory(body: any): Promise<any>{
+    editSubCategory(body: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpclient.put(`${API_URL}/questions/edit-subcategory`, body).subscribe((response: any) => {
                 resolve(response);

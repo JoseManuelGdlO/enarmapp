@@ -34,4 +34,15 @@ export class ConfiguratorService {
             })
         })
     }
+
+    addExam(body: any): Promise<any> {
+        const url = API_URL + '/exam/add-exam'
+        return new Promise((resolve, reject) => {
+            this.httpclient.post(url, body).subscribe((data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+        })
+    }
 }

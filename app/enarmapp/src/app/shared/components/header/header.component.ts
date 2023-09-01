@@ -1,5 +1,5 @@
 import { SocialAuthService } from "@abacritt/angularx-social-login";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { PreferencesService } from "../../services/preferences.service";
 
@@ -8,7 +8,7 @@ import { PreferencesService } from "../../services/preferences.service";
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
     @Input() profile = 'Jose';
 
@@ -19,10 +19,6 @@ export class HeaderComponent implements OnInit {
         public preferencesService: PreferencesService,
         public socialAuthService: SocialAuthService
     ) {
-
-    }
-
-    ngOnInit() {
 
     }
 

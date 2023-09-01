@@ -4,6 +4,8 @@ import { IConfigExam, ISubtemas } from "src/app/shared/interfaces/config-exam.in
 import { ConfiguratorService } from "../../services/configurator.service";
 import { ICheckBoxOptions } from "src/app/shared/interfaces/checkbox-options.interface";
 import { IRadioButtonOptions } from "src/app/shared/interfaces/radio-button.interface";
+import { HomeService } from "src/app/modules/home/services/home.service";
+import { PreferencesService } from "src/app/shared/services/preferences.service";
 
 
 @Component({
@@ -26,6 +28,7 @@ export class ConfiguratorComponent implements OnInit {
   title = 'app';
 
   value: number = 20;
+  userId = 0;
 
   slideStop() {
     console.log(this.value);
@@ -45,13 +48,33 @@ export class ConfiguratorComponent implements OnInit {
     { value: 'Modo Estudio', id: 2, selected: false },
     { value: 'Modo Simulador', id: 2, selected: false }
   ]
+  examDate = 0
 
   constructor(
     private configuratorService: ConfiguratorService,
+    private homeService: HomeService,
+    public preferencesService: PreferencesService
   ) { }
 
   async ngOnInit() {
     this.getCategoriesData();
+    this.getExamDate();
+    this.userId = this.preferencesService.getItem('USER').data.id;
+    
+  }
+
+
+  async getExamDate(): Promise<void> {
+    try {
+      const response = await this.homeService.getConfigs('EXAM_DATE')
+      const date = new Date(response)
+      const Difference_In_Time = date.getTime() - new Date().getTime();
+      const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+      this.examDate = Math.round(Difference_In_Days)
+    } catch (error) {
+      console.error(error);
+    }
+
   }
 
   async getCategoriesData() {
@@ -67,14 +90,26 @@ export class ConfiguratorComponent implements OnInit {
   }
 
   getAllValues() {
-    this.configExam.subtemas = this.subtemasArray;
-    this.configExam.filtro_preguntas = this.filtro_preguntas;
-    this.configExam.idioma = this.idioma;
+    this.configExam.subcategories = this.subtemasArray;
+    this.configExam.question_filters = this.filtro_preguntas;
+    this.configExam.idioma = this.idioma == 'Español' ? 1 : 0 ;
     this.configExam.numero_preguntas = this.numero_preguntas;
     this.configExam.simular_enarm = this.simular_enarm;
     this.configExam.modo_examen = this.modo_examen;
+    this.configExam.idUsuario = this.userId
     console.log(this.configExam);
+    this.createExam()
   }
+
+  async createExam() {
+    try {
+      const response = await this.configuratorService.addExam(this.configExam);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   selectCategory(value: any) {
     console.log(value);

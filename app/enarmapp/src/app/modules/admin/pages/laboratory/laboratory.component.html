@@ -15,7 +15,11 @@
         <div class="row">
             <div *ngFor="let lab of laboratory" class="col-4">
                 <div class="card border-primary mb-3" >
-                    <div class="card-header">{{lab.name}}</div>
+                    <div class="card-header">{{lab.name}}
+                        <button type="button" (click)="setValuesForm({name: lab.name, id: lab.id})" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Editar</button>
+                            <button type="button" (click)="deleteLaboratory(lab.id)" class="btn btn-danger">Eliminar</button>
+                    </div>
                     <div class="card-body text-primary">
                         <table class="table table-striped">
                             <thead>
@@ -33,11 +37,19 @@
                                     <td class="col-2 text-truncate">{{ subcategory.ejemplo }}</td>
                                     <td class="col-2 text-truncate">{{ subcategory.valor }}</td>
                                     <td>
-                                        <button type="button" (click)="setValuesForm(subcategory)" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">Editar</button>
+                                        <button type="button" (click)="setValuesFormSubcategory(lab, subcategory)" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalSubcategoria">Editar</button>
+                                            <button type="button" (click)="removeSubcategory(subcategory.id ? subcategory.id : 0)" class="btn btn-danger">Eliminar</button>
                                     </td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <button type="button" (click)="setValuesFormSubcategory(lab)" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalSubcategoria">Añadir Subcategoria</button>
+                                    </td>
+                                </tr>
                         </table>
                     </div>
                 </div>
@@ -58,7 +70,7 @@
                 data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="laboratoryForm" (ngSubmit)="onSubmit()">
         <div class="modal-dialog">
             <div *ngIf="isLoadingModal" style="position: absolute; margin: 50%; z-index: 99;"
                 class="d-flex justify-content-center">
@@ -67,7 +79,7 @@
             </div>
             <div class="modal-content">
                 <div class="modal-header" [ngClass]="{ 'opacity-25' : isLoadingModal}">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edicion de Usuario</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Laboratorio</h1>
                     <button type="button" #myModalClose class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
@@ -75,19 +87,63 @@
 
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Nombre*</span>
+                        <span class="input-group-text" id="basic-addon1">Nombre del examen*</span>
                         <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
                             formControlName="name" required>
+                    </div>
+
+                </div>
+                <div class="modal-footer" [ngClass]="{ 'opacity-25' : isLoadingModal}">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Modal sub categoria -->
+<div class="modal fade" id="modalSubcategoria" tabindex="-1" aria-labelledby="modalSubcategoriaLabel" aria-hidden="true">
+    <div [ngClass]="{'show': error}" class="toast align-items-center text-white bg-danger border-0"
+        style="position: absolute; top: 4%; right: 5%;" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Falta informacion por llenar
+            </div>
+            <button (click)="error = false" type="button" class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    <form [formGroup]="subcategoryForm" (ngSubmit)="onSubmitSubcategory()">
+        <div class="modal-dialog">
+            <div *ngIf="isLoadingModal" style="position: absolute; margin: 50%; z-index: 99;"
+                class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="modal-header" [ngClass]="{ 'opacity-25' : isLoadingModal}">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar subcategoria a {{selectedLaboratory?.name}}</h1>
+                    <button type="button" #myModalSubCategoryClose class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body" [ngClass]="{ 'opacity-25' : isLoadingModal}">
+
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Nombre del examen*</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                            formControlName="name" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Valor*</span>
+                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" formControlName="valor"
+                            required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Ejemplo*</span>
                         <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
                             formControlName="ejemplo" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Valor*</span>
-                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
-                            formControlName="valor" required>
                     </div>
 
                 </div>
@@ -107,6 +163,17 @@
             Datos guardados exitosamente
         </div>
         <button (click)="resultSave = false" type="button" class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
+
+<div [ngClass]="{'show': errorResult.length !== 0}" class="toast align-items-center text-white bg-warning border-0"
+    style="position: absolute; top: 4%; right: 5%; z-index: 1999;" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            {{errorResult}}
+        </div>
+        <button (click)="errorResult = ''" type="button" class="btn-close btn-close-white me-2 m-auto"
             data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
 </div>

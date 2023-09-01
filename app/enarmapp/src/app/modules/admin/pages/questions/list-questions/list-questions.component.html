@@ -30,7 +30,7 @@
                         <tr *ngFor="let question of questions">
                             <td>{{ question.id }}</td>
                             <td>{{ question.clinic_name }}</td>
-                            <td class="col-2 text-truncate"><div [innerHTML]="question.clinic_description"></div></td>
+                            <td class="col-2 text-truncate"><div class="textEdit" [innerHTML]="question.clinic_description"></div></td>
                             <td>{{ question.active === 1 ? 'Activa' : "Desactivada" }}</td>
                             <td>
                                 <button type="button" (click)="chooseQuestion(question)" class="btn btn-primary"

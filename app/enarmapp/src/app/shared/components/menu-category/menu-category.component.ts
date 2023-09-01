@@ -8,6 +8,8 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 export class MenuCategoryComponent {  
     @Input() set getCategories(value:any){
         this.category = value;
+        this.category[0].selected
+        this.selectedCategory.emit(this.category[0]);
     }
     
     @Output() selectedCategory = new EventEmitter<any>()

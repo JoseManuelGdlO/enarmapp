@@ -138,3 +138,43 @@
 .div___resume {
     padding: 10px 10px;
 }
+
+.div___laboratories {
+    height: 100px;
+    padding: 20px 30px;
+}
+
+.div {
+    &___laboratory {
+        border: solid 1px rgb(149, 19, 193);
+        border-radius: 4px;
+        padding: 10px 0 0 0;
+        margin-bottom: 15px;
+
+        &___border {
+            border-bottom: 1px solid rgb(149, 19, 193);
+        }
+
+        &___padding {
+            padding: 10px 0px;
+        }
+
+        &___borderRight {
+            border-right: 1px solid rgb(149, 19, 193);
+        }
+
+        &___borderLeft {
+            border-left: 1px solid rgb(149, 19, 193);
+        }
+
+        &___row {
+            transition: background 0.2s ease-in-out;
+
+        }
+
+        &___row:hover {
+            background: #eb89ff;
+            cursor: pointer;
+        }
+    }
+}

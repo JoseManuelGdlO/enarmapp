@@ -82,6 +82,8 @@ export class SelectComponent {
 
 
   selected(item: any): void {
+    console.log('item', item);
+    
     this.markAsTouched();
     if(this.disabled) {
       return
@@ -116,7 +118,7 @@ export class SelectComponent {
       this.value2 = valueArray2.join(', ')
     }
     this.onChange(this.value);
-    this.onSelected.emit(this.value2)
+    this.onSelected.emit(this.value)
   }
 
   findItem(value: string) {
