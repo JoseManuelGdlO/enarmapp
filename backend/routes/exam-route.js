@@ -21,7 +21,7 @@ router.post('/add-exam', async function(req, res, next) {
       const body = req.body;
       const response = await exam.createExam(body)
       console.log('res', response);
-      res.status(response).json();
+      res.status(response.code).json(response);
     } catch (err) {
       console.error(`Error while getting enarm students info `, err.message);
       next(err);

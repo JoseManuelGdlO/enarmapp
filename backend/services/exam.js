@@ -16,7 +16,7 @@ async function createExam(body) {
     await connection.beginTransaction();
     try {
 
-    console.log('body', body);
+        console.log('body', body);
         let idExams = []
 
         if (body.question_filters.length > 0) {
@@ -31,9 +31,9 @@ async function createExam(body) {
             const answeredIcorrects = body.question_filters.filter(x => x === 'Incorrectas').length > 0 ? true : false
 
             let queryFilters = `SELECT * FROM preguntas_examen WHERE idExamen IN (${idExams.toString()})`
-            
+
             const questionsExams = await db.query(
-                queryFilters           
+                queryFilters
             );
 
             console.log('questionsExams', questionsExams);
@@ -43,10 +43,10 @@ async function createExam(body) {
 
             if (answeredCorrects) {
                 for (const answer of questionsExams) {
-                    if(answer.idRespuesta) {
+                    if (answer.idRespuesta) {
                         const correct = await db.query(`SELECT id FROM respuesta WHERE idPregunta = ${answer.idPregunta} AND isCorrecta = 1`);
-                        if(correct.length !== 0) {
-                           filters.push(answer.idPregunta)
+                        if (correct.length !== 0) {
+                            filters.push(answer.idPregunta)
                         }
 
                     }
@@ -129,13 +129,13 @@ async function createExam(body) {
         console.log('uniqCompleteAnswers', uniqCompleteAnswers);
 
         if (getCompleteAswers.length === 0) {
-            return 404
+            return { code: 404 }
         }
         console.log('pass');
 
         const exam = await db.query(
-            `INSERT INTO examen (idTipo, idUsuario, dificultad, numeroPreguntas, isEspanol, creationDate)
-            VALUES (1, ${body.idUsuario}, ${body.idUsuario}, ${getCompleteAswers.length}, ${body.idioma}, "${new Date().toISOString().split('T')[0] }");`
+            `INSERT INTO examen (idTipo, idUsuario, dificultad, numeroPreguntas, isEspanol, creationDate, study_mode, simulation)
+            VALUES (1, ${body.idUsuario}, ${body.idUsuario}, ${getCompleteAswers.length}, ${body.idioma}, "${new Date().toISOString().split('T')[0]}", ${body.modo_examen}, ${body.simular_enarm});`
         );
 
         console.log('exam', exam);
@@ -149,12 +149,12 @@ async function createExam(body) {
         await connection.commit();
 
 
-        return 201
+        return { code: 201, id: exam.insertId }
     } catch (error) {
         console.error(error);
         connection.rollback();
         console.info('Rollback successful');
-        return 405
+        return { code: 405 }
     }
 
 

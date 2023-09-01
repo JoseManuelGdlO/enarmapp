@@ -8,6 +8,7 @@ import { IRadioButtonOptions } from "../../interfaces/radio-button.interface";
 })
 export class RadioButtonComponent implements OnInit{  
     radioSelected: any;
+    @Input() valueSelect!: string;
     @Input() option: string = "idioma";
     @Input() options:IRadioButtonOptions[] = [
         { value: 'Joto', id: 1, selected: false },
@@ -24,6 +25,7 @@ export class RadioButtonComponent implements OnInit{
     @Output() onSelectedRadio: EventEmitter<IRadioButtonOptions> = new EventEmitter();
 
     ngOnInit(){
+        this.radioSelected = this.valueSelect
         console.log(this.options, "-", this.option);
     }
 

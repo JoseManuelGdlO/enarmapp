@@ -6,7 +6,7 @@ export interface IConfigExam {
     idioma?: number
     numero_preguntas?: number
     simular_enarm?: boolean
-    modo_examen?: string
+    modo_examen?: number
 }
 export interface ISubtemas {
     response:[]

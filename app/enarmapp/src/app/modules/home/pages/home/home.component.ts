@@ -85,19 +85,19 @@ export class HomeComponent implements OnInit {
     this.responsedata = this.preferencesService.getItem<IUser>('USER');
     this.user = this.responsedata.data as IUser
 
-    // switch (this.responsedata.account.estatus) {
-    //   case EAcountStatus.NEW:
-    //     this.isNew = true;
-    //     break;
+    switch (this.responsedata.account.estatus) {
+      case EAcountStatus.NEW:
+        this.isNew = true;
+        break;
 
-    //   case EAcountStatus.TRY:
-    //     this.isTryAccount = true;
-    //     break;
+      case EAcountStatus.TRY:
+        this.isTryAccount = true;
+        break;
 
-    //   case EAcountStatus.EXPIRE:
-    //     this.isExpireAccount = true;
-    //     break;
-    // }
+      case EAcountStatus.EXPIRE:
+        this.isExpireAccount = true;
+        break;
+    }
   }
 
   async getExams() {

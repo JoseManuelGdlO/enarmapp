@@ -1,6 +1,7 @@
 <body>
     <enarm-header></enarm-header>
     <div class="ph-55" style="padding-top: 9%;">
+        <enarm-loading-outlet [isLoading]="isLoading">
         <div class="div___name">
             <h1 class="h1___welcome">Configurador de Examen</h1>
             <h1 class="h1___daystoenarm">
@@ -35,7 +36,7 @@
                 <div class="mt-10">
                     <h5 class="h5___titles">Idioma</h5>
                     <div class="mt-10"></div>
-                    <enarm-radiobutton option="idioma" [options]="optionsRadioButtonLanguage" (onSelectedRadio)="getLanguageValue($event)"></enarm-radiobutton>
+                    <enarm-radiobutton valueSelect="Español" option="idioma" [options]="optionsRadioButtonLanguage" (onSelectedRadio)="getLanguageValue($event)"></enarm-radiobutton>
                 </div>
                 <hr class="hr___divider">
                 <div class="mt-10">
@@ -60,7 +61,7 @@
                         </div>
                     </div>
                     <div class="mt-10"></div>
-                    <enarm-radiobutton option="examen" [options]="optionsRadioButtonMode" (onSelectedRadio)="getModeValue($event)"></enarm-radiobutton>
+                    <enarm-radiobutton option="examen" valueSelect="Modo Estudio" [options]="optionsRadioButtonMode" (onSelectedRadio)="getModeValue($event)"></enarm-radiobutton>
                     <div class="mb-50"></div>
                 </div>
             </div>
@@ -78,5 +79,30 @@
 
             </div>
         </div>
+        </enarm-loading-outlet>
     </div>
 </body>
+
+<div [ngClass]="{'show': errorResult.length !== 0}" class="toast align-items-center text-white bg-danger border-0"
+    style="position: absolute; bottom: 4%; right: 5%; z-index: 1999;" role="alert" aria-live="assertive"
+    aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            {{errorResult}}
+        </div>
+        <button (click)="errorResult = ''" type="button" class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
+
+<div [ngClass]="{'show': success}" class="toast align-items-center text-white bg-success border-0"
+    style="position: absolute; bottom: 4%; right: 5%; z-index: 1999;" role="alert" aria-live="assertive"
+    aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            Examen creado exitosamente
+        </div>
+        <button (click)="errorResult = ''" type="button" class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>

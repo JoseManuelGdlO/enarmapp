@@ -6,6 +6,7 @@ import { ICheckBoxOptions } from "src/app/shared/interfaces/checkbox-options.int
 import { IRadioButtonOptions } from "src/app/shared/interfaces/radio-button.interface";
 import { HomeService } from "src/app/modules/home/services/home.service";
 import { PreferencesService } from "src/app/shared/services/preferences.service";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -15,15 +16,19 @@ import { PreferencesService } from "src/app/shared/services/preferences.service"
 export class ConfiguratorComponent implements OnInit {
 
   error = false;
-  configExam: IConfigExam = {};
+  configExam: IConfigExam = { idioma: 1, modo_examen: 1, simular_enarm: false };
   subtemas!: ISubtemas;
   filtro_preguntas: string[] = [];
   subtemasArray: string[] = [];
-  idioma!: string;
+  idioma = 'Español'
   numero_preguntas!: number;
-  simular_enarm!: boolean;
-  modo_examen!: string;
+  simular_enarm = false;
+  modo_examen = 1;
   subcategorySelected!: ISubtemas;
+  errorResult = ''
+  success = false
+
+  isLoading = true;
 
   title = 'app';
 
@@ -41,7 +46,7 @@ export class ConfiguratorComponent implements OnInit {
     { value: 'Incorrectas', id: 1, selected: false }
   ]
   optionsRadioButtonLanguage: IRadioButtonOptions[] = [
-    { value: 'Español', id: 11, selected: false },
+    { value: 'Español', id: 11, selected: true },
     { value: 'Inglés', id: 10, selected: false }
   ]
   optionsRadioButtonMode: IRadioButtonOptions[] = [
@@ -53,13 +58,15 @@ export class ConfiguratorComponent implements OnInit {
   constructor(
     private configuratorService: ConfiguratorService,
     private homeService: HomeService,
+    public router: Router,
     public preferencesService: PreferencesService
   ) { }
 
   async ngOnInit() {
-    this.getCategoriesData();
-    this.getExamDate();
+    await this.getCategoriesData();
+    await this.getExamDate();
     this.userId = this.preferencesService.getItem('USER').data.id;
+    this.isLoading = false;
     
   }
 
@@ -97,15 +104,29 @@ export class ConfiguratorComponent implements OnInit {
     this.configExam.simular_enarm = this.simular_enarm;
     this.configExam.modo_examen = this.modo_examen;
     this.configExam.idUsuario = this.userId
-    console.log(this.configExam);
+    // console.log(this.configExam);
+    if (!this.configExam.numero_preguntas){
+      this.errorResult = 'Debes seleccionar el número de preguntas'
+      return
+    }
+
+    if(this.configExam.subcategories.length === 0){
+      this.errorResult = 'Debes seleccionar al menos un filtro de preguntas'
+      return
+    }
     this.createExam()
   }
 
   async createExam() {
     try {
+      this.isLoading = true;
       const response = await this.configuratorService.addExam(this.configExam);
       console.log(response);
-    } catch (error) {
+      this.success = true;
+      this.router.navigateByUrl('/exam/work/' + response.id);
+    } catch (error: any) {
+      this.isLoading = false;
+      this.errorResult = error.statusText;
       console.log(error);
     }
   }
@@ -149,7 +170,7 @@ export class ConfiguratorComponent implements OnInit {
   getModeValue(args: IRadioButtonOptions) {
     console.log("Recibo radiobutton value" + args.value + "\n" + args.selected);
     let valor: string = args.value;
-    this.modo_examen = valor;
+    this.modo_examen = valor === 'Modo Estudio' ? 1 : 2;
     console.log(this.modo_examen);
   }
 
