@@ -11,7 +11,7 @@ const othersRouter = require("./routes/others.js");
 
 const cors = require('cors');
 const corsOptions ={
-    origin: 'http://54.86.172.9:4200', 
+    origin: 'http://localhost:4200', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }

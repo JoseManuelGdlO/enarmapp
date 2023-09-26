@@ -15,7 +15,7 @@ export class QuestionsComponent implements OnInit {
     isEdditing = false
     id!: number
 
-    clinicCase: {name: string, category: ISubcategory, image: string, lenguague: string, resume: string, questions: any} = {
+    clinicCase: {name: string, category: ISubcategory, image: any, lenguague: string, resume: string, questions: any} = {
         name: '',
         category: {categoria: '', id: 0, value: '', Nombre: '', fkid_categoria: 0},
         image: '',
@@ -79,13 +79,16 @@ export class QuestionsComponent implements OnInit {
     }
 
     reviewClinickImage(event: any, item:any) {
+        console.log('event', event);
+        
         const selectedfile = event.target.files;
         if (selectedfile.length > 0) {
         const [imageFile] = selectedfile;
         const fileReader = new FileReader();
         fileReader.onload = () => {
             const srcData = fileReader.result;
-            item.image = srcData
+            item.image = { data: srcData, mimetype: imageFile.type, size: imageFile.size }
+            
         };
         fileReader.readAsDataURL(imageFile);
         }

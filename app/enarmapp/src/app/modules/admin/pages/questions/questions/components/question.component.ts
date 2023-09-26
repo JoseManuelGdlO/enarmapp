@@ -69,7 +69,8 @@ export class QuestionComponent implements OnInit {
             const fileReader = new FileReader();
             fileReader.onload = () => {
                 const srcData = fileReader.result;
-                item.image = srcData
+                item.imagen = { data: srcData, mimetype: imageFile.type, size: imageFile.size }
+                
             };
             fileReader.readAsDataURL(imageFile);
         }

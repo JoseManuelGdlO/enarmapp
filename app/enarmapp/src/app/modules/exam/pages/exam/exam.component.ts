@@ -24,6 +24,8 @@ export class ExamComponent implements OnInit {
   isAnswered = false;
   isFinish = false
 
+  examDetail: any
+
   showLaboratories = false
 
   Laboratories!: ILaboratory[]
@@ -60,7 +62,12 @@ export class ExamComponent implements OnInit {
   async getExam(id: number): Promise<void> {
     try {
       const response = await this.examService.getExam(id)
-      console.log('res', response.questionResponse);
+      this.examDetail = response.exam
+
+      if (this.examDetail.study_mode === 1) {
+        this.isAnswered = true
+      }
+      console.log('res', this.examDetail);
       this.fromApiQuesitons = response.questionResponse
       const group = lodash.groupBy(response.questionResponse, 'idCasoclinico');
 
@@ -96,12 +103,13 @@ export class ExamComponent implements OnInit {
 
     try {
       await this.examService.selectAnswer({ idExamen: this.examId, idPregunta: this.questions[this.selectedQuestion.index][this.selectedQuestion.id - 1].id, idRespuesta:answer.id})
+      this.questions[this.selectedQuestion.index][this.selectedQuestion.id - 1].idRespuesta = answer.id
       this.isAnswered = true
       this.answered++
       if(answer.isCorrecta) {
         this.corrects++
       }
-      this.newxtQuestion()
+      this.newxtQuestion('answered')
     } catch(error) {
       console.log('error', error);
     }
@@ -113,7 +121,11 @@ export class ExamComponent implements OnInit {
     console.log('pause');
   }
 
-  newxtQuestion() {
+  newxtQuestion(from = 'button') {
+    // MODO ESTUDIO = 1
+    if (this.examDetail.study_mode === 1 && from !== 'button') {
+      return
+    }
     this.currentQuestion++
     const question  = this.questionbar[this.selectedQuestion.index]
     let index = this.questionbar.findIndex(item => item.id === this.selectedQuestion.clinic)
@@ -130,9 +142,13 @@ export class ExamComponent implements OnInit {
       
     }
 
-    this.selectedQuestion = {clinic, id, index }
-    
-    this.isAnswered = false
+    this.selectedQuestion = { clinic, id, index }
+    // MODO ESTUDIO = 1
+    if (this.examDetail.study_mode === 1 && this.questions[this.selectedQuestion.index][this.selectedQuestion.id - 1].idRespuesta) {
+      this.isAnswered = true
+    } else {
+      this.isAnswered = false
+    }
   }
 
   continue() {

@@ -251,6 +251,20 @@ async function getExamsListPerUser(id) {
  */
 async function getExamdetail(id) {
 
+    let rowDeatil = await db.query(
+        `SELECT *
+        FROM examen 
+        WHERE id = ${id}`
+    );
+
+    const examDetail = helper.emptyOrRows(rowDeatil);
+    if (!examDetail) {
+        return {
+            response: null,
+            code: 404
+        }
+    }
+
     let rows = await db.query(
         `SELECT     E.id, E.numeroPreguntas
         , C.idPregunta, C.idRespuesta
@@ -268,10 +282,10 @@ async function getExamdetail(id) {
         }
     }
 
+
     let questionResponse = []
 
     for (let question of exam) {
-        console.log('quesiton', question);
         rows = await db.query(
             `SELECT * 
             FROM pregunta WHERE id = ${question.idPregunta}`
@@ -305,7 +319,7 @@ async function getExamdetail(id) {
     }
 
     return {
-        response: { id: exam.id, questionResponse },
+        response: { id: exam.id, questionResponse, exam: examDetail[0] },
         code: 200
     }
 

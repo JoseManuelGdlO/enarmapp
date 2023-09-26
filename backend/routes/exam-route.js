@@ -54,7 +54,6 @@ router.put('/save-answer', async function (req, res, next) {
   });
   router.get('/exam-detail', async function(req, res, next) {
     try {
-      console.log('req', req.query);
       const id = Number(req.query.exam);
       const response = await exam.getExamdetail(id)
       res.status(response.code).json(response.response);

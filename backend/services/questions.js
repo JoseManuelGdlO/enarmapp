@@ -2,6 +2,9 @@ const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
 const arrayUtils = require('../libs/utils-arr')
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3({ accessKeyId: 'AKIA6HPBFGT5Q54KAMI7', secretAccessKey: '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' });
 
 /**
  * 
@@ -16,7 +19,23 @@ async function AddQuesiton(body) {
     try {
 
         for (let clinic of body) {
+            if(clinic.imagen) {
+                console.log('2');
+                const imageBuffer = Buffer.from(clinic.imagen.data.split(',')[1], 'base64');
+                console.log('imageBuffer', imageBuffer);
+                const params = {
+                    Bucket: 'enrm-dev-images',
+                    Key: clinic.nombre.split(' ').join('-').trim() + '_' + new Date().getTime().toString() + '.' + clinic.imagen.mimetype.split('/')[1],
+                    Body: imageBuffer,
+                    ACL: 'public-read',
+                    ContentType: clinic.imagen.mimetype,
+                    ContentLength: clinic.imagen.size
+                };
+                const response = await s3.upload(params).promise();
+                clinic.imagen = response.Location
+            }
 
+            console.log('imageBuffer2');
 
             const [caseClinic,] = await connection.execute(
                 `INSERT INTO caso_clinico ( idSubcategoria, nombre, descripcion, imagen, isEspanol)
@@ -24,12 +43,42 @@ async function AddQuesiton(body) {
             );
 
             for (let question of clinic.preguntas) {
+
+
+                if (question.imagen) {
+                    const imageBuffer = Buffer.from(question.imagen.data.split(',')[1], 'base64');
+                    const params = {
+                        Bucket: 'enrm-dev-images',
+                        Key: question.pregunta.split(' ').join('-').trim() + '_' + new Date().getTime().toString() + '.' + question.imagen.mimetype.split('/')[1],
+                        Body: imageBuffer,
+                        ACL: 'public-read',
+                        ContentType: question.imagen.mimetype,
+                        ContentLength: question.imagen.size
+                    };
+                    const response = await s3.upload(params).promise();
+                    question.imagen = response.Location
+                }
+
                 const [rows,] = await connection.execute(
                     `INSERT INTO pregunta (idCasoclinico, orden, pregunta, imagen, subrayadoInicio, subrayadoFin, resumen, bibliografia)
                 VALUES (${caseClinic.insertId},"${question.orden}","${question.pregunta}","${question.imagen}",${question.subrayadoInicio},${question.subrayadoFin},"${question.resumen}","${question.bibliografia}");`
                 );
 
                 for (let pregunta of question.answers) {
+
+                    if(pregunta.imagen) {
+                        const params = {
+                            Bucket: 'enrm-dev-images',
+                            Key: pregunta.imagen.name,
+                            Body: pregunta.imagen.data,
+                            ACL: 'public-read',
+                            ContentType: pregunta.imagen.mimetype,
+                            ContentLength: pregunta.imagen.size
+                        };
+                        const response = await s3.upload(params).promise();
+                        pregunta.imagen = response.Location
+                    }
+
                     await connection.execute(
                         `INSERT INTO respuesta ( idPregunta, respuesta, isCorrecta, retroalimentacion)
                     VALUES (${rows.insertId},"${pregunta.respuesta}",${pregunta.isCorrecta},"${pregunta.retroalimentacion}");`
