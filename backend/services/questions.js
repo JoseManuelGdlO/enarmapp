@@ -20,9 +20,7 @@ async function AddQuesiton(body) {
 
         for (let clinic of body) {
             if(clinic.imagen) {
-                console.log('2');
                 const imageBuffer = Buffer.from(clinic.imagen.data.split(',')[1], 'base64');
-                console.log('imageBuffer', imageBuffer);
                 const params = {
                     Bucket: 'enrm-dev-images',
                     Key: clinic.nombre.split(' ').join('-').trim() + '_' + new Date().getTime().toString() + '.' + clinic.imagen.mimetype.split('/')[1],
@@ -34,8 +32,6 @@ async function AddQuesiton(body) {
                 const response = await s3.upload(params).promise();
                 clinic.imagen = response.Location
             }
-
-            console.log('imageBuffer2');
 
             const [caseClinic,] = await connection.execute(
                 `INSERT INTO caso_clinico ( idSubcategoria, nombre, descripcion, imagen, isEspanol)
