@@ -1,40 +1,42 @@
-<div class="inline-center" style="position: absolute; top: 10%;" [ngStyle]="{ 'height': screenHeight + 'px;' }">
+<body style="background-color: #953193;">    
+    <div class="inline-center" style="position: absolute; top: 10%;" [ngStyle]="{ 'height': screenHeight + 'px;' }">
 
-    <div class="div___content">
-        <h3 class="h3___welcome">¡Bienvenido!</h3>
-        <h1 class="h1___login mt-10">Iniciar sesión</h1>
-        <h4 class="h4___description">Usa tus credenciales para ingresar a Estudia X.</h4>
-        <enarm-loading-outlet [isLoading]="isLoading">
-            <h4 class="h4___fields mt-30">Correo</h4>
-            <div class="mt-5">
-                <enarm-input [(ngModel)]="email" name="email" placeholder="Ingresa tu correo electrónico"></enarm-input>
-            </div>
-            <h4 class="h4___fields mt-30">Contraseña</h4>
-            <div class="mt-5">
-                <enarm-input [(ngModel)]="password" format="password" name="password"
-                    placeholder="Ingresa tu contraseña"></enarm-input>
-            </div>
-            <h4 *ngIf="error" style="color: rgb(164, 23, 23)" class="h4___description tx-center mt-10">Datos incorrectos</h4>
-            <div class="inline-separe mt-20">
-                <h5 class="h5___rememberme"><input type="checkbox" id="cbox1" [(ngModel)]="rememberme"> <span
-                        style="position: absolute; margin-top: 2px;">Recordar</span></h5>
-                <h5 class="h5___forgotpassword">¿Olvidaste tu contraseña?</h5>
-            </div>
-            <div class="mt-30">
-                <enarm-button (onClick)="login()" text="Iniciar sesión"></enarm-button>
+        <div class="div___content">
+            <h3 class="h3___welcome">¡Bienvenido!</h3>
+            <h1 class="h1___login mt-10">Iniciar sesión</h1>
+            <h4 class="h4___description">Usa tus credenciales para ingresar a MedBrain.</h4>
+            <enarm-loading-outlet [isLoading]="isLoading">
+                <h4 class="h4___fields mt-30">Correo</h4>
                 <div class="mt-5">
-                    <enarm-button (onClick)="loginFacebook()" backgroundcolor="#3b5998"
-                        text="Iniciar con facebook"></enarm-button>
+                    <enarm-input [(ngModel)]="email" name="email" placeholder="Ingresa tu correo electrónico"></enarm-input>
                 </div>
-            </div>
-            <div class="tx-center mt-15">
-                <h5 class="h5___singup">¿No tienes una cuenta? <span routerLink="sign-up"
-                        style="color:black; font-weight: 600; cursor: pointer;">Registrarse</span></h5>
-            </div>
-        </enarm-loading-outlet>
-    </div>
-    <div style="padding-top: 10%;">
-        <img class="img___logo" src="assets/images/enarm-logo.png" alt="">
-    </div>
+                <h4 class="h4___fields mt-30">Contraseña</h4>
+                <div class="mt-5">
+                    <enarm-input [(ngModel)]="password" format="password" name="password"
+                        placeholder="Ingresa tu contraseña"></enarm-input>
+                </div>
+                <h4 *ngIf="error" style="color: rgb(164, 23, 23)" class="h4___description tx-center mt-10">Datos incorrectos</h4>
+                <div class="inline-separe mt-20">
+                    <h5 class="h5___rememberme"><input type="checkbox" id="cbox1" [(ngModel)]="rememberme"> <span
+                            style="position: absolute; margin-top: 2px;">Recordar</span></h5>
+                    <h5 class="h5___forgotpassword">¿Olvidaste tu contraseña?</h5>
+                </div>
+                <div class="mt-30">
+                    <enarm-button (onClick)="login()" text="Iniciar sesión"></enarm-button>
+                    <div class="mt-5">
+                        <enarm-button (onClick)="loginFacebook()" [border]="false" backgroundcolor="#953193"
+                            text="Iniciar con facebook"></enarm-button>
+                    </div>
+                </div>
+                <div class="tx-center mt-15">
+                    <h5 class="h5___singup">¿No tienes una cuenta? <span routerLink="sign-up"
+                            style="color:black; font-weight: 600; cursor: pointer;">Registrarse</span></h5>
+                </div>
+            </enarm-loading-outlet>
+        </div>
+        <div style="padding-top: 10%;">
+            <img class="img___logo" src="assets/images/enarm-logo.png" alt="">
+        </div>
 
-</div>
+    </div>
+</body>

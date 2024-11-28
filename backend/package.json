@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "SET AWS_ACCESS_KEY_ID=AKIA6HPBFGT5Q54KAMI7 && SET AWS_SECRET_ACCESS_KEY=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"
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

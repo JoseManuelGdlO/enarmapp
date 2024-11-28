@@ -26,7 +26,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.json({ message: "ok" });
+  res.json({ version: "0.0.1" });
 });
 
 app.use("/enarm-students", enarmStundetsRouter);
