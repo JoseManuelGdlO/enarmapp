@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const exam = require('../services/exam');
+const { verifyToken } = require('../libs/headers');
 
-router.post('/add-type', async function(req, res, next) {
+router.post('/add-type', verifyToken, async function(req, res, next) {
   try {
 
     const body = req.body;
@@ -15,7 +16,7 @@ router.post('/add-type', async function(req, res, next) {
   }
 });
 
-router.post('/add-exam', async function(req, res, next) {
+router.post('/add-exam', verifyToken, async function(req, res, next) {
     try {
   
       const body = req.body;
@@ -28,7 +29,7 @@ router.post('/add-exam', async function(req, res, next) {
     }
 });
 
-router.put('/save-answer', async function (req, res, next) {
+router.put('/save-answer', verifyToken, async function (req, res, next) {
   try {
 
     const body = req.body;
@@ -41,7 +42,7 @@ router.put('/save-answer', async function (req, res, next) {
   }
 });
 
-  router.get('/exam-user-list', async function(req, res, next) {
+  router.get('/exam-user-list', verifyToken, async function(req, res, next) {
     try {
       console.log('req', req.query);
       const id = Number(req.query.user);
@@ -52,7 +53,7 @@ router.put('/save-answer', async function (req, res, next) {
       next(err);
     }
   });
-  router.get('/exam-detail', async function(req, res, next) {
+  router.get('/exam-detail', verifyToken, async function(req, res, next) {
     try {
       const id = Number(req.query.exam);
       const response = await exam.getExamdetail(id)

@@ -3,11 +3,12 @@ const router = express.Router();
 const enarmStudents = require('../services/enarmStudents');
 const headers = require('../libs/headers');
 const fs = require("fs");
+const { verifyToken } = require('../libs/headers');
 
 const upload = require('../libs/storage');
 
 
-router.get('/', async function(req, res, next) {
+router.get('/', verifyToken, async function(req, res, next) {
  
   try {
     res.json(await enarmStudents.getMultiple(req.query.page));
@@ -17,7 +18,7 @@ router.get('/', async function(req, res, next) {
   }
 });
 
-router.put('/upload-profile', async function(req, res, next) {
+router.put('/upload-profile', verifyToken, async function(req, res, next) {
   try {
     let body = req.body;
     res.json(await enarmStudents.updateProfile(body));

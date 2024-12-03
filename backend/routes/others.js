@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const configurations = require('../services/configurations');
+const { verifyToken } = require('../libs/headers');
 
-router.get('/configuration', async function (req, res, next) {
+router.get('/configuration', verifyToken, async function (req, res, next) {
   try {
 
     const code = req.query.code
@@ -14,7 +15,7 @@ router.get('/configuration', async function (req, res, next) {
   }
 });
 
-router.get('/configuration-all', async function (req, res, next) {
+router.get('/configuration-all', verifyToken, async function (req, res, next) {
   try {
     const response = await configurations.getConfiguration()
     res.status(response.code).json(response.data);
@@ -24,7 +25,7 @@ router.get('/configuration-all', async function (req, res, next) {
   }
 });
 
-router.put('/configuration', async function (req, res, next) {
+router.put('/configuration', verifyToken, async function (req, res, next) {
   try {
     let body = req.body;
     const response = await configurations.updateConfiguration(body)
@@ -35,7 +36,7 @@ router.put('/configuration', async function (req, res, next) {
   }
 });
 
-router.get('/configuration-group', async function (req, res, next) {
+router.get('/configuration-group', verifyToken, async function (req, res, next) {
   try {
 
     const group = req.query.group
@@ -47,7 +48,7 @@ router.get('/configuration-group', async function (req, res, next) {
   }
 });
 
-router.get('/universidades', async function (req, res, next) {
+router.get('/universidades', verifyToken, async function (req, res, next) {
   try {
     const response = await configurations.getUniversidades()
     res.status(response.code).json(response.data);
@@ -57,7 +58,7 @@ router.get('/universidades', async function (req, res, next) {
   }
 });
 
-router.get('/frases', async function (req, res, next) {
+router.get('/frases', verifyToken, async function (req, res, next) {
   try {
     const response = await configurations.getFrases()
     res.status(response.code).json(response.data);
@@ -67,7 +68,7 @@ router.get('/frases', async function (req, res, next) {
   }
 });
 
-router.get('/especialidades', async function (req, res, next) {
+router.get('/especialidades', verifyToken, async function (req, res, next) {
   try {
     const response = await configurations.getEspecialidades()
     res.status(response.code).json(response.data);
@@ -77,7 +78,7 @@ router.get('/especialidades', async function (req, res, next) {
   }
 });
 
-router.get('/student-type', async function (req, res, next) {
+router.get('/student-type', verifyToken, async function (req, res, next) {
   try {
     const type = req.query.type;
     const response = await configurations.getStudnetTypes(type)
@@ -88,7 +89,7 @@ router.get('/student-type', async function (req, res, next) {
   }
 });
 
-router.get('/enarm-date', async function (req, res, next) {
+router.get('/enarm-date', verifyToken, async function (req, res, next) {
   try {
     const response = await configurations.getEnarmDate()
     res.status(response.code).json(response.data);
@@ -98,7 +99,7 @@ router.get('/enarm-date', async function (req, res, next) {
   }
 });
 
-router.get('/subscripciones', async function (req, res, next) {
+router.get('/subscripciones', verifyToken, async function (req, res, next) {
   try {
     const response = await configurations.getSubscripciones()
     res.status(response.code).json(response.data);
@@ -108,7 +109,7 @@ router.get('/subscripciones', async function (req, res, next) {
   }
 });
 
-router.put('/subscription', async function (req, res, next) {
+router.put('/subscription', verifyToken, async function (req, res, next) {
   try {
     let body = req.body;
     const response = await configurations.updateSubscriptions(body)
@@ -119,7 +120,7 @@ router.put('/subscription', async function (req, res, next) {
   }
 });
 
-router.get('/laboratory', async function (req, res, next) {
+router.get('/laboratory', verifyToken, async function (req, res, next) {
   try {
     const response = await configurations.getLaboratories()
     res.status(response.code).json(response.data);
@@ -129,7 +130,7 @@ router.get('/laboratory', async function (req, res, next) {
   }
 });
 
-router.post('/laboratory', async function (req, res, next) {
+router.post('/laboratory', verifyToken, async function (req, res, next) {
   try {
     let body = req.body;
     const response = await configurations.addLaboratory(body)
@@ -140,7 +141,7 @@ router.post('/laboratory', async function (req, res, next) {
   }
 });
 
-router.put('/laboratory', async function (req, res, next) {
+router.put('/laboratory', verifyToken, async function (req, res, next) {
   try {
     let body = req.body;
     const response = await configurations.addLaboratory(body)
@@ -151,7 +152,7 @@ router.put('/laboratory', async function (req, res, next) {
   }
 });
 
-router.delete('/laboratory', async function (req, res, next) {
+router.delete('/laboratory', verifyToken, async function (req, res, next) {
   try {
     const id = req.query.id;
     const response = await configurations.removeLaboratory(id)
@@ -162,7 +163,7 @@ router.delete('/laboratory', async function (req, res, next) {
   }
 });
 
-router.post('/laboratory-subcategory', async function (req, res, next) {
+router.post('/laboratory-subcategory', verifyToken, async function (req, res, next) {
   try {
     let body = req.body;
     const response = await configurations.addLaboratorySubcategory(body)
@@ -173,7 +174,7 @@ router.post('/laboratory-subcategory', async function (req, res, next) {
   }
 });
 
-router.put('/laboratory-subcategory', async function (req, res, next) {
+router.put('/laboratory-subcategory', verifyToken, async function (req, res, next) {
   try {
     let body = req.body;
     const response = await configurations.addLaboratorySubcategory(body)
@@ -185,7 +186,7 @@ router.put('/laboratory-subcategory', async function (req, res, next) {
 });
 
 
-router.delete('/laboratory-subcategory', async function (req, res, next) {
+router.delete('/laboratory-subcategory', verifyToken, async function (req, res, next) {
   try {
     const id = req.query.id;
     const response = await configurations.removeLaboratorySubcategory(id)
@@ -196,7 +197,7 @@ router.delete('/laboratory-subcategory', async function (req, res, next) {
   }
 });
 
-router.get('/frases', async function (req, res, next) {
+router.get('/frases', verifyToken, async function (req, res, next) {
   try {
     const response = await configurations.getFrases()
     res.status(response.code).json(response.data);
@@ -206,7 +207,7 @@ router.get('/frases', async function (req, res, next) {
   }
 });
 
-router.get('/especialidades', async function (req, res, next) {
+router.get('/especialidades', verifyToken, async function (req, res, next) {
   try {
     const response = await configurations.getEspecialidades()
     res.status(response.code).json(response.data);

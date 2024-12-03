@@ -1,5 +1,6 @@
+require('dotenv').config();
 const express = require("express");
-const morgan = require('morgan');
+
 const app = express();
 const port = process.env.PORT || 3000;
 const corsOrigin = process.env.CORSORIGIN || 'http://54.86.172.9:4200';
@@ -8,6 +9,7 @@ const authRouter = require("./routes/auth");
 const questionsRouter = require("./routes/questions-route.js");
 const examRouter = require("./routes/exam-route.js");
 const othersRouter = require("./routes/others.js"); 
+const paymentRouter = require("./routes/payment.js"); 
 
 const cors = require('cors');
 const corsOptions ={
@@ -26,7 +28,9 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.json({ version: "0.0.1" });
+  console.log(process.env.STRIPE_SECRET_KEY_TEST);
+  
+  res.json({ version: "0.0.1", prosess: process.env.STRIPE_SECRET_KEY_TEST });
 });
 
 app.use("/enarm-students", enarmStundetsRouter);
@@ -34,6 +38,7 @@ app.use("/auth", authRouter);
 app.use("/questions", questionsRouter);
 app.use("/exam", examRouter);
 app.use("/others", othersRouter);
+app.use("/payment", paymentRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
