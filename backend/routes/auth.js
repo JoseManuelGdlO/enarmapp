@@ -8,7 +8,7 @@ router.post('/login', async function (req, res, next) {
     try {
         const response = await authService.login(req.body)
         if (response.code === 200) {
-            jwt.sign( response, 'secretkey', (err, token) => {
+            jwt.sign( {data: response}, 'secretkey', (err, token) => {
                 res.status(response.code).json({ data: response.data, token });
             })
         } else {
