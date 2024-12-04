@@ -3,10 +3,26 @@ const helper = require('../helper');
 const config = require('../config');
 const ARR_UTILS = require('../libs/utils-arr')
 
+/** 
+ *  @class Response
+ *  @type {Object}
+ *  @property {int} code status code
+ *  @property {int} [id] id of row
+ */
+
 /**
- * 
- * @param { idTipo, idUsuario, dificultad, numeroPreguntas, isEspañol, sucategories: [int] } 
- * @returns 
+ * This create a new exam and all dependencies on database
+ * @param {Object} body - is the body of the request.
+ * @param {int} body.idTipo - is the type of exame (catalog)
+ * @param {int} body.idUsuario - user whom save the row
+ * @param {int} body.dificultad - exam's dificulty
+ * @param {int} body.numero_preguntas - exam's questions number
+ * @param {bool} body.idioma - exam is in spanish
+ * @param {bool} body.modo_examen - exam mode
+ * @param {bool} body.simular_enarm - is sumulated
+ * @param {Array} body.subcategories - exam sub categories
+ * @param {Array} body.question_filters - filter by correct, incorrect and all questions
+ * @return { Response } Respose of process
  */
 async function createExam(body) {
 
@@ -19,7 +35,7 @@ async function createExam(body) {
         console.log('body', body);
         let idExams = []
 
-        if (body.question_filters.length > 0) {
+        if (body.question_filters && body.question_filters.length > 0) {
             const examsUser = await db.query(
                 `SELECT id FROM examen WHERE idUsuario = ${body.idUsuario};`
             );
@@ -135,7 +151,7 @@ async function createExam(body) {
 
         const exam = await db.query(
             `INSERT INTO examen (idTipo, idUsuario, dificultad, numeroPreguntas, isEspanol, creationDate, study_mode, simulation)
-            VALUES (1, ${body.idUsuario}, ${body.idUsuario}, ${getCompleteAswers.length}, ${body.idioma}, "${new Date().toISOString().split('T')[0]}", ${body.modo_examen}, ${body.simular_enarm});`
+            VALUES (${body.idTipo}, ${body.idUsuario}, ${body.idUsuario}, ${getCompleteAswers.length}, ${body.idioma}, "${new Date().toISOString().split('T')[0]}", ${body.modo_examen}, ${body.simular_enarm});`
         );
 
         console.log('exam', exam);
@@ -143,7 +159,7 @@ async function createExam(body) {
         for (let pregunta of uniqCompleteAnswers) {
             await db.query(
                 `INSERT INTO preguntas_examen (idExamen, idPregunta, idRespuesta)
-        VALUES (${exam.insertId}, ${pregunta.id}, null);`);
+                VALUES (${exam.insertId}, ${pregunta.id}, null);`);
         }
 
         await connection.commit();
