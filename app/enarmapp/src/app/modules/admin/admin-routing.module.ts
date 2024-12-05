@@ -12,43 +12,53 @@ import { MasiveQuestions } from './pages/questions/masive-question/masive-questi
 const routes: Routes = [
   {
     path: '',
+    title: 'Admin',
     component: AdminComponent
   },
   {
     path: 'subscripciones',
+    title: 'Subscripciones',
     component: SubscriptionComponent
   },
   {
     path: 'configurations',
+    title:  'Configuraciones',
     component: ConfigurationsComponent
   },
   {
     path: 'questions',
+    title: 'Preguntas',
     children: [
       {
         path: '',
+        title: 'Listado de preguntas',
         component: ListQuestionsComponent
       },
       {
         path: 'add',
+        title: 'Agregar pregunta',
         component: QuestionsComponent
       },
       {
         path: 'edit/:id',
+        title: 'Editar pregunta',
         component: QuestionsComponent
       },
       {
         path: 'masive-questions',
+        title: 'Carga masiva de preguntas',
         component: MasiveQuestions
       }
     ]
   },
   {
     path: 'laboratory',
+    title: 'Laboratorio',
     component: LaboratoryComponent
   },
   {
     path: 'categories',
+    title: 'Categorías',
     component: CategoriesComponent
   }
 ];

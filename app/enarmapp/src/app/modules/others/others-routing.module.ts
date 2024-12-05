@@ -5,6 +5,7 @@ import { PolicyComponent } from "./pages/policy/policy.component";
 const routes: Routes = [
     {
         path: 'privacy-policy',
+        title: 'Política de privacidad',
         component: PolicyComponent
     }
 ];

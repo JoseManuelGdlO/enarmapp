@@ -5,10 +5,12 @@ import { AuthRoutingGuard } from './shared/services/auth-routing.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},{
     path: 'login',
+    title: 'Login',
     loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'home',
+    title: 'Inicio',
     canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/home/home.module').then(
@@ -17,6 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'configurator',
+    title: 'Configurador',
     canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/configurator/configurator.module').then(
@@ -25,6 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'exam',
+    title: 'Examen',
     canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/exam/exam.module').then(
@@ -33,6 +37,7 @@ const routes: Routes = [
   },
   {
     path: 'previous-exams',
+    title: 'Examenes anteriores',
     canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/previous-exams/previous-exams.module').then(
@@ -41,6 +46,7 @@ const routes: Routes = [
   }, 
   {
     path: 'admin',
+    title: 'Administrador',
     canActivate: [AuthRoutingGuard],
     loadChildren: () =>
       import('./modules/admin/admin.module').then(
@@ -49,6 +55,7 @@ const routes: Routes = [
   },
   {
     path: 'others',
+    title: 'Otros',
     loadChildren: () =>
       import('./modules/others/others.module').then(
         (mod) => mod.OthersModule
