@@ -3,3 +3,5 @@ node_modules
 yarn.lock
 backend/package-lock.json
 /docker/mysql_data
+docker/
+docker/mysql/mysql_data
