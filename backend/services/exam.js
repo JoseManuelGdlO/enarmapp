@@ -34,11 +34,13 @@ async function createExam(body) {
 
         console.log('body', body);
         let idExams = []
+        const examsUser = await db.query(
+            `SELECT id FROM examen WHERE idUsuario = ${body.idUsuario};`
+        );
 
-        if (body.question_filters && body.question_filters.length > 0) {
-            const examsUser = await db.query(
-                `SELECT id FROM examen WHERE idUsuario = ${body.idUsuario};`
-            );
+        console.log(examsUser)
+
+        if (examsUser && examsUser.length > 0 && body.question_filters && body.question_filters.length > 0) {
 
             idExams = ARR_UTILS.CovertArrayString(examsUser, 'id')
 

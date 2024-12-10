@@ -57,27 +57,27 @@ async function AddQuesiton(body) {
 
                 const [rows,] = await connection.execute(
                     `INSERT INTO pregunta (idCasoclinico, orden, pregunta, imagen, subrayadoInicio, subrayadoFin, resumen, bibliografia)
-                VALUES (${caseClinic.insertId},"${question.orden}","${question.pregunta}","${question.imagen}",${question.subrayadoInicio},${question.subrayadoFin},"${question.resumen}","${question.bibliografia}");`
+                    VALUES (${caseClinic.insertId},"${question.orden}","${question.pregunta}","${question.imagen}",${question.subrayadoInicio},${question.subrayadoFin},"${question.resumen}","${question.bibliografia}");`
                 );
 
-                for (let pregunta of question.answers) {
+                for (let answer of question.answers) {
 
-                    if(pregunta.imagen) {
+                    if(answer.imagen) {
                         const params = {
                             Bucket: 'enrm-dev-images',
-                            Key: pregunta.imagen.name,
-                            Body: pregunta.imagen.data,
+                            Key: answer.imagen.name,
+                            Body: answer.imagen.data,
                             ACL: 'public-read',
-                            ContentType: pregunta.imagen.mimetype,
-                            ContentLength: pregunta.imagen.size
+                            ContentType: answer.imagen.mimetype,
+                            ContentLength: answer.imagen.size
                         };
                         const response = await s3.upload(params).promise();
-                        pregunta.imagen = response.Location
+                        answer.imagen = response.Location
                     }
 
                     await connection.execute(
-                        `INSERT INTO respuesta ( idPregunta, respuesta, isCorrecta, retroalimentacion)
-                    VALUES (${rows.insertId},"${pregunta.respuesta}",${pregunta.isCorrecta},"${pregunta.retroalimentacion}");`
+                        `INSERT INTO respuesta ( idPregunta, respuesta, isCorrecta, retroalimentacion, imagen)
+                        VALUES (${rows.insertId},"${answer.respuesta}",${answer.isCorrecta},"${answer.retroalimentacion}", "${answer.imagen}");`
                     );
                 }
 
