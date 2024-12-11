@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { QuillEditorComponent } from "ngx-quill";
 import Quill from "quill";
-import { transformTextb64 } from "src/app/shared/utils/transform.utils";
+import { transformTextb64 } from "app/shared/utils/transform.utils";
 
 @Component({
     selector: 'enarm-admin-question',

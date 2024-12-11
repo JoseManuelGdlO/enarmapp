@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { AdminService } from "../../services/admin.service";
-import { ICategory, ISubcategory } from "src/app/shared/interfaces/categories.interface";
-import { ETypeSelection } from "src/app/shared/interfaces/type-selection.enum";
+import { ICategory, ISubcategory } from "app/shared/interfaces/categories.interface";
+import { ETypeSelection } from "app/shared/interfaces/type-selection.enum";
 
 @Component({
     templateUrl: './categories.component.html',

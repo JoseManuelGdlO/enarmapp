@@ -19,13 +19,14 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-top: 12px;
+    padding-left: 20px;
 }
 
 h3 {
     margin: 0;
     width: 100%;
     padding: 14px 15px;
-    font-family: "Manrope";
     font-style: normal;
     font-weight: 500;
     font-size: 15px;

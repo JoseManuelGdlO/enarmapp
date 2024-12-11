@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ISubscription } from "src/app/shared/interfaces/subscriptions.interface";
-import { IUserType } from "src/app/shared/interfaces/user-type.interface";
+import { ISubscription } from "app/shared/interfaces/subscriptions.interface";
+import { IUserType } from "app/shared/interfaces/user-type.interface";
 import { AdminQuestionService } from "../../../services/admin-question.service";
-import { IQuestion } from "src/app/shared/interfaces/question.interface";
+import { IQuestion } from "app/shared/interfaces/question.interface";
 import { Router } from "@angular/router";
-import { transformTextb64 } from "src/app/shared/utils/transform.utils";
+import { transformTextb64 } from "app/shared/utils/transform.utils";
 
 @Component({
     templateUrl: './list-questions.component.html',

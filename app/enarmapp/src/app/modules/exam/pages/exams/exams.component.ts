@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { HomeService } from "src/app/modules/home/services/home.service";
-import { IUser } from "src/app/shared/interfaces/user.interface";
-import { PreferencesService } from "src/app/shared/services/preferences.service";
+import { HomeService } from "app/modules/home/services/home.service";
+import { IUser } from "app/shared/interfaces/user.interface";
+import { PreferencesService } from "app/shared/services/preferences.service";
 
 @Component({
   templateUrl: './exams.component.html',

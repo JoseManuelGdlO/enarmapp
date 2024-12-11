@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { ChartType } from "angular-google-charts";
-import { EAcountStatus } from "src/app/shared/interfaces/account-status.enum";
-import { IUser } from "src/app/shared/interfaces/user.interface";
-import { PreferencesService } from "src/app/shared/services/preferences.service";
+import { EAcountStatus } from "app/shared/interfaces/account-status.enum";
+import { IUser } from "app/shared/interfaces/user.interface";
+import { PreferencesService } from "app/shared/services/preferences.service";
 import { HomeService } from "../../services/home.service";
 import { Router } from "@angular/router";
 
@@ -16,7 +15,6 @@ export class HomeComponent implements OnInit {
   responsedata!: any;
 
   title = 'Browser market shares at a specific website, 2014';
-   type = ChartType.PieChart;
    data = [
       ['Firefox', 45.0],
       ['IE', 26.8],

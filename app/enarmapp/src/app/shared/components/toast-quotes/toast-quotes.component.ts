@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { ConfiguratorService } from "src/app/modules/configurator/services/configurator.service";
+import { ConfiguratorService } from "app/modules/configurator/services/configurator.service";
 
 @Component({
     selector: 'enarm-toast-quotes',

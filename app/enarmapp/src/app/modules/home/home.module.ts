@@ -4,8 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { GoogleChartsModule } from 'angular-google-charts';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
     HomeRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    GoogleChartsModule,
     HttpClientModule,
     SharedModule
   ],

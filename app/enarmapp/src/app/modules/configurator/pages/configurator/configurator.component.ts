@@ -1,11 +1,11 @@
 import { NumberSymbol } from "@angular/common";
 import { Component, EventEmitter, OnInit } from "@angular/core";
-import { IConfigExam, ISubtemas } from "src/app/shared/interfaces/config-exam.interface";
+import { IConfigExam, ISubtemas } from "app/shared/interfaces/config-exam.interface";
 import { ConfiguratorService } from "../../services/configurator.service";
-import { ICheckBoxOptions } from "src/app/shared/interfaces/checkbox-options.interface";
-import { IRadioButtonOptions } from "src/app/shared/interfaces/radio-button.interface";
-import { HomeService } from "src/app/modules/home/services/home.service";
-import { PreferencesService } from "src/app/shared/services/preferences.service";
+import { ICheckBoxOptions } from "app/shared/interfaces/checkbox-options.interface";
+import { IRadioButtonOptions } from "app/shared/interfaces/radio-button.interface";
+import { HomeService } from "app/modules/home/services/home.service";
+import { PreferencesService } from "app/shared/services/preferences.service";
 import { Router } from "@angular/router";
 
 

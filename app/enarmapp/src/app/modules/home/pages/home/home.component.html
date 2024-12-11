@@ -6,7 +6,7 @@
                     style="font-weight: 600; color: black">{{user.nombres}}
                     {{user.apellidos}}</span></h1>
             <h1 class="h1___daystoenarm">
-                <img src="assets/icons/calendar-icon.svg" alt="">
+                <img src="assets/icons/calendar-icon.svg" style="width: 25px;" alt="">
                 Quedan {{examDate}} días para el ENARM 2023, ¡tu puedes!
             </h1>
         </div>
@@ -14,9 +14,6 @@
             <div class="col-50 mt-38">
                 <div *ngIf="currentExam" style="display: flex;" class="pr-25">
                     <div class="col-50">
-                        <google-chart #chart [title]="title" [type]="type" [data]="data" [columnNames]="columnNames"
-                            [options]="options" [width]="width" [height]="height">
-                        </google-chart>
                     </div>
                     <div class="col-50 div__exam">
                         <h3 class="h3___titleexam">Examen actual</h3>
@@ -33,19 +30,19 @@
                         <div class="mt-18">
                             <enarm-progress-bar-exam [percentage]="currentExam ? (currentExam.respondidas*100/currentExam.numeroPreguntas).toString() : ''"></enarm-progress-bar-exam>
                         </div>
-                        <div class="mt-30">
+                        <div class="mtt-30">
                             <enarm-button (onClick)="router.navigateByUrl('exam/work/'+currentExam.id)" text="Retomar examen"></enarm-button>
                         </div>
                     </div>
                 </div>
-                <div class="mt-50 div___moreExams">
-                    <div class="div___headerExams mt-20">
+                <div class="mtt-50 div___moreExams">
+                    <div class="div___headerExams mtt-20">
                         <h1 class="h1___exams">Exámenes previos</h1>
                         <div (click)="seeAllExams()" *ngIf="exams.length !== 0" class="buttonSeeAll">
                             <h3 class="h3___seeAll">Ver todos</h3>
                         </div>
                     </div>
-                    <div *ngIf="exams.length !== 0" class="row mt-30">
+                    <div *ngIf="exams.length !== 0" class="row mtt-30">
                         <div class="col-25">
                             <h5 class="h5___titleTable">EXAMEN</h5>
                         </div>
@@ -111,7 +108,7 @@
                 <li>12 meses - 1300 pesos</li>
             </ul>
         </div>
-        <div class="buttonLeftContainer mt-20">
+        <div class="buttonLeftContainer mtt-20">
             <h4 class="buttonText" numberOfLines={2}>Información acerca de la CLABE como pago</h4>
         </div>
 
@@ -178,9 +175,9 @@
     </enarm-modal>
     <enarm-modal *ngIf="isTryAccount">
         <div style="padding: 0 5%;">
-            <img class="mt-20" style="width: 50%;" src="assets/images/trial-version@4x.png" alt="">
+            <img class="mtt-20" style="width: 50%;" src="assets/images/trial-version@4x.png" alt="">
             <h1 style="margin-top: -40px;">Estas en una version prueba🤘</h1>
-            <h6 class="mt-20">
+            <h6 class="mtt-20">
                 ¡Hola! Queremos compartirte una excelente noticia. Te daremos un acceso de prueba a nuestra plataforma:
                 podrás acceder de manera gratuita a dos exámenes de 10 preguntas cada uno, con el que podrás explorar y
                 experimentar las características y funcionalidades que ofrecemos.
@@ -200,9 +197,9 @@
     </enarm-modal>
     <enarm-modal *ngIf="isExpireAccount">
         <div style="padding: 0 5%;">
-            <img class="mt-20" style="width: 50%;" src="assets/images/expire-account@2x.png" alt="">
+            <img class="mtt-20" style="width: 50%;" src="assets/images/expire-account@2x.png" alt="">
             <h1>Cuenta vencida 😞</h1>
-            <h6 class="mt-20">
+            <h6 class="mtt-20">
                 ¡Hola! Quería comunicarte que hemos detectado que tu cuenta en nuestra plataforma se encuentra vencida
                 debido a una falta de pago. Lamentablemente, esto significa que no podrás acceder a los servicios y
                 beneficios que ofrecemos hasta que se solucione la situación.

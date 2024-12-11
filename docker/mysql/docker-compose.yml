@@ -3,8 +3,10 @@ services:
   mysql:
     image: mysql:8.0 # Usa la imagen oficial si no necesitas un Dockerfile personalizado
     environment:
-      MYSQL_ROOT_PASSWORD: enarm_db
       MYSQL_DATABASE: enarm_db
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: enarm_db
+      MYSQL_PASSWORD: enarm_db
     volumes:
       - "./mysql_data:/var/lib/mysql" # Ruta local relativa para evitar problemas en Windows
     ports:

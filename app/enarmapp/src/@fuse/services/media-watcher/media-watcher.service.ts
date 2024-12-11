@@ -1,55 +1,55 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { FuseConfigService } from '@fuse/services/config';
 import { fromPairs } from 'lodash-es';
 import { map, Observable, ReplaySubject, switchMap } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class FuseMediaWatcherService
+export class FuseMediaWatcherService implements OnInit
 {
     private _onMediaChange: ReplaySubject<{ matchingAliases: string[]; matchingQueries: any }> = new ReplaySubject<{ matchingAliases: string[]; matchingQueries: any }>(1);
 
-    /**
-     * Constructor
-     */
     constructor(
         private _breakpointObserver: BreakpointObserver,
-        private _fuseConfigService: FuseConfigService,
-    )
-    {
+        private _fuseConfigService: FuseConfigService
+    ) {}
+
+    ngOnInit(): void {
         this._fuseConfigService.config$.pipe(
-            map(config => fromPairs(Object.entries(config.screens).map(([alias, screen]) => ([alias, `(min-width: ${screen})`])))),
-            switchMap(screens => this._breakpointObserver.observe(Object.values(screens)).pipe(
-                map((state) =>
-                {
-                    // Prepare the observable values and set their defaults
-                    const matchingAliases: string[] = [];
-                    const matchingQueries: any = {};
+            map(config => 
+                fromPairs(Object.entries(config.screens).map(([alias, screen]) => ([alias, `(min-width: ${screen})`])))
+            ),
+            switchMap(screens =>
+                this._breakpointObserver.observe(Object.values(screens)).pipe(
+                    map((state) => {
+                        // Prepare the observable values and set their defaults
+                        const matchingAliases: string[] = [];
+                        const matchingQueries: any = {};
 
-                    // Get the matching breakpoints and use them to fill the subject
-                    const matchingBreakpoints = Object.entries(state.breakpoints).filter(([query, matches]) => matches) ?? [];
-                    for ( const [query] of matchingBreakpoints )
-                    {
-                        // Find the alias of the matching query
-                        const matchingAlias = Object.entries(screens).find(([alias, q]) => q === query)[0];
+                        // Get the matching breakpoints and use them to fill the subject
+                        const matchingBreakpoints = Object.entries(state.breakpoints).filter(([query, matches]) => matches) ?? [];
+                        for (const [query] of matchingBreakpoints) {
+                            const matchingAliasEntry = Object.entries(screens).find(([alias, q]) => q === query);
+                            if (matchingAliasEntry) {
+                                const matchingAlias = matchingAliasEntry[0];  // If found, get the alias
 
-                        // Add the matching query to the observable values
-                        if ( matchingAlias )
-                        {
-                            matchingAliases.push(matchingAlias);
-                            matchingQueries[matchingAlias] = query;
+                                // Add the matching query to the observable values
+                                matchingAliases.push(matchingAlias);
+                                matchingQueries[matchingAlias] = query;
+                            }
                         }
-                    }
 
-                    // Execute the observable
-                    this._onMediaChange.next({
-                        matchingAliases,
-                        matchingQueries,
-                    });
-                }),
-            )),
+                        // Execute the observable
+                        this._onMediaChange.next({
+                            matchingAliases,
+                            matchingQueries,
+                        });
+                    })
+                )
+            )
         ).subscribe();
     }
+
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors

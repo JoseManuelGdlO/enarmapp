@@ -1,8 +1,14 @@
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from "@abacritt/angularx-social-login";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { PreferencesService } from "src/app/shared/services/preferences.service";
+import { PreferencesService } from "app/shared/services/preferences.service";
 import { LoginService } from "../../services/login.service";
+import { ApexOptions } from "ng-apexcharts";
+/* eslint-disable */
+import { DateTime } from 'luxon';
+
+/* Get the current instant */
+const now = DateTime.now();
 
 @Component({
   templateUrl: './login.component.html',
@@ -16,6 +22,8 @@ export class LoginComponent implements OnInit {
   rememberme = false;
   error = false;
 
+  chartConversions!: ApexOptions;
+
   isLoading = false;
 
   constructor(
@@ -27,8 +35,11 @@ export class LoginComponent implements OnInit {
 
   }
 
+  
+
   async ngOnInit() {
-    this.isLoading = true;
+    this.isLoading = true;// Attach SVG fill fixer to all ApexCharts
+    
     if (await this.preferencesServices.getItem('RMBR')) {
       this.router.navigateByUrl('home')
     }
@@ -42,7 +53,55 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       }
     });
-
+    
+    this.chartConversions = {
+      chart  : {
+          animations: {
+              enabled: false,
+          },
+          fontFamily: 'inherit',
+          foreColor : 'inherit',
+          height    : '100%',
+          type      : 'area',
+          sparkline : {
+              enabled: true,
+          },
+      },
+      colors : ['#38BDF8'],
+      fill   : {
+          colors : ['#38BDF8'],
+          opacity: 0.5,
+      },
+      series : [
+        {
+            name: 'Conversions',
+            data: [4412, 4345, 4541, 4677, 4322, 4123],
+        },
+    ],
+      stroke : {
+          curve: 'smooth',
+      },
+      tooltip: {
+          followCursor: true,
+          theme       : 'dark',
+      },
+      xaxis  : {
+          type      : 'category',
+          categories: [
+            now.minus({days: 47}).toFormat('dd MMM') + ' - ' + now.minus({days: 40}).toFormat('dd MMM'),
+            now.minus({days: 39}).toFormat('dd MMM') + ' - ' + now.minus({days: 32}).toFormat('dd MMM'),
+            now.minus({days: 31}).toFormat('dd MMM') + ' - ' + now.minus({days: 24}).toFormat('dd MMM'),
+            now.minus({days: 23}).toFormat('dd MMM') + ' - ' + now.minus({days: 16}).toFormat('dd MMM'),
+            now.minus({days: 15}).toFormat('dd MMM') + ' - ' + now.minus({days: 8}).toFormat('dd MMM'),
+            now.minus({days: 7}).toFormat('dd MMM') + ' - ' + now.toFormat('dd MMM'),
+        ],
+      },
+      yaxis  : {
+          labels: {
+              formatter: (val): string => val.toString(),
+          },
+      },
+  };
   }
 
   loginFacebook(): void {

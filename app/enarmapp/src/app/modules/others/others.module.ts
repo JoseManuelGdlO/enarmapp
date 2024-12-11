@@ -4,7 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxBootstrapIconsModule, allIcons } from "ngx-bootstrap-icons";
 import { QuillModule } from "ngx-quill";
-import { SharedModule } from "src/app/shared/shared.module";
+import { SharedModule } from "app/shared/shared.module";
 import { OthersRoutingModule } from "./others-routing.module";
 
 @NgModule({

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './pages/admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { allIcons } from 'ngx-bootstrap-icons';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { SubscriptionComponent } from './pages/subscriptions/subscription.component';

@@ -1,12 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ICategory } from "src/app/shared/interfaces/categories.interface";
-import { IConfiguration } from "src/app/shared/interfaces/configurations.interface";
-import { ILaboratory } from "src/app/shared/interfaces/laboratory.interface";
-import { ISubscription } from "src/app/shared/interfaces/subscriptions.interface";
-import { IUserType } from "src/app/shared/interfaces/user-type.interface";
-import { API_URL } from "src/environments/environment";
+import { ICategory } from "app/shared/interfaces/categories.interface";
+import { IConfiguration } from "app/shared/interfaces/configurations.interface";
+import { ILaboratory } from "app/shared/interfaces/laboratory.interface";
+import { ISubscription } from "app/shared/interfaces/subscriptions.interface";
+import { IUserType } from "app/shared/interfaces/user-type.interface";
+import { API_URL } from "environments/environment";
 
 @Injectable({
     providedIn: 'root'

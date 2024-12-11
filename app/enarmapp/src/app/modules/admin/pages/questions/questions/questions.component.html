@@ -15,7 +15,7 @@
                     <div class="col-lg p-0 mb-20">
                         <div class="form-group">
                             <label for="case_name">Nombre del caso clinico</label>
-                            <input type="text" [(ngModel)]="clinicCase.name" name="name" class="form-control mt-5" style="height: 45px;" id="case_name"
+                            <input type="text" [(ngModel)]="clinicCase.name" name="name" class="form-control mtt-5" style="height: 45px;" id="case_name"
                                 aria-describedby="clinicCaseHelp" placeholder="agrega el nombre">
                         </div>
                     </div>
@@ -56,7 +56,7 @@
             </div>
             <div class="mt-30">
                 <label for="descripcion">Descripcion del Caso Clinico</label>
-                <div class="mt-5">
+                <div class="mtt-5">
                     <quill-editor #editor (onEditorChanged)="quillChange($event, clinicCase)" [styles]="{height: '200px'}"  placeholder="ingresa aqui la descripcion"></quill-editor>
                 </div>
             </div>

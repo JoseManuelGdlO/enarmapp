@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { EAcountStatus } from "src/app/shared/interfaces/account-status.enum";
-import { IConfiguration } from "src/app/shared/interfaces/configurations.interface";
-import { ISubscription } from "src/app/shared/interfaces/subscriptions.interface";
-import { IUserType } from "src/app/shared/interfaces/user-type.interface";
+import { EAcountStatus } from "app/shared/interfaces/account-status.enum";
+import { IConfiguration } from "app/shared/interfaces/configurations.interface";
+import { ISubscription } from "app/shared/interfaces/subscriptions.interface";
+import { IUserType } from "app/shared/interfaces/user-type.interface";
 import { AdminService } from "../../services/admin.service";
 
 @Component({

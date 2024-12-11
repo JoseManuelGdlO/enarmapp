@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ExamService } from "../../services/exam.service";
 import { ActivatedRoute } from "@angular/router";
 import * as lodash from 'lodash';
-import { AdminService } from "src/app/modules/admin/services/admin.service";
-import { ILaboratory } from "src/app/shared/interfaces/laboratory.interface";
+import { AdminService } from "app/modules/admin/services/admin.service";
+import { ILaboratory } from "app/shared/interfaces/laboratory.interface";
 
 @Component({
   templateUrl: './exam.component.html',

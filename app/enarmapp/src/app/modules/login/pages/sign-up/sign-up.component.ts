@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { PreferencesService } from "src/app/shared/services/preferences.service";
+import { PreferencesService } from "app/shared/services/preferences.service";
 import { LoginService } from "../../services/login.service";
 
 @Component({

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfiguratorRoutingModule } from './configurator-routing.module';
 import { ConfiguratorComponent } from './pages/configurator/configurator.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { MatSliderModule } from '@angular/material/slider';
 
