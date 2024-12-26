@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl } from "@angular/forms";
 import { EAcountStatus } from "app/shared/interfaces/account-status.enum";
 import { ISubscription } from "app/shared/interfaces/subscriptions.interface";
 import { IUserType } from "app/shared/interfaces/user-type.interface";
@@ -38,6 +38,7 @@ export class AdminComponent implements OnInit {
     nombres: new FormControl(''),
   });
 
+  searchInputControl: UntypedFormControl = new UntypedFormControl();
 
 
   constructor(
@@ -45,6 +46,20 @@ export class AdminComponent implements OnInit {
   ) {
 
   }
+
+    
+    /**
+     * Track by function for ngFor loops
+     *
+     * @param index
+     * @param item
+     */
+    trackByFn(index: number, item: any): any
+    {
+        return item.id || index;
+    }
+
+    
 
   async ngOnInit(): Promise<void> {
     await this.getUsers()
@@ -86,8 +101,9 @@ export class AdminComponent implements OnInit {
 
   }
 
-  setValuesForm(user: any) {
+  setValuesForm(user?: any) {
     this.selectedUser = user;
+    
     this.profileForm.patchValue({
       apellidos: user.apellidos,
       cumpleanos: user.cumpleanos,

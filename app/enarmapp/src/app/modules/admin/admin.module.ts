@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, CurrencyPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -16,6 +16,17 @@ import { QuestionsComponent } from './pages/questions/questions/questions.compon
 import { QuillModule } from 'ngx-quill';
 import { QuestionComponent } from './pages/questions/questions/components/question.component';
 import { MasiveQuestions } from './pages/questions/masive-question/masive-questions.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule, MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -37,7 +48,25 @@ import { MasiveQuestions } from './pages/questions/masive-question/masive-questi
     HttpClientModule,
     QuillModule.forRoot(),
     NgxBootstrapIconsModule.pick(allIcons),
-    SharedModule
+    SharedModule,
+    NgIf,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSortModule,
+    NgFor,
+    NgTemplateOutlet,
+    MatPaginatorModule,
+    NgClass,
+    MatSlideToggleModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatCheckboxModule,
+    MatRippleModule,
+    AsyncPipe,
+    CurrencyPipe
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

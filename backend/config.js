@@ -9,7 +9,7 @@ const config = {
       // local
       host: "127.0.0.1",
       user: "root",
-      password: "enarm_db",
+      password: "Mex5todom!",
       database: "enarm_db",
     },
     listPerPage: 10,

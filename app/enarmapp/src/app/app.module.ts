@@ -9,6 +9,7 @@ import { HeaderBeginInterceptor } from './shared/interceptors/begin-iterceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FuseConfigModule } from './fuse.config';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { AuthInterceptorService } from './shared/services/auth.Interceptor';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,11 @@ import { NgApexchartsModule } from 'ng-apexcharts';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderBeginInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

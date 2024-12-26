@@ -16,10 +16,10 @@ import { FSDocument, FSDocumentElement } from '@fuse/components/fullscreen/fulls
 })
 export class FuseFullscreenComponent implements OnInit
 {
-    @Input() iconTpl: TemplateRef<any>;
-    @Input() tooltip: string;
+    @Input() iconTpl!: TemplateRef<any>;
+    @Input() tooltip!: string;
     private _fsDoc: FSDocument;
-    private _fsDocEl: FSDocumentElement;
+    private _fsDocEl!: FSDocumentElement;
     private _isFullscreen: boolean = false;
 
     /**
@@ -74,7 +74,7 @@ export class FuseFullscreenComponent implements OnInit
      *
      * @private
      */
-    private _getBrowserFullscreenElement(): Element
+    private _getBrowserFullscreenElement(): Element | null
     {
         if ( typeof this._fsDoc.fullscreenElement !== 'undefined' )
         {

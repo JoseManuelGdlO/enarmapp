@@ -35,8 +35,8 @@ export class FuseDrawerComponent implements OnChanges, OnInit, OnDestroy
     private _animationsEnabled: boolean = false;
     private readonly _handleOverlayClick: any;
     private _hovered: boolean = false;
-    private _overlay: HTMLElement;
-    private _player: AnimationPlayer;
+    private _overlay!: HTMLElement | null;
+    private _player!: AnimationPlayer;
 
     /**
      * Constructor
@@ -135,7 +135,7 @@ export class FuseDrawerComponent implements OnChanges, OnInit, OnDestroy
         if ( 'fixed' in changes )
         {
             // Coerce the value to a boolean
-            this.fixed = coerceBooleanProperty(changes.fixed.currentValue);
+            this.fixed = coerceBooleanProperty(changes['fixed'].currentValue);
 
             // Execute the observable
             this.fixedChanged.next(this.fixed);
@@ -145,8 +145,8 @@ export class FuseDrawerComponent implements OnChanges, OnInit, OnDestroy
         if ( 'mode' in changes )
         {
             // Get the previous and current values
-            const previousMode = changes.mode.previousValue;
-            const currentMode = changes.mode.currentValue;
+            const previousMode = changes['mode'].previousValue;
+            const currentMode = changes['mode'].currentValue;
 
             // Disable the animations
             this._disableAnimations();
@@ -185,7 +185,7 @@ export class FuseDrawerComponent implements OnChanges, OnInit, OnDestroy
         if ( 'opened' in changes )
         {
             // Coerce the value to a boolean
-            const open = coerceBooleanProperty(changes.opened.currentValue);
+            const open = coerceBooleanProperty(changes['opened'].currentValue);
 
             // Open/close the drawer
             this._toggleOpened(open);
@@ -202,7 +202,7 @@ export class FuseDrawerComponent implements OnChanges, OnInit, OnDestroy
         if ( 'transparentOverlay' in changes )
         {
             // Coerce the value to a boolean
-            this.transparentOverlay = coerceBooleanProperty(changes.transparentOverlay.currentValue);
+            this.transparentOverlay = coerceBooleanProperty(changes['transparentOverlay'].currentValue);
         }
     }
 
@@ -328,18 +328,18 @@ export class FuseDrawerComponent implements OnChanges, OnInit, OnDestroy
         this._overlay = this._renderer2.createElement('div');
 
         // Add a class to the backdrop element
-        this._overlay.classList.add('fuse-drawer-overlay');
+        this._overlay?.classList.add('fuse-drawer-overlay');
 
         // Add a class depending on the fixed option
         if ( this.fixed )
         {
-            this._overlay.classList.add('fuse-drawer-overlay-fixed');
+            this._overlay?.classList.add('fuse-drawer-overlay-fixed');
         }
 
         // Add a class depending on the transparentOverlay option
         if ( this.transparentOverlay )
         {
-            this._overlay.classList.add('fuse-drawer-overlay-transparent');
+            this._overlay?.classList.add('fuse-drawer-overlay-transparent');
         }
 
         // Append the backdrop to the parent of the drawer
@@ -355,7 +355,7 @@ export class FuseDrawerComponent implements OnChanges, OnInit, OnDestroy
         this._player.play();
 
         // Add an event listener to the overlay
-        this._overlay.addEventListener('click', this._handleOverlayClick);
+        this._overlay?.addEventListener('click', this._handleOverlayClick);
     }
 
     /**
@@ -388,7 +388,7 @@ export class FuseDrawerComponent implements OnChanges, OnInit, OnDestroy
                 this._overlay.removeEventListener('click', this._handleOverlayClick);
 
                 // Remove the overlay
-                this._overlay.parentNode.removeChild(this._overlay);
+                this._overlay?.parentNode?.removeChild(this._overlay);
                 this._overlay = null;
             }
         });

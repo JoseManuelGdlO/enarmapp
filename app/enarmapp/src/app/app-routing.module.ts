@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthRoutingGuard } from './shared/services/auth-routing.guard';
+import { LayoutComponent } from './layout/layout.component';
+import { initialDataResolver } from './app.resolvers';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},{
@@ -48,6 +50,10 @@ const routes: Routes = [
     path: 'admin',
     title: 'Administrador',
     canActivate: [AuthRoutingGuard],
+    component: LayoutComponent,
+    resolve: {
+        initialData: initialDataResolver
+    },
     loadChildren: () =>
       import('./modules/admin/admin.module').then(
         (mod) => mod.AdminModule
