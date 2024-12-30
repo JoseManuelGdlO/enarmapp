@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const exam = require('../services/exam');
 const { verifyToken } = require('../libs/headers');
-const sessionValidator = require('../libs/session');
+// const sessionValidator = require('../libs/session');
 
 router.post('/add-type', verifyToken, async function(req, res, next) {
   try {
@@ -32,7 +32,6 @@ router.post('/add-exam', verifyToken, async function(req, res, next) {
 
 router.put('/save-answer', verifyToken, async function (req, res, next) {
   try {
-
     const body = req.body;
     const response = await exam.saveAnswer(body)
     console.log('res', response);
@@ -43,7 +42,7 @@ router.put('/save-answer', verifyToken, async function (req, res, next) {
   }
 });
 
-  router.get('/exam-user-list', verifyToken, sessionValidator, async function(req, res, next) {
+  router.get('/exam-user-list', verifyToken, async function(req, res, next) {
     try {
       console.log('req', req.query);
       const id = Number(req.query.user);

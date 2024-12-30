@@ -3,7 +3,7 @@ const router = express.Router();
 const authService = require('../services/auth');
 const jwt = require('jsonwebtoken');
 
-const redisClient = require('../libs/redis');
+// const redisClient = require('../libs/redis');
 
 
 router.post('/login', async function (req, res, next) {
@@ -12,14 +12,14 @@ router.post('/login', async function (req, res, next) {
         if (response.code === 200) {
             console.log('response', response);
             
-            const token = await redisClient.get(response.data.data.email);
+            // const token = await redisClient.get(response.data.data.email);
 
-            if (token) {
-                return res.status(401).json({ message: 'Sesión inválida, otra sesión detectada' });
-            }
+            // if (token) {
+            //     return res.status(401).json({ message: 'Sesión inválida, otra sesión detectada' });
+            // }
 
             jwt.sign( {data: response}, 'secretkey', async (err, token) => {
-                await redisClient.set(response.data.data.email, token, 'EX', 3600);
+                // await redisClient.set(response.data.data.email, token, 'EX', 3600);
                 res.status(response.code).json({ data: response.data, token });
             })
         } else {
@@ -34,10 +34,16 @@ router.post('/login', async function (req, res, next) {
 router.post('/login-id', async function (req, res, next) {
     try {
         const response = await authService.loginForId(req.body)
+            
+        // const token = await redisClient.get(response.data.data.email);
+
+        // if (token) {
+        //     return res.status(401).json({ message: 'Sesión inválida, otra sesión detectada' });
+        // }
         if (response.code === 200) {
                 console.log('response', response);
             jwt.sign( response, 'secretkey', async (err, token) => {
-                await redisClient.set(response.data.data.email, token, 'EX', 3600);
+                // await redisClient.set(response.data.data.email, token, 'EX', 3600);
                 res.status(response.code).json({ data: response.data, token });
             })
         } else {

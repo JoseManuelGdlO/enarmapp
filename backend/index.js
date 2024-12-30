@@ -30,7 +30,7 @@ app.use(
 app.get("/", (req, res) => {
   console.log(process.env.STRIPE_SECRET_KEY_TEST);
   
-  res.json({ version: "0.0.2", prosess: process.env.STRIPE_SECRET_KEY_TEST });
+  res.json({ version: "0.0.3", prosess: process.env.STRIPE_SECRET_KEY_TEST });
 });
 
 app.use("/enarm-students", enarmStundetsRouter);
