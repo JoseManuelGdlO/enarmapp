@@ -21,7 +21,7 @@ export class MiniProgressBarExamComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        
+        this.percentage = Math.round(Number(this.percentage)).toString();
     }
 
 }

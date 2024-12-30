@@ -82,7 +82,7 @@
                         <div class="mtt-5">
                             <enarm-input required id="phonenumber" format="number"
                                 [control]="checkoutForm.controls.phonenumber" formControlName="phonenumber"
-                                placeholder="6181020928"></enarm-input>
+                                placeholder="6181028857"></enarm-input>
                         </div>
                     </div>
                 </div>
@@ -93,8 +93,8 @@
                                 (click)="passwordInfo = !passwordInfo" src="assets/icons/question.svg"></h4>
                         <div style="background-color: white; border-radius: 8px; padding: 2vw; margin-bottom: 2vh;"
                             *ngIf="passwordInfo">
-                            <h6>De 7 a 15 caracteres que contengan sólo caracteres, dígitos numéricos, guión bajo y el
-                                primer carácter debe ser una letra</h6>
+                            <h6>La contraseña debe tener entre 8 y 15 caracteres, incluir mayúsculas, minúsculas,
+                                números y al menos un carácter especial</h6>
                         </div>
                         <div class="mtt-5">
                             <enarm-input [required]="!fromSocialMedia" id="password" format="password"
@@ -114,9 +114,15 @@
                         <enarm-button style="width: 100%;" type="submit" text="Registrate"></enarm-button>
                     </div>
                 </div>
-                <alert *ngIf="message" type="danger">
-                    {{message}}
-                </alert>
+                <div *ngIf="message" style="position: absolute;
+                top: 0;
+                width: 30%;
+            ">
+                    <fuse-alert [type]="'warn'" [appearance]="'outline'">
+                        <span fuseAlertTitle>Error</span>
+                        {{message}}
+                    </fuse-alert>
+                </div>
             </div>
 
         </div>

@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { PricingComponent } from './pages/pricing/pricing.component';
 import { FuseCardComponent } from '@fuse/components/card';
+import { FuseAlertComponent } from '@fuse/components/alert';
 
 
 
@@ -41,6 +42,7 @@ import { FuseCardComponent } from '@fuse/components/card';
     NgApexchartsModule,
     MatButtonModule,
     FuseCardComponent,
+    FuseAlertComponent,
     MatIconModule
   ],
   schemas: [

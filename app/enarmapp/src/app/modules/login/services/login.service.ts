@@ -101,7 +101,7 @@ export class LoginService{
     }
 
     logout() {
-        this.preferenceSession.clearAllItems();
-        this.router.navigateByUrl('login');
+        const url = API_URL + '/auth/logout'
+            this.httpclient.post(url, {})
     }
 }
