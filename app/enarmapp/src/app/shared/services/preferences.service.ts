@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { has, isNull } from 'lodash'
+import { has, isNull } from 'lodash-es'
 
 @Injectable({
     providedIn: 'root'

@@ -1,5 +1,5 @@
 const chroma = require('chroma-js');
-const _ = require('lodash');
+const _ = require('lodash-es');
 const fs = require('fs');
 const path = require('path');
 const colors = require('tailwindcss/colors');
