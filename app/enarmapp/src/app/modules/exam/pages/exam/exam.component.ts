@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ExamService } from "../../services/exam.service";
 import { ActivatedRoute } from "@angular/router";
-import * as lodash from 'lodash';
+import * as lodash from 'lodash-es';
 import { AdminService } from "app/modules/admin/services/admin.service";
 import { ILaboratory } from "app/shared/interfaces/laboratory.interface";
 
