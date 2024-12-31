@@ -5,6 +5,7 @@ import { AdminQuestionService } from "../../../services/admin-question.service";
 import { IQuestion } from "app/shared/interfaces/question.interface";
 import { Router } from "@angular/router";
 import { transformTextb64 } from "app/shared/utils/transform.utils";
+import { FormControl, FormGroup, UntypedFormControl } from "@angular/forms";
 
 @Component({
     templateUrl: './list-questions.component.html',
@@ -16,11 +17,31 @@ export class ListQuestionsComponent implements OnInit {
     subscriptions!: Array<ISubscription>;
     isLoadingModal = false
 
+    selectedQuestion!: IQuestion;
+    searchInputControl: UntypedFormControl = new UntypedFormControl();
 
     questions!: Array<IQuestion>
     questionClone!: Array<IQuestion>
 
     isLoading = true
+
+    profileForm = new FormGroup({
+        bibliografia: new FormControl(''),
+        clinic_description: new FormControl(''),
+        clinic_image: new FormControl(''),
+        clinic_isEspanol: new FormControl(''),
+        clinic_name: new FormControl(''),
+        clinic_subcategory: new FormControl(''),
+        id: new FormControl(''),
+        idCasoclinico: new FormControl(''),
+        imagen: new FormControl(''),
+        orden: new FormControl(''),
+        pregunta: new FormControl(''),
+        resumen: new FormControl(''),
+        subrayadoFin: new FormControl(''),
+        subrayadoInicio: new FormControl(''),
+        active: new FormControl('')
+      });
 
     constructor(
         public router: Router,
@@ -36,6 +57,23 @@ export class ListQuestionsComponent implements OnInit {
         this.isLoading = false
 
     }
+
+      setValuesForm(questi?: IQuestion) {
+        this.selectedQuestion = questi ? questi : {} as IQuestion;  
+        if (!questi) {
+          this.profileForm.reset()
+          return
+        }
+        this.profileForm.patchValue({
+          bibliografia: questi.bibliografia,
+          clinic_description: questi.clinic_description,
+          clinic_image: questi.clinic_image,
+          clinic_name: questi.clinic_image,
+          imagen: questi.imagen,
+          pregunta: questi.pregunta,
+          resumen: questi.resumen,
+        });
+      }
 
     async getQuestions() {
         this.questions = await this.adminQuesitonService.getQuestions();
@@ -69,7 +107,16 @@ export class ListQuestionsComponent implements OnInit {
         this.router.navigateByUrl('/admin/questions/masive-questions')
     }
 
-
+    /**
+     * Track by function for ngFor loops
+     *
+     * @param index
+     * @param item
+     */
+    trackByFn(index: number, item: any): any
+    {
+        return item.id || index;
+    }
 
 
 }
