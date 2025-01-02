@@ -9,7 +9,7 @@ import { LoginService } from "../../services/login.service";
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-
+  isMobile = false
   screenHeight = 0;
   checkoutForm = this.formBuilder.group({
     name: ['', Validators.required],
@@ -46,9 +46,28 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.isMobile = this.detectMobileDevice();
+    console.log('¿Es dispositivo móvil?', this.isMobile);
     this.getCatalogues();
     this.getInfo()
     this.screenHeight = window.innerHeight;
+  }
+  
+  detectMobileDevice(): boolean {
+    const userAgent = navigator.userAgent.toLowerCase();
+    console.log('User Agent', userAgent);
+    
+    // Verifica los dispositivos más comunes
+    if (/iphone|ipod|android|blackberry|windows phone|webos|mobile|tablet/i.test(userAgent)) {
+      return true;
+    }
+    
+    // También puedes verificar el tamaño de la ventana, si es menor que un tamaño típico de escritorio
+    if (window.innerWidth <= 800) {
+      return true;
+    }
+
+    return false;
   }
 
   getInfo() {

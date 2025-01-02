@@ -6,6 +6,7 @@ import { LoginService } from "../../services/login.service";
 import { ApexOptions } from "ng-apexcharts";
 /* eslint-disable */
 import { DateTime } from 'luxon';
+import { DeviceDetectorService } from "ngx-device-detector";
 
 /* Get the current instant */
 const now = DateTime.now();
@@ -15,6 +16,7 @@ const now = DateTime.now();
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  isMobile!: boolean;
 
   screenHeight = 0;
   email = '';
@@ -35,78 +37,101 @@ export class LoginComponent implements OnInit {
 
   }
 
-  
-
   async ngOnInit() {
-    this.isLoading = true;// Attach SVG fill fixer to all ApexCharts
-    
+    this.isLoading = true;// Attach SVG fill fixer to all ApexCharts  
+    this.isMobile = this.detectMobileDevice();
+
     if (await this.preferencesServices.getItem('RMBR')) {
       this.router.navigateByUrl('home')
     }
     this.isLoading = false;
     this.screenHeight = window.innerHeight;
-    this.socialAuthService.authState.subscribe((user) => {
+    this.socialAuthService.authState.subscribe((user) => {      
       if (user?.email) {
         this.socialMediaLogin(user)
       } else {
 
         this.isLoading = false;
       }
-    });
-    
+    }, (error) => {
+      this.isLoading = false;
+    }
+    );
+
     this.chartConversions = {
-      chart  : {
-          animations: {
-              enabled: false,
-          },
-          fontFamily: 'inherit',
-          foreColor : 'inherit',
-          height    : '100%',
-          type      : 'area',
-          sparkline : {
-              enabled: true,
-          },
-      },
-      colors : ['#38BDF8'],
-      fill   : {
-          colors : ['#38BDF8'],
-          opacity: 0.5,
-      },
-      series : [
-        {
-            name: 'Conversions',
-            data: [4412, 4345, 4541, 4677, 4322, 4123],
+      chart: {
+        animations: {
+          enabled: false,
         },
-    ],
-      stroke : {
-          curve: 'smooth',
+        fontFamily: 'inherit',
+        foreColor: 'inherit',
+        height: '100%',
+        type: 'area',
+        sparkline: {
+          enabled: true,
+        },
+      },
+      colors: ['#38BDF8'],
+      fill: {
+        colors: ['#38BDF8'],
+        opacity: 0.5,
+      },
+      series: [
+        {
+          name: 'Conversions',
+          data: [4412, 4345, 4541, 4677, 4322, 4123],
+        },
+      ],
+      stroke: {
+        curve: 'smooth',
       },
       tooltip: {
-          followCursor: true,
-          theme       : 'dark',
+        followCursor: true,
+        theme: 'dark',
       },
-      xaxis  : {
-          type      : 'category',
-          categories: [
-            now.minus({days: 47}).toFormat('dd MMM') + ' - ' + now.minus({days: 40}).toFormat('dd MMM'),
-            now.minus({days: 39}).toFormat('dd MMM') + ' - ' + now.minus({days: 32}).toFormat('dd MMM'),
-            now.minus({days: 31}).toFormat('dd MMM') + ' - ' + now.minus({days: 24}).toFormat('dd MMM'),
-            now.minus({days: 23}).toFormat('dd MMM') + ' - ' + now.minus({days: 16}).toFormat('dd MMM'),
-            now.minus({days: 15}).toFormat('dd MMM') + ' - ' + now.minus({days: 8}).toFormat('dd MMM'),
-            now.minus({days: 7}).toFormat('dd MMM') + ' - ' + now.toFormat('dd MMM'),
+      xaxis: {
+        type: 'category',
+        categories: [
+          now.minus({ days: 47 }).toFormat('dd MMM') + ' - ' + now.minus({ days: 40 }).toFormat('dd MMM'),
+          now.minus({ days: 39 }).toFormat('dd MMM') + ' - ' + now.minus({ days: 32 }).toFormat('dd MMM'),
+          now.minus({ days: 31 }).toFormat('dd MMM') + ' - ' + now.minus({ days: 24 }).toFormat('dd MMM'),
+          now.minus({ days: 23 }).toFormat('dd MMM') + ' - ' + now.minus({ days: 16 }).toFormat('dd MMM'),
+          now.minus({ days: 15 }).toFormat('dd MMM') + ' - ' + now.minus({ days: 8 }).toFormat('dd MMM'),
+          now.minus({ days: 7 }).toFormat('dd MMM') + ' - ' + now.toFormat('dd MMM'),
         ],
       },
-      yaxis  : {
-          labels: {
-              formatter: (val): string => val.toString(),
-          },
+      yaxis: {
+        labels: {
+          formatter: (val): string => val.toString(),
+        },
       },
-  };
+    };
+  }
+
+  detectMobileDevice(): boolean {
+    const userAgent = navigator.userAgent.toLowerCase();
+    console.log('User Agent', userAgent);
+    
+    // Verifica los dispositivos más comunes
+    if (/iphone|ipod|android|blackberry|windows phone|webos|mobile|tablet/i.test(userAgent)) {
+      return true;
+    }
+    
+    // También puedes verificar el tamaño de la ventana, si es menor que un tamaño típico de escritorio
+    if (window.innerWidth <= 800) {
+      return true;
+    }
+
+    return false;
   }
 
   loginFacebook(): void {
     this.isLoading = true;
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).catch((error) => {
+      this.isLoading = false;
+      console.log('Error al iniciar sesión con Facebook', error);
+    });
+      
   }
 
   loginGoogle(): void {
