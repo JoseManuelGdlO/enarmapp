@@ -6,7 +6,6 @@ import { LoginService } from "../../services/login.service";
 import { ApexOptions } from "ng-apexcharts";
 /* eslint-disable */
 import { DateTime } from 'luxon';
-import { DeviceDetectorService } from "ngx-device-detector";
 
 /* Get the current instant */
 const now = DateTime.now();
