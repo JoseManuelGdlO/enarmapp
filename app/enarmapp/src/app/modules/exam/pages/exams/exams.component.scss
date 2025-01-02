@@ -1,14 +1,21 @@
 .div___headerExams {
+    @media only screen and (max-width: 500px) {
+      padding-top: 20px;
+      margin-bottom: 20px;
+    }
     display: flex;
     justify-content: space-between;
 }
 
 .div___moreExams {
+    
+  @media only screen and (max-width: 500px) {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
     background: #FFFFFF;
     border: 1px solid #F1F1F1;
     border-radius: 13px;
-    margin-right: 150px;
-    margin-left: 150px;
     padding-left: 26px;
     padding-right: 26px;
     padding-bottom: 20px;

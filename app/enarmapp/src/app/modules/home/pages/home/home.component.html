@@ -1,21 +1,23 @@
 <body>
     <enarm-header [profile]="user.nombres"></enarm-header>
-    <div class="ph-55" style="padding-top: 9%;">
-        <div class="div___name">
-            <h1 *ngIf="user" class="h1___welcome">Bienvenido, <span
+    <div [ngClass]="{'ph-55': !isMobile, 'ph-30': isMobile }" [ngStyle]="{ 'padding-top': !isMobile ? '9%' : '30%' }">
+        <div [ngClass]="{'div___name': !isMobile}">
+            <h1 *ngIf="user" class="h1___welcome" >Bienvenido, <span
                     style="font-weight: 600; color: black">{{user.nombres}}
                     {{user.apellidos}}</span></h1>
             <h1 class="h1___daystoenarm">
-                <img src="assets/icons/calendar-icon.svg" style="width: 25px;" alt="">
-                Quedan {{examDate}} días para el ENARM 2023, ¡tu puedes!
+                <img src="assets/icons/calendar-icon.svg" [ngStyle]="{ 'width': isMobile ? '25px' : '20px'}" alt="">
+                <span [ngStyle]="{ 'padding-top': isMobile ? '5px' : '0', 'padding-left': isMobile ? '5px' : '0' }">
+                    Quedan {{examDate}} días para el ENARM 2023, ¡tu puedes!
+                </span>
             </h1>
         </div>
         <div class="row">
-            <div class="col-50 mtl-38">
-                <div *ngIf="currentExam" style="display: flex;" class="pr-25">
-                    <div class="col-50">
+            <div [ngClass]="{'col-50': !isMobile, 'col-100': isMobile, 'mtl-38': !isMobile}">
+                <div *ngIf="currentExam" [ngStyle]="{'display': !isMobile ? 'flex' : ''}" [ngClass]="{'pr-25': !isMobile}">
+                    <div  [ngClass]="{'col-50': !isMobile, 'col-100': isMobile}">
                     </div>
-                    <div class="col-50 div__exam">
+                    <div class="div__exam" [ngClass]="{'col-50': !isMobile, 'col-100': isMobile}">
                         <h3 class="h3___titleexam">Examen actual</h3>
                         <h4 class="h4___titleexam mtl-14">Examen {{currentExam ? currentExam.id : ''}}</h4>
                         <div class="mtl-8" style="display: flex;"><img src="assets/icons/check-icon.svg" style="width: 6%;" alt="">
@@ -35,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mttl-50 div___moreExams">
+                <div [ngClass]="{ 'mttl-50': !isMobile }" class="div___moreExams">
                     <div class="div___headerExams mttl-20">
                         <h1 class="h1___exams">Exámenes previos</h1>
                         <div (click)="seeAllExams()" *ngIf="exams.length !== 0" class="buttonSeeAll">
@@ -78,8 +80,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-50">
-                <div class="mtl-38 pll-25">
+            <div [ngClass]="{'col-50': !isMobile, 'col-100': isMobile}">
+                <div [ngClass]="{'mtl-38': true, 'pll-25': !isMobile}">
                     <enarm-toast-phrases [encabezado]="phrase.autor"
                         [cuerpo]="phrase.frase"></enarm-toast-phrases>
                     <div class="div___add mtl-38">
@@ -93,7 +95,7 @@
             </div>
         </div>
     </div>
-    <enarm-modal *ngIf="isNew">
+    <!-- <enarm-modal *ngIf="isNew">
         <div style="text-align: center;">
             <img style="width: 50%;" src="assets/images/happines.jpg" alt="">
             <h2>Felicidades</h2>
@@ -216,5 +218,5 @@
                 atención!
             </h6>
         </div>
-    </enarm-modal>
+    </enarm-modal> -->
 </body>
