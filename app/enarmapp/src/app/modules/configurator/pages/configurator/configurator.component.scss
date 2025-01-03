@@ -3,6 +3,11 @@ body {
 }
 
 .h1___welcome {
+  @media only screen and (max-width: 500px) {
+    font-size: 15px;
+    line-height: 10px;
+    text-align: center;
+  }
   font-style: normal;
   font-weight: 600;
   font-size: 32px;
@@ -11,6 +16,12 @@ body {
 }
 
 .h1___daystoenarm {
+  @media only screen and (max-width: 500px) {
+    margin-top: 10px !important;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;
+  }
   font-style: normal;
   font-weight: 400;
   font-size: 24px;

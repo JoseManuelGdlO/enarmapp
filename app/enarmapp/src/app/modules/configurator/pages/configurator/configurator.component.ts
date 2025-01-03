@@ -29,6 +29,7 @@ export class ConfiguratorComponent implements OnInit {
   success = false
 
   isLoading = true;
+  isMobile = false;
 
   title = 'app';
 
@@ -63,11 +64,29 @@ export class ConfiguratorComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.isMobile = this.detectMobileDevice();
     await this.getCategoriesData();
     await this.getExamDate();
     this.userId = this.preferencesService.getItem('USER').data.id;
     this.isLoading = false;
     
+  }
+
+  detectMobileDevice(): boolean {
+    const userAgent = navigator.userAgent.toLowerCase();
+    console.log('User Agent', userAgent);
+    
+    // Verifica los dispositivos más comunes
+    if (/iphone|ipod|android|blackberry|windows phone|webos|mobile|tablet/i.test(userAgent)) {
+      return true;
+    }
+    
+    // También puedes verificar el tamaño de la ventana, si es menor que un tamaño típico de escritorio
+    if (window.innerWidth <= 800) {
+      return true;
+    }
+
+    return false;
   }
 
 
