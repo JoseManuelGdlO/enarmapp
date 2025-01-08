@@ -1,8 +1,37 @@
-<enarm-admin-menu current="questions"></enarm-admin-menu>
+<!-- <enarm-admin-menu current="questions"></enarm-admin-menu> -->
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Preguntas</div>
+        <!-- Actions -->
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Search -->
+            <mat-form-field class="fuse-mat-dense fuse-mat-rounded min-w-64" [subscriptSizing]="'dynamic'">
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:magnifying-glass'"></mat-icon>
+                <input matInput [formControl]="searchInputControl" [autocomplete]="'off'"
+                    [placeholder]="'Buscar preguntas'">
+            </mat-form-field>
+            <!-- Add product button -->
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="chooseQuestion()">
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Añadir Caso Clínico</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="masiveQuestion()">
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Añadir Masivamente</span>
+            </button>
+        </div>
+    </div>
 
-<div class="container-fluid">
+
     <enarm-loading-outlet [isLoading]="isLoading">
-        <p class="h3 mtt-5">Preguntas</p>
+        <!-- <p class="h3 mtt-5">Preguntas</p>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Filtrar</span>
@@ -13,8 +42,45 @@
                 data-bs-target="#exampleModal">Añadir Caso clinico</button>
             <button type="button" (click)="masiveQuestion()" class="btn btn-warning" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">Añadir Masivamente</button>
-        </div>
-        <div class="row">
+        </div> -->
+
+        <div class="flex flex-auto overflow-hidden">
+            <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+                <ng-container *ngIf="questions.length > 0; else noQuestions">
+                    <div class="grid">
+                        <!-- Cabecera -->
+                        <div
+                            class="inventory-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5">
+                            <div class="hidden sm:block">ID</div>
+                            <div>Nombre del Caso Clínico</div>
+                            <div class="hidden lg:block">Resumen</div>
+                            <div class="hidden lg:block">Estatus</div>
+                            <div>Actions</div>
+                        </div>
+
+                        <!-- Filas -->
+                        <ng-container *ngFor="let question of questions; trackBy: trackByFn">
+                            <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+                                <div class="hidden sm:block truncate">{{ question.id }}</div>
+                                <div class="truncate">{{ question.clinic_name }}</div>
+                                <div class="hidden lg:block truncate">{{ question.clinic_description }}</div>
+                                <div class="hidden lg:block truncate">{{ question.active }}</div>
+                                <div>
+                                    <button mat-stroked-button (click)="setValuesForm(question)">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+                <!-- Sin usuarios -->
+                <ng-template #noQuestions>
+                    <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">
+                        No questions found!
+                    </div>
+                </ng-template>
+                <!-- <div class="row">
             <div class="col-12">
                 <table class="table table-striped">
                     <thead>
@@ -39,6 +105,8 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div> -->
             </div>
         </div>
     </enarm-loading-outlet>

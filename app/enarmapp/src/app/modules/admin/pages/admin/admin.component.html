@@ -9,7 +9,7 @@
             <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
         </div>
         <!-- Title -->
-        <div class="text-4xl font-extrabold tracking-tight">Subscripciones</div>
+        <div class="text-4xl font-extrabold tracking-tight">Usuarios</div>
         <!-- Actions -->
         <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
             <!-- Search -->
@@ -24,7 +24,7 @@
                     matInput
                     [formControl]="searchInputControl"
                     [autocomplete]="'off'"
-                    [placeholder]="'Search products'">
+                    [placeholder]="'Buscar usuarios'">
             </mat-form-field>
             <!-- Add product button -->
             <button
@@ -33,7 +33,7 @@
                 [color]="'primary'"
                 (click)="setValuesForm()">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-                <span class="ml-2 mr-1">Add</span>
+                <span class="ml-2 mr-1">Añadir</span>
             </button>
         </div>
     </div>
@@ -47,10 +47,10 @@
                     <!-- Cabecera -->
                     <div
                         class="inventory-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5">
-                        <div class="hidden md:block">ID</div>
+                        <div class="hidden sm:block">ID</div>
                         <div>Email</div>
-                        <div class="hidden md:block">Nombres</div>
-                        <div class="hidden md:block">Apellidos</div>
+                        <div class="hidden lg:block">Nombres</div>
+                        <div class="hidden lg:block">Apellidos</div>
                         <div>Usuario</div>
                         <div class="hidden sm:block">Subscripción</div>
                         <div class="hidden sm:block">Cuenta</div>
@@ -60,10 +60,10 @@
                     <!-- Filas -->
                     <ng-container *ngFor="let user of users.data; trackBy: trackByFn">
                         <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
-                            <div class="hidden md:block truncate">{{ user.id }}</div>
+                            <div class="hidden sm:block truncate">{{ user.id }}</div>
                             <div class="truncate">{{ user.email }}</div>
-                            <div class="hidden md:block truncate">{{ user.nombres }}</div>
-                            <div class="hidden md:block truncate">{{ user.apellidos }}</div>
+                            <div class="hidden lg:block truncate">{{ user.nombres }}</div>
+                            <div class="hidden lg:block truncate">{{ user.apellidos }}</div>
                             <div class="truncate">{{ user.tipo }}</div>
                             <div class="hidden sm:block truncate">{{ user.suscripcion }}</div>
                             <div class="hidden sm:block truncate">{{ user.estatusString }}</div>
