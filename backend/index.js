@@ -4,12 +4,13 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 const corsOrigin = process.env.CORSORIGIN || 'http://54.86.172.9:4200';
-const enarmStundetsRouter = require("./routes/enarmStudents"); 
-const authRouter = require("./routes/auth"); 
-const questionsRouter = require("./routes/questions-route.js");
-const examRouter = require("./routes/exam-route.js");
-const othersRouter = require("./routes/others.js"); 
-const paymentRouter = require("./routes/payment.js"); 
+// const enarmStundetsRouter = require("./routes/enarmStudents"); 
+// const authRouter = require("./routes/auth"); 
+// const questionsRouter = require("./routes/questions-route.js");
+// const examRouter = require("./routes/exam-route.js");
+// const othersRouter = require("./routes/others.js"); 
+// const paymentRouter = require("./routes/payment.js"); 
+const voucherRouter = require("./routes/vouchers.js");
 
 const cors = require('cors');
 const corsOptions ={
@@ -27,18 +28,24 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  console.log(req.url)
+  next()
+})
+
 app.get("/", (req, res) => {
   console.log(process.env.STRIPE_SECRET_KEY_TEST);
   
   res.json({ version: "0.0.1", prosess: process.env.STRIPE_SECRET_KEY_TEST });
 });
 
-app.use("/enarm-students", enarmStundetsRouter);
-app.use("/auth", authRouter);
-app.use("/questions", questionsRouter);
-app.use("/exam", examRouter);
-app.use("/others", othersRouter);
-app.use("/payment", paymentRouter);
+// app.use("/enarm-students", enarmStundetsRouter);
+// app.use("/auth", authRouter);
+// app.use("/questions", questionsRouter);
+// app.use("/exam", examRouter);
+// app.use("/others", othersRouter);
+// app.use("/payment", paymentRouter);
+app.use("/vouchers", voucherRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
