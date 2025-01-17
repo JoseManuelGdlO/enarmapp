@@ -1,81 +1,150 @@
-<body>
-    <!-- Just an image -->
+<!-- Just an image
     <nav style="position: fixed; width: 100%; top: 0%; z-index: 99;" class="navbar navbar-dark bg-dark p-lg-3">
         <a class="navbar-brand pl-4 " style="cursor: pointer;" (click)="router.navigateByUrl('/admin/questions')">
             <i-bs name="arrow-return-left" width="30" height="30"></i-bs> Regresar
         </a>
-    </nav>
+    </nav> -->
 
-    <div style="height: 80px;"></div>
-    <div class="p-4 m-5 border-4 shadow-lg">
-        <h4>Agregar casos clinicos</h4>
-        <form>
-            <div class="w-100 float-start">
-                <div class="row">
-                    <div class="col-lg p-0 mb-20">
+<!-- <div style="height: 80px;"></div>
+    <div class="p-4 m-5 border-4 shadow-lg"> -->
+<div class="flex flex-col flex-auto w-full">
+
+    <div class="flex flex-wrap w-full p-6 md:p-8">
+
+        <div class="flex items-center justify-between w-full">
+            <div>
+                <div class="text-4xl font-semibold tracking-tight leading-8">Agregar Casos Clínicos</div>
+                <div class="font-medium tracking-tight text-secondary mt-2">Agrega casos clínicos con sus preguntas y
+                    respuestas</div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 gap-8 w-full mt-8">
+            <form>
+                <div class="w-100 float-start">
+                    <div class="col-lg mb-3">
                         <div class="form-group">
-                            <label for="case_name">Nombre del caso clinico</label>
-                            <input type="text" [(ngModel)]="clinicCase.name" name="name" class="form-control mtt-5" style="height: 45px;" id="case_name"
-                                aria-describedby="clinicCaseHelp" placeholder="agrega el nombre">
+                            <div for="case_name" class="text-xl font-semibold tracking-tight leading-8">Nombre del
+                                caso clinico</div>
+                            <mat-form-field class="fuse-mat-dense fuse-mat min-w-64" [subscriptSizing]="'dynamic'">
+                                <input matInput [(ngModel)]="clinicCase.name" [autocomplete]="'off'"
+                                    [placeholder]="'agrega el nombre aquí'">
+                            </mat-form-field>
                         </div>
                     </div>
                     <div class="col-lg">
-                        <div *ngIf="categories.length > 0" class="form-group">
-                            <label for="case_category">Selecciona la categoria</label>
-                            <enarm-select id="case_category" [setitems]="categories" (onSelected)="clinicCase.category = $event" [multiple]="false"></enarm-select>
+                        <div *ngIf="categories.length > 0" class="form-group mb-5">
+                            <div for="case_category" class="text-xl font-semibold tracking-tight leading-8">Selecciona
+                                la categoria</div>
+                            <enarm-select id="case_category" [setitems]="categories"
+                                (onSelected)="clinicCase.category = $event" [multiple]="false"></enarm-select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="mb-4 d-flex justify-content-center">
+                            <img [src]="clinicCase.image ? clinicCase.image.data : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg'"
+                                alt="example placeholder" style="width: 300px; height: 200px; object-fit: contain;" />
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="btn btn-primary btn-rounded">
+                                <label class="form-label text-white m-1" for="customFile1" style="display: none;">Selecciona
+                                    archivo</label>
+                                <input type="file" name="image" accept="image/png, image/gif, image/jpeg"
+                                    (change)="reviewClinickImage($event, clinicCase)" class="form-control d-none"
+                                    id="customFile1" />
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg">
-                        <div>
-                            <div class="mb-4 d-flex justify-content-center">
-                                <img [src]="clinicCase.image ? clinicCase.image.data : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg'"
-                                    alt="example placeholder" style="width: 300px; height: 200px; object-fit: contain;" />
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <div class="btn btn-primary btn-rounded">
-                                    <label class="form-label text-white m-1" for="customFile1">Selecciona archivo</label>
-                                    <input type="file" name="image" accept="image/png, image/gif, image/jpeg" (change)="reviewClinickImage($event, clinicCase)" class="form-control d-none" id="customFile1" />
+                    <div for="case_category" class="text-xl font-semibold tracking-tight leading-8 mt-2">Idioma del caso
+                        clinico<br></div>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradioLen" [(ngModel)]="clinicCase.lenguague"
+                            id="radioEsp" value="es" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="radioEsp">Español</label>
+
+                        <input type="radio" class="btn-check" name="btnradioLen" [(ngModel)]="clinicCase.lenguague"
+                            id="radioEng" value="en" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="radioEng">Ingles</label>
+                    </div>
+                    <div class="w-full mt-5">
+                        <div for="descripcion" class="text-xl font-semibold tracking-tight leading-8 mb-3">Descripcion del Caso Clinico</div>
+                        <div class="mtt-5">
+                            <quill-editor #editor (onEditorChanged)="quillChange($event, clinicCase)"
+                                [styles]="{height: '200px'}" placeholder="ingresa aqui la descripcion"></quill-editor>
+                        </div>
+                    </div>
+                    <div class="mt-5 mb-5">
+                        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="addQuestion()">
+                            <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                            <span class="ml-2 mr-1">Añadir Pregunta</span>
+                        </button>
+                        <!-- <div *ngFor="let question of clinicCase.questions; index as index; first as first">
+                            <hr *ngIf="!first" class="border border-info border-2 opacity-50">
+                            <enarm-admin-question [index]="index" [question]="question"
+                                (remove)="removeQuestion(index)"></enarm-admin-question>
+                        </div> -->
+                        <div class="space-y-4 mt-5">
+                            <div *ngFor="let question of clinicCase.questions; index as index">
+                                <div>
+                                    <!-- Accordion Header -->
+                                     <div class="flex itemx-center space-x-2">
+                                    <!-- Delete Question Button -->
+                                    <button class="p-1"
+                                        (click)="removeQuestion(index); $event.stopPropagation()" title="Eliminar">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+                                            <path
+                                                d="M15 3H9a1 1 0 00-1 1v1H4a1 1 0 000 2h16a1 1 0 000-2h-4V4a1 1 0 00-1-1zm-8 6v10a3 3 0 003 3h6a3 3 0 003-3V9H7zm6 9a1 1 0 01-2 0v-6a1 1 0 012 0v6z" />
+                                        </svg>
+<!-- 
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                          </svg> -->
+                                          
+                                    </button>
+                                    <!-- Expand/Collapse Button -->
+                                    <button
+                                        (click)="toggleAccordion(index)"
+                                        class="w-full text-left px-4 py-2 bg-gray-200 rounded-md flex justify-between items-center"
+                                    >
+                                        <span class="text-lg font-medium font-semibold">Pregunta {{ index + 1 }}</span>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="w-5 h-5 transform transition-transform"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                            [class.rotate-180]="isOpen(index)"
+                                        >
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                        
+                                    <!-- Accordion Content -->
+                                    <div
+                                        *ngIf="isOpen(index)"
+                                        class="p-4 bg-gray-100 rounded-md"
+                                    >
+                                        <enarm-admin-question [index]="index" [question]="question" (remove)="removeQuestion(index)">
+                                        </enarm-admin-question>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
+                        
                     </div>
-                    <div class="col-lg">
-                        <h6 for="case_category">Idioma del caso clinico<br></h6>
-                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="btnradioLen" [(ngModel)]="clinicCase.lenguague" id="radioEsp" value="es" autocomplete="off"
-                                checked>
-                            <label class="btn btn-outline-primary" for="radioEsp">Español</label>
-
-                            <input type="radio" class="btn-check" name="btnradioLen" [(ngModel)]="clinicCase.lenguague" id="radioEng" value="en" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="radioEng">Ingles</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-30">
-                <label for="descripcion">Descripcion del Caso Clinico</label>
-                <div class="mtt-5">
-                    <quill-editor #editor (onEditorChanged)="quillChange($event, clinicCase)" [styles]="{height: '200px'}"  placeholder="ingresa aqui la descripcion"></quill-editor>
-                </div>
-            </div>
-
-            <!-- preguntas -->
-            <div class="mt-18 mb-25">
-                <button (click)="addQuestion()" class="btn btn-success">Añadir Pregunta</button>
-                <div *ngFor="let question of clinicCase.questions; index as index; first as first">
-                    <hr *ngIf="!first" class="border border-info border-2 opacity-50">
-                    <enarm-admin-question [index]="index" [question]="question" (remove)="removeQuestion(index)"></enarm-admin-question> 
-                </div>  
-            </div>
-
-            <button (click)="save()" class="btn btn-primary">Guardar caso clinico</button>
-        </form>
+                    <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                        <mat-icon [svgIcon]="'heroicons_outline:bookmark-square'"></mat-icon>
+                        <span class="ml-2 mr-1">Guardar Caso Clínico</span>
+                    </button>
+            </form>
+        </div>
     </div>
-
-</body>
-
+</div>
 
 <div [ngClass]="{'show': showError.length !== 0}" class="toast align-items-center text-white bg-danger border-0"
     style="position: fixed; top: 9%;" role="alert" aria-live="assertive" aria-atomic="true">

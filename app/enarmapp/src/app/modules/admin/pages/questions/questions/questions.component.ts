@@ -14,6 +14,7 @@ export class QuestionsComponent implements OnInit {
 
     isEdditing = false
     id!: number
+    openIndex: number | null = null;
 
     clinicCase: {name: string, category: ISubcategory, image: any, lenguague: string, resume: string, questions: any} = {
         name: '',
@@ -63,6 +64,14 @@ export class QuestionsComponent implements OnInit {
                 this.getQuestion()
             }
         });
+    }
+
+    toggleAccordion(index: number): void {
+        this.openIndex = this.openIndex === index ? null : index;
+    }
+
+    isOpen(index: number): boolean {
+        return this.openIndex === index;
     }
 
     getQuestion() {
@@ -130,6 +139,7 @@ export class QuestionsComponent implements OnInit {
     }
 
     removeQuestion(index: number) {
+        console.log("The number of questions is: ", index)
         if (this.clinicCase.questions.length > 1){
             this.clinicCase.questions.splice(index, 1)
         } else {
@@ -138,6 +148,7 @@ export class QuestionsComponent implements OnInit {
     }
    
     async save() {
+        debugger;
         this.showError = ''
         if (this.clinicCase.name === '' || this.clinicCase.category.Nombre === '' || this.clinicCase.resume === ''){
             this.showError = 'Los campos Nombre, categoria y/o resumen son requeridos'
