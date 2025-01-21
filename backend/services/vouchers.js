@@ -1,111 +1,59 @@
 const voucherModel = require("../storage/models/voucher.model.js");
 const helper = require('../helper');
+const Voucher = require("../storage/models/voucher.model.js");
 
 async function getAll() {
     const vouchers = await voucherModel.findAll()
     return vouchers;
 }
 
-async function getOne(name, code) {
-    let statusCode = 200;
-    let where = [];
-    let whereValues = [];
+async function getOne({name, code}) {
+    let where = {};
+    // #region Filter create section
     if (name !== undefined) {
-        where.push(`nombre = ?`);
-        whereValues.push(name);
+      where.name = name;
     }
     if (code !== undefined) {
-        where.push(`codigo = ?`);
-        whereValues.push(code);
+      where.code = code;
     }
-
-    let query = `SELECT * FROM cupones`;
-    if (where.length !== 0) {
-        query += ` WHERE ${where.join(' AND ')}`;
-    }
-    console.log(query);
-    const rows = await db.query(query, whereValues);
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        statusCode = 404;
-        return {
-            data,
-            statusCode
-        }
-    }
-
-    return {
-        data,
-        statusCode
-    }
+    // #endregion
+    const vouchers = await voucherModel.findOne({where: where});
+    return vouchers;
 }
 
 async function create({name, code, discount, type, usage_limit, expiration_date}) {
-    let statusCode = 201;
-    console.log(name, code, discount, type, usage_limit, expiration_date);
-
-    const result = await db.query(
-        `INSERT INTO cupones (nombre, codigo, descuento, tipo, limite_usos, fecha_expiracion)
-        VALUES (?, ?, ?, ?, ?, ?)`, [name, code, discount, type, usage_limit, expiration_date]
-    );
-
-    let message = 'Voucher created successfully';
-
-    if (!result.affectedRows) {
-        message = 'Error in creating voucher';
-        return {
-            message,
-            statusCode: 400
-        }
-    }
-
-    return {
-        message,
-        statusCode
-    }
+    let voucher = await voucherModel.create({
+      name: name,
+      code: code,
+      discount: discount,
+      type: type,
+      usage_limit: usage_limit,
+      expiration_date: expiration_date
+    });
+    return voucher
 }
 
-async function update(descuento, tipo, limite_usos, fecha_expiracion) {
-    let code = 200;
-
-    const rows = await db.query(
-        `UPDATE cupones SET descuento = ?, tipo = ?, limite_usos = ?, fecha_expiracion = ?`, [descuento, tipo, limite_usos, fecha_expiracion]
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+async function update({id, discount, type, usage_limit, expiration_date}) {
+    let updated = await voucherModel.update({
+      discount: discount,
+      type: type,
+      usage_limit: usage_limit,
+      expiration_date: expiration_date
+    }, {
+      where: {
+        id: id
+      }
+    });
+    return updated == 0 ? false : true;
 }
 
 async function remove(id) {
-    let code = 200;
-
-    const rows = await db.query(
-        `DELETE FROM cupones WHERE id = ?`, [id]
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            code
-        }
-    }
-
-    return {
-        code
-    }
+    let deleted = await voucherModel.destroy({
+      where: {
+        id: id
+      }
+    });
+    return deleted == 0 ? false : true;
 }
 
 module.exports = {
