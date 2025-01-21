@@ -107,7 +107,6 @@ async function remove(id) {
         code
     }
 }
-    
 
 module.exports = {
     getAll,
