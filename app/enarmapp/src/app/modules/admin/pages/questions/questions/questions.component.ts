@@ -148,7 +148,6 @@ export class QuestionsComponent implements OnInit {
     }
    
     async save() {
-        debugger;
         this.showError = ''
         if (this.clinicCase.name === '' || this.clinicCase.category.Nombre === '' || this.clinicCase.resume === ''){
             this.showError = 'Los campos Nombre, categoria y/o resumen son requeridos'
@@ -187,7 +186,10 @@ export class QuestionsComponent implements OnInit {
 
         try {
             const response = await this.quesitonService.addClinicalCase(body);
+            console.log("Intentando enviar")
             if (response) {
+                console.log("Deberia de haber guardado")
+                alert("Datos guardados correctamente")
                 this.succesMessage = 'Se ha guardado correctamente'
                 this.router.navigateByUrl('/admin/questions');
             }
