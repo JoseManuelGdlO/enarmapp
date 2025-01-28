@@ -84,7 +84,7 @@ module.exports = {
         type: Sequelize.DataTypes.ENUM('masculino', 'femenino'),
         allowNull: false,
       },
-      id_social_media: {
+      social_media_id: {
         type: Sequelize.DataTypes.STRING
       },
     });
