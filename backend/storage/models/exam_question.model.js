@@ -3,7 +3,7 @@ const sequelize = require("../conn.js");
 
 const ExamQuestion = sequelize.define('exam_questions',
   {
-    id_exam: {
+    exam_id: {
       type: DataTypes.INTEGER,
       references: {
         model: {
@@ -13,7 +13,7 @@ const ExamQuestion = sequelize.define('exam_questions',
       },
       allowNull: false,
     },
-    id_question: {
+    question_id: {
       type: DataTypes.INTEGER,
       references: {
         model: {
@@ -23,7 +23,7 @@ const ExamQuestion = sequelize.define('exam_questions',
       },
       allowNull: false,
     },
-    id_answer: {
+    answer_id: {
       type: DataTypes.INTEGER,
       references: {
         model: {

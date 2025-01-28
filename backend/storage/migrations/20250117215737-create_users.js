@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      id_subscription: {
+      subscription_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
@@ -39,7 +39,7 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
       },
-      id_user_type: {
+      user_type_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
@@ -49,7 +49,7 @@ module.exports = {
         },
         allowNull: false,
       },
-      id_university: {
+      university_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
@@ -58,7 +58,7 @@ module.exports = {
           key: 'id',
         },
       },
-      id_enarm_date: {
+      enarm_date_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
@@ -67,7 +67,7 @@ module.exports = {
           key: 'id',
         },
       },
-      id_career: {
+      career_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {

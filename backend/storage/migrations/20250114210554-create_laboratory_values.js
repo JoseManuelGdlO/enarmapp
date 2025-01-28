@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.DataTypes.STRING(100),
         allowNull: false,
       },
-      id_laboratory_category: {
+      laboratory_category_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {

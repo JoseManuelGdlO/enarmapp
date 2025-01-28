@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      id_clinic_case: {
+      clinic_case_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {

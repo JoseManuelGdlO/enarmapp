@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      id_type: {
+      type_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
@@ -19,7 +19,7 @@ module.exports = {
         },
         allowNull: false,
       },
-      id_user: {
+      user_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {

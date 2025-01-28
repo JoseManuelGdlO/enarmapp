@@ -3,21 +3,23 @@ const sequelize = require("../conn.js");
 
 const Exam = sequelize.define('exams',
   {
-    id_type: {
+    type_id: {
       type: DataTypes.INTEGER,
       references: {
         model: {
           tableName: 'types',
         },
+        key: 'id',
       },
       allowNull: false,
     },
-    id_user: {
+    user_id: {
       type: DataTypes.INTEGER,
       references: {
         model: {
           tableName: 'users',
         },
+        key: 'id',
       },
       allowNull: false,
     },

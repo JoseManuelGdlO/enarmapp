@@ -5,13 +5,13 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable('laboratory_categories', {
       id: {
-          type: Sequelize.DataTypes.INTEGER,
-          autoIncrement: true,
-          primaryKey: true,
+        type: Sequelize.DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
       },
       name: {
-          type: Sequelize.DataTypes.STRING(100),
-          allowNull: false,
+        type: Sequelize.DataTypes.STRING(100),
+        allowNull: false,
       },
     });
   },

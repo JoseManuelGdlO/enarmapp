@@ -13,6 +13,7 @@ const Subcategory = sequelize.define('subcategories',
         model: {
           tableName: 'categories',
         },
+        key: 'id',
       },
       allowNull: false,
     },

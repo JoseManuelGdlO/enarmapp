@@ -5,15 +5,15 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable('subcategories', {
       id: {
-          type: Sequelize.DataTypes.INTEGER,
-          autoIncrement: true,
-          primaryKey: true,
+        type: Sequelize.DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
       },
       name: {
-          type: Sequelize.DataTypes.STRING(100),
-          allowNull: false,
+        type: Sequelize.DataTypes.STRING(100),
+        allowNull: false,
       },
-      id_category: {
+      category_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
@@ -22,7 +22,7 @@ module.exports = {
           key: 'id',
         },
         allowNull: false,
-    },
+      },
     });
   },
 

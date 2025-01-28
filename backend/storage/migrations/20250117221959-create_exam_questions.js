@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      id_exam: {
+      exam_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
@@ -19,7 +19,7 @@ module.exports = {
         },
         allowNull: false,
       },
-      id_question: {
+      question_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
@@ -29,7 +29,7 @@ module.exports = {
         },
         allowNull: false,
       },
-      id_answer: {
+      answer_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {

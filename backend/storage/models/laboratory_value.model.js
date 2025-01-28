@@ -7,12 +7,13 @@ const LaboratoryValue = sequelize.define('laboratory_values',
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    id_laboratory_category: {
+    laboratory_category_id: {
       type: DataTypes.INTEGER,
       references: {
-          model: {
+        model: {
           tableName: 'laboratory_categories',
-          },
+        },
+        key: 'id',
       },
       allowNull: false,
     },
