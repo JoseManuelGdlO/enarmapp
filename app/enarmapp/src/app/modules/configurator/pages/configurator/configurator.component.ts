@@ -116,6 +116,7 @@ export class ConfiguratorComponent implements OnInit {
   }
 
   getAllValues() {
+    debugger
     this.configExam.subcategories = this.subtemasArray;
     this.configExam.question_filters = this.filtro_preguntas;
     this.configExam.idioma = this.idioma == 'Español' ? 1 : 0 ;
@@ -207,8 +208,8 @@ export class ConfiguratorComponent implements OnInit {
   }
 
   getSliderValue(args: any){
-    console.log(args.value);
-    this.numero_preguntas = args.value;
+    console.log(args.currentTarget.innerText);
+    this.numero_preguntas = args.currentTarget.innerText;
   }
 
 }

@@ -133,8 +133,8 @@ export class LoginComponent implements OnInit {
       
   }
 
-  loginGoogle(): void {
-    this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+ signInWithGoogle(): void {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   async socialMediaLogin(user: any) {
@@ -159,6 +159,38 @@ export class LoginComponent implements OnInit {
 
     }
   }
+
+  declare google: any; // Declarar Google si usas TypeScript
+
+handleCredentialResponse(response: any) {
+  // Token JWT devuelto por Google
+  const credential = response.credential;
+
+  // Decodificar el JWT para extraer información del usuario
+  const userInfo = this.parseJwt(credential);
+
+  console.log('Información del usuario:', userInfo);
+
+  // Puedes redirigir o guardar el correo según lo requieras
+  const email = userInfo.email;
+  console.log('Correo del usuario:', email);
+
+  // Aquí puedes redirigir al usuario o realizar una llamada a tu backend
+  window.location.href = `/dashboard?email=${email}`;
+}
+
+// Función para decodificar el JWT (Token)
+parseJwt(token: string) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
+      .join('')
+  );
+  return JSON.parse(jsonPayload);
+}
 
   async login() {
 
