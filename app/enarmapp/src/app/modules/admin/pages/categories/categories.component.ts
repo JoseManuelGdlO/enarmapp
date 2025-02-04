@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, UntypedFormControl } from "@angular/forms";
 import { AdminService } from "../../services/admin.service";
 import { ICategory, ISubcategory } from "app/shared/interfaces/categories.interface";
 import { ETypeSelection } from "app/shared/interfaces/type-selection.enum";
@@ -18,6 +18,7 @@ export class CategoriesComponent implements OnInit {
     isLoadingModal = false
 
     selectedCategory!: any;
+    searchInputControl: UntypedFormControl = new UntypedFormControl();
     error = false
     resultSave = false
 
@@ -176,5 +177,16 @@ export class CategoriesComponent implements OnInit {
         const filters = this.categoriesClone.filter((x: ICategory) => x.name.toString().toLowerCase().includes(value.target.value.toLowerCase()))
         this.categories = filters
     }
+
+        /**
+     * Track by function for ngFor loops
+     *
+     * @param index
+     * @param item
+     */
+        trackByFn(index: number, item: any): any
+        {
+            return item.id || index;
+        }
 
 }
