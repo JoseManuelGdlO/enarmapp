@@ -6,8 +6,8 @@ export const environment = {
   production: false
 };
 
-export const API_URL = 'https://api.medbrain.click'
-// export const API_URL = 'http://localhost:3000'
+// export const API_URL = 'https://api.medbrain.click'
+export const API_URL = 'http://localhost:3000'
 
 /*
  * For easier debugging in development mode, you can import the following file

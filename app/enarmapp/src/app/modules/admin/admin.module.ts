@@ -17,7 +17,7 @@ import { QuillModule } from 'ngx-quill';
 import { QuestionComponent } from './pages/questions/questions/components/question.component';
 import { MasiveQuestions } from './pages/questions/masive-question/masive-questions.component';
 import { MatButtonModule } from '@angular/material/button';
-import { MatOptionModule, MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule, MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -27,6 +27,9 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { VacuhersComponent } from './pages/vauchers/vauchers.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,7 @@ import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox
     CategoriesComponent,
     QuestionsComponent,
     QuestionComponent,
+    VacuhersComponent,
     ListQuestionsComponent
   ],
   imports: [
@@ -65,6 +69,10 @@ import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox
     MatOptionModule,
     MatCheckboxModule,
     MatRippleModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule, // Agrégalo aquí
+    MatFormFieldModule,
     AsyncPipe,
     CurrencyPipe
   ],

@@ -36,6 +36,7 @@ import { AuthInterceptorService } from './shared/services/auth.Interceptor';
       provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: false,
+        lang: 'es',
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,

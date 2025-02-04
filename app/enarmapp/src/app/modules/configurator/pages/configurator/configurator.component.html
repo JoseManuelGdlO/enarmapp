@@ -51,7 +51,10 @@
                             </div>
                         </div>
                     </div>
-                    <mat-slider min="1" max="100" step="1" thumbLabel color="primary" (change)="getSliderValue($event)"></mat-slider>
+                    <mat-slider min="1" max="100" step="1" showTickMarks discrete [displayWith]="formatLabel" color="primary" (change)="getSliderValue($event)">
+                        <input matSliderThumb>
+                      </mat-slider>
+                    <!-- <mat-slider min="1" max="100" step="1" thumbLabel color="primary" (change)="getSliderValue($event)"></mat-slider> -->
                 </div>
                 <hr class="hr___divider">
                 <div class="mtt-10">
@@ -67,7 +70,7 @@
                     <div class="mb-50"></div>
                 </div>
             </div>
-            <div [ngClass]="{'col-50': !isMobile, 'col-100': isMobile}">
+            <div [ngStyle]="{'padding-left' : isMobile ? '0' : '25px' }" [ngClass]="{'col-50': !isMobile, 'col-100': isMobile}">
                 <div class="mt-38 pl-25">
                     <enarm-toast-quotes
                         quote="Cuéntamelo y me olvidaré. enséñamelo y lo recordaré. involúcrame y lo aprenderé."

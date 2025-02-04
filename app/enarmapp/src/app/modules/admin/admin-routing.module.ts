@@ -8,6 +8,7 @@ import { CategoriesComponent } from './pages/categories/categories.component';
 import { ListQuestionsComponent } from './pages/questions/list-questions/list-questions.component';
 import { QuestionsComponent } from './pages/questions/questions/questions.component';
 import { MasiveQuestions } from './pages/questions/masive-question/masive-questions.component';
+import { VacuhersComponent } from './pages/vauchers/vauchers.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,11 @@ const routes: Routes = [
     path: 'categories',
     title: 'Categorías',
     component: CategoriesComponent
+  },
+  {
+    path: 'vauchers',
+    title: 'Cupones',
+    component: VacuhersComponent
   }
 ];
 
