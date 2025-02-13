@@ -16,7 +16,6 @@ const User = sequelize.define('users',
         },
         key: 'id',
       },
-      allowNull: false,
     },
     name: {
       type: DataTypes.STRING(100),
@@ -88,8 +87,7 @@ const User = sequelize.define('users',
       allowNull: false,
     },
     social_media_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING
     },
   },
   {

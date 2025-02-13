@@ -4,7 +4,7 @@ const encrypt = require('../libs/encrypt');
 const userModel = require("../storage/models/user.model.js");
 const statusUserModel = require("../storage/models/user_status.model.js");
 
-async function register(body) {
+async function register({name, last_name, email, password, picture, user_type_id, university_id, enarm_date_id, career_id, birthdate, gender, social_media_id}) {
     // body.password = await encrypt.encryptPassword(body.password);
     let user = await userModel.create({
         subscription_id: 1,
@@ -31,105 +31,71 @@ async function register(body) {
     return user;
 }
 
-async function login(body) {
-    let code = 200;
-    const rows = await db.query(
-        `SELECT * FROM usuario
-      WHERE email = "${body.email}"`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
+async function login({email, password}) {
+    const user = await userModel.findOne({where: {email: email}});
+    if (!user) {
         return {
-            data,
-            code
+            data: {
+                user: null,
+                account: null,
+            },
+            error: 'USER'
         }
     }
-
-    const samePass = data[0].password == body.password;
+    const samePass = user.password == password;
     if (!samePass) {
-        data = [];
-        code = 403;
         return {
-            data,
-            code
+            data: {
+                user: null,
+                account: null,
+            },
+            error: 'PASSWORD'
         }
     }
-    console.log(data);
-
-    const account = await db.query(
-        `SELECT * FROM account_estatus
-      WHERE idUsuario = "${data[0].id}"`
-    );
-    data = { data: data[0], account: account[0] }
-
-
+    const account = await userStatusModel.findOne({where: {user_id: user.id}});
     return {
-        data,
-        code
+        data: {
+            user: user,
+            account: account,
+        }
     }
 }
 
-async function loginForId(body) {
-    let code = 200;
-    const finds = await db.query(
-        `SELECT * FROM usuario
-      WHERE email = "${body.email}"`
-    );
-
-    let user = helper.emptyOrRows(finds);
-    if (user.length === 0) {
-        code = 404;
+async function loginForId({email, social_media_id}) {
+    const user = await userModel.findOne({where: {email: email}});
+    if (!user) {
         return {
-            user,
-            code
+            data: {
+                user: null,
+                account: null,
+            },
+            error: 'USER'
         }
     }
 
-    if (user[0].id_social_media.length === 0) {
-        await db.query(
-            `UPDATE usuario
-          set id_social_media = ${body.id} WHERE id = "${user[0].id}"`
-        );
+    if (user.social_media_id === null || user.social_media_id === '') {
+        await userModel.update({social_media_id: social_media_id}, {where: {id: user.id}});
     }
 
-
-    const account = await db.query(
-        `SELECT * FROM account_estatus
-      WHERE idUsuario = "${user[0].id}"`
-    );
-    data = { data: user[0], account: account[0] }
-
+    const account = await userStatusModel.findOne({where: {user_id: user.id}});
 
     return {
-        data,
-        code
+        data: {
+            user: user,
+            account: account,
+        }
     }
 }
 
-async function changeAccountStatus(body) {
-    console.log(body);
-    const rows = await db.query(
-        `UPDATE account_estatus
-        set estatus = ${body.status} WHERE idUsuario = ${body.id}`
-    );
-    const data = helper.emptyOrRows(rows);
-
-    return {
-        data
-    }
+async function changeAccountStatus({user_id, status}) {
+    const userStatus = await userStatusModel.update({name: status}, {where: {user_id: user_id}});
+    return userStatus == 0 ? false : true;
 }
 
 async function resetPassword(id) {
-
     randomstring = Math.random().toString(36).slice(-12);
-
-    await db.query(
-        `UPDATE usuario
-        set password = '${randomstring}' WHERE id = ${id}`
-    );
-
+    const user = await userModel.update({password: randomstring}, {where: {id: id}});
+    
     return {
         randomstring
     }

@@ -9,23 +9,23 @@ async function getAll() {
   return users;
 }
 
-async function updateProfile(body) {
+async function updateProfile({id, name, last_name, user_type_id, subscription_id, birthdate, status}) {
   let updated = await userModel.update({
-    nombres: body.nombres,
-    apellidos: body.apellidos,
-    idTipoUsuario: body.idTipoUsuario,
-    idSuscripcion: body.idSuscripcion,
-    cumpleanos: parseInt(body.cumpleanos)
+    name: name,
+    last_name: last_name,
+    user_type_id: user_type_id,
+    subscription_id: subscription_id,
+    birthdate: parseInt(birthdate)
   }, {
     where: {
       id: id
     }
   });
 
-  if (body.estatus) {
+  if (status) {
     userStatus.upsert({
-      user_id: body.id,
-      status: body.estatus
+      user_id: id,
+      status: status
     });
   }
 

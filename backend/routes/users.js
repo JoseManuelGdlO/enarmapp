@@ -7,12 +7,12 @@ var http = require('http2').constants;
 router.get('/', verifyToken, async function (req, res, next) {
     try {
         let code = http.HTTP_STATUS_OK;
-        let vouchers = await usersServices.getAll();
-        if (vouchers.length === 0) {
+        let users = await usersServices.getAll();
+        if (users.length === 0) {
             code = http.HTTP_STATUS_NOT_FOUND;
         }
         return res.status(code).json({
-            vouchers
+            users: users
         });
     } catch (err) {
         console.error(`Error while getting voucher info `, err.message);
@@ -26,12 +26,12 @@ router.put('/:id', verifyToken, async function (req, res, next) {
         let body = req.body;
         let data = {
             id: req.params.id,
-            nombres: body.nombres,
-            apellidos: body.apellidos,
-            idTipoUsuario: body.idTipoUsuario,
-            idSuscripcion: body.idSuscripcion,
-            cumpleanos: body.cumpleanos,
-            estatus: body.estatus
+            name: body.name,
+            last_name: body.last_name,
+            user_type_id: body.user_type_id,
+            subscription_id: body.subscription_id,
+            birthdate: body.birthdate,
+            status: body.status
         }
         console.log(data);
         let user = await usersServices.updateProfile(data);
