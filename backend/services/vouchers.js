@@ -1,6 +1,4 @@
 const voucherModel = require("../storage/models/voucher.model.js");
-const helper = require('../helper');
-const Voucher = require("../storage/models/voucher.model.js");
 
 async function getAll() {
     const vouchers = await voucherModel.findAll()

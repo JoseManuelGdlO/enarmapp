@@ -18,6 +18,7 @@ module.exports = {
           key: 'id',
         },
         allowNull: false,
+        unique: true,
       },
       name: {
         type: Sequelize.DataTypes.INTEGER,

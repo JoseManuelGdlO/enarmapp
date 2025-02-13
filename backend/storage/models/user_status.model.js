@@ -12,6 +12,7 @@ const UserStatus = sequelize.define('user_status',
         key: 'id',
       },
       allowNull: false,
+      unique: true,
     },
     name: {
       // 3 estatus.- nuevo = 0, prueba = 3, corriente=1, vencido=99, cancelado=88

@@ -12,7 +12,7 @@ router.get('/', verifyToken, async function(req, res, next) {
         code = http.HTTP_STATUS_NOT_FOUND;
     }
     return res.status(code).json({
-        vouchers
+        data: vouchers,
     });
   } catch (err) {
     console.error(`Error while getting voucher info `, err.message);
@@ -32,7 +32,7 @@ router.get('/one', verifyToken, async function(req, res, next) {
         code = http.HTTP_STATUS_NOT_FOUND;
     }
     return res.status(code).json({
-        voucher
+        data: voucher,
     });
   } catch (err) {
     console.error(`Error while getting voucher info `, err.message);
@@ -58,7 +58,7 @@ router.post('/', verifyToken, async function(req, res, next) {
     }
 
     return res.status(code).json({
-        voucher
+        data: voucher,
     });
   } catch (err) {
     console.error(`Error while creating voucher`, err.message);
@@ -75,12 +75,11 @@ router.put('/:id', verifyToken, async function(req, res, next) {
       usage_limit: req.body.usage_limit,
       expiration_date: req.body.expiration_date
     }
-    console.log(data);
     let voucher = await voucherService.update(data);
 
     let code = http.HTTP_STATUS_NO_CONTENT;
     if (voucher) {
-        code = http.HTTP_STATUS_BAD_REQUEST;
+      code = http.HTTP_STATUS_BAD_REQUEST;
     }
     return res.status(code).json();
   } catch (err) {
