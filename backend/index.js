@@ -5,10 +5,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const corsOrigin = process.env.CORSORIGIN || 'http://54.86.172.9:4200';
 // const enarmStundetsRouter = require("./routes/enarmStudents"); 
-// const authRouter = require("./routes/auth"); 
+const authRouter = require("./routes/auth"); 
 // const questionsRouter = require("./routes/questions-route.js");
 // const examRouter = require("./routes/exam-route.js");
-// const othersRouter = require("./routes/others.js"); 
+const othersRouter = require("./routes/others.js"); 
 // const paymentRouter = require("./routes/payment.js"); 
 const voucherRouter = require("./routes/vouchers.js");
 
@@ -40,10 +40,10 @@ app.get("/", (req, res) => {
 });
 
 // app.use("/enarm-students", enarmStundetsRouter);
-// app.use("/auth", authRouter);
+app.use("/auth", authRouter);
 // app.use("/questions", questionsRouter);
 // app.use("/exam", examRouter);
-// app.use("/others", othersRouter);
+app.use("/others", othersRouter);
 // app.use("/payment", paymentRouter);
 app.use("/vouchers", voucherRouter);
 /* Error handler middleware */

@@ -1,34 +1,34 @@
-const db = require('./db');
+// const db = require('./db');
 const helper = require('../helper');
 const encrypt = require('../libs/encrypt');
+const userModel = require("../storage/models/user.model.js");
+const statusUserModel = require("../storage/models/user_status.model.js");
 
 async function register(body) {
     // body.password = await encrypt.encryptPassword(body.password);
-    console.log(body);
-    const rows = await db.query(
-        `INSERT INTO usuario (nombres, apellidos, email, password, ruta_fotografia, idTipoUsuario, idUniversidad, idFechaEnarm, idEspecialidad, cumpleanos, sexo, id_social_media)
-    VALUES ("${body.nombres}", "${body.apellidos}", "${body.email}", "${body.password}", "${body.ruta_fotografia}", "${body.idTipoUsuario}", "${body.idUniversidad}", "${body.idFechaEnarm}", "${body.idEspecialidad}", "${body.cumpleanos}", "${body.sexo}", "${body.id_social_media}");`
-    );
-    const data = helper.emptyOrRows(rows);
+    let user = await userModel.create({
+        subscription_id: 1,
+        name: body.nombres,
+        last_name: body.apellidos,
+        email: body.email,
+        password: body.password,
+        picture: body.ruta_fotografia,
+        user_type_id: body.idTipoUsuario,
+        university_id: body.idUniversidad,
+        enarm_date_id: body.idFechaEnarm,
+        career_id: body.idEspecialidad,
+        birthdate: body.cumpleanos,
+        gender: body.sexo,
+        social_media_id: body.id_social_media? body.id_social_media : 0,
+      });
+    console.log(user);
 
-    const exist = await db.query(
-        `select * from account_estatus WHERE idUsuario = ${data.insertId};`
-    );
+    await statusUserModel.create({
+        user_id: user.id,
+        name: 0
+    });
 
-    const flagExist = helper.emptyOrRows(exist).length !== 0;
-
-    if (flagExist) {
-        await db.query(
-            `UPDATE account_estatus SET estatus = 0 WHERE idUsuario = ${data.insertId};`
-        );
-    } else {
-        await db.query(
-            `INSERT INTO account_estatus (idUsuario, estatus) VALUES (${data.insertId}, 0);`
-        );
-    }
-    return {
-        data
-    }
+    return user;
 }
 
 async function login(body) {

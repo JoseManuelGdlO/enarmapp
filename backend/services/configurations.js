@@ -1,5 +1,11 @@
-const db = require('./db');
+// const db = require('./db');
 const helper = require('../helper');
+const { Op } = require('sequelize');
+
+const careerModel = require("../storage/models/career.model.js");
+const universityModel = require("../storage/models/university.model.js");
+const userTypesModel = require("../storage/models/user_type.model.js");
+const enarmDateModel = require("../storage/models/enarm_date.model.js");
 
 async function getConfigurationPerCode(codeString) {
     let code = 200;
@@ -99,25 +105,8 @@ async function updateConfiguration(body) {
 }
 
 async function getUniversidades(group) {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM universidades`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+    const university = await universityModel.findAll()
+    return university;
 }
 
 async function getFrases(group) {
@@ -142,74 +131,27 @@ async function getFrases(group) {
     }
 }
 
-async function getEspecialidades(group) {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM especialidades`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+async function getEspecialidades() {
+    const careers = await careerModel.findAll()
+    return careers;
 }
 
 async function getStudnetTypes(type) {
     let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM tipo_usuario`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
+    let where =  null
+    
     if (type === 'signup') {
-        const index = data.findIndex(x => x.id === 5);
-        data.splice(index, 1);
+        where = { where : {
+            name: { [Op.ne]: 'Administrador' }
+        }}
     }
-    return {
-        data,
-        code
-    }
+    const userTypes = userTypesModel.findAll(where)
+    return userTypes;
 }
 
 async function getEnarmDate(group) {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM fecha_enarm`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+    const enamrsDates = await enarmDateModel.findAll()
+    return enamrsDates;
 }
 
 async function getSubscripciones() {
