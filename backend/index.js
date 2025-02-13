@@ -4,9 +4,10 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 const corsOrigin = process.env.CORSORIGIN || 'http://54.86.172.9:4200';
-// const enarmStundetsRouter = require("./routes/enarmStudents"); 
+const usersRouter = require("./routes/users"); 
 const authRouter = require("./routes/auth");
-// const questionsRouter = require("./routes/questions-route.js");
+const clinicCasesRouter = require("./routes/clinic_cases.js");
+const categoriesRouter = require("./routes/categories.js");
 // const examRouter = require("./routes/exam-route.js");
 // const othersRouter = require("./routes/others.js"); 
 // const paymentRouter = require("./routes/payment.js"); 
@@ -39,9 +40,10 @@ app.get("/", (req, res) => {
   res.json({ version: "0.0.1", prosess: process.env.STRIPE_SECRET_KEY_TEST });
 });
 
-// app.use("/enarm-students", enarmStundetsRouter);
+app.use("/users", usersRouter);
 app.use("/auth", authRouter);
-// app.use("/questions", questionsRouter);
+app.use("/clinic_cases", clinicCasesRouter);
+app.use("/categories", categoriesRouter);
 // app.use("/exam", examRouter);
 // app.use("/others", othersRouter);
 // app.use("/payment", paymentRouter);

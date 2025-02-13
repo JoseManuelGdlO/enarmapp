@@ -1,7 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require("../conn.js");
+const Question = require("./question.model.js");
 
-const ClinicCase = sequelize.define('clininc_cases',
+const ClinicCase = sequelize.define('clinic_cases',
   {
     name: {
       type: DataTypes.STRING(100),
@@ -34,5 +35,7 @@ const ClinicCase = sequelize.define('clininc_cases',
     timestamps: false,
   },
 );
+
+ClinicCase.hasMany(Question, { foreignKey: 'clinic_case_id'});
 
 module.exports = ClinicCase;

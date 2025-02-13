@@ -46,3 +46,5 @@ router.put('/:id', verifyToken, async function (req, res, next) {
         next(err);
     }
 });
+
+module.exports = router;
