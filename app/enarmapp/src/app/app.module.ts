@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FuseConfigModule } from './fuse.config';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AuthInterceptorService } from './shared/services/auth.Interceptor';
+import { NgxStripeModule } from 'ngx-stripe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthInterceptorService } from './shared/services/auth.Interceptor';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FuseConfigModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgxStripeModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderBeginInterceptor, multi: true },

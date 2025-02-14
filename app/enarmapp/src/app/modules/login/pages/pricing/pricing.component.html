@@ -9,27 +9,32 @@
         <div class="">ENARM 2025</div>
     </div>
 </div>
+<div>
+    <h2>Pago con Stripe</h2>
+    <div #cardElement class="card-input"></div>
+    <button (click)="handlePayment()">Pagar</button>
+  </div>
 <!-- Cards -->
 <div class="flex justify-center mt-10 mb-10 sm:mt-20">
     <div class="w-full max-w-sm md:max-w-7xl">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 lg:gap-y-0 md:gap-x-6">
             <!-- Card 1 -->
             <fuse-card class="flex-col max-w-sm md:max-w-none p-6 sm:py-12 sm:px-10">
-                <div class="text-4xl font-bold tracking-tight leading-tight">Plan Mensual</div>
+                <div class="text-4xl font-bold tracking-tight leading-tight">{{subscritpions ? subscritpions[0].description : null | titlecase }}</div>
                 <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Tu plan Mensual perfecto </div>
                 <div class="w-8 h-1 my-10 rounded bg-accent"></div>
                 <!-- Price -->
                 <div class="flex items-baseline whitespace-nowrap">
                     <div class="mr-2 text-2xl">MXN</div>
                     <div class="text-6xl font-semibold leading-tight tracking-tight">
-                        <ng-container *ngIf="yearlyBilling">$120.00</ng-container>
+                        <ng-container *ngIf="yearlyBilling">{{ subscritpions[0].price | currency }}</ng-container>
                     </div>
                 </div>
                 <!-- Price details -->
                 <div class="flex flex-col mt-2 text-secondary">
                     <ng-container *ngIf="yearlyBilling">
                         <div>Pagarias</div>
-                        <div><b>$1,400.00</b> Anualmente</div>
+                        <div><b>{{ subscritpions[0].price * 12 | currency }}</b> Anualmente</div>
                     </ng-container>
                 </div>
                 <!-- CTA -->
@@ -81,21 +86,21 @@
                 <div class="absolute inset-x-0 -top-4 flex items-center justify-center">
                     <div class="flex items-center h-8 px-8 rounded-full font-medium text-center leading-none bg-primary text-on-primary">POPULAR</div>
                 </div>
-                <div class="text-4xl font-bold tracking-tight leading-tight">Semestral</div>
+                <div class="text-4xl font-bold tracking-tight leading-tight">{{subscritpions ? subscritpions[1].description : null | titlecase }}</div>
                 <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Estas a medio ano de que llege tu ENARM</div>
                 <div class="w-8 h-1 my-10 rounded bg-accent"></div>
                 <!-- Price -->
                 <div class="flex items-baseline whitespace-nowrap">
                     <div class="mr-2 text-2xl">MXN</div>
                     <div class="text-6xl font-semibold leading-tight tracking-tight">
-                        <ng-container *ngIf="yearlyBilling">$660.00</ng-container>
+                        <ng-container *ngIf="yearlyBilling">{{ subscritpions[0].price | currency }}</ng-container>
                     </div>
                 </div>
                 <!-- Price details -->
                 <div class="flex flex-col mt-2 text-secondary">
                     <ng-container *ngIf="yearlyBilling">
                         <div>Pagarias</div>
-                        <div><b>$1.320.00</b> Anualmente</div>
+                        <div><b>{{ subscritpions[1].price * 12 | currency }}</b> Anualmente</div>
                     </ng-container>
                 </div>
                 <!-- CTA -->
@@ -156,21 +161,21 @@
             </fuse-card>
             <!-- Card 3 -->
             <fuse-card class="flex-col max-w-sm md:max-w-none p-6 sm:py-12 sm:px-10">
-                <div class="text-4xl font-bold tracking-tight leading-tight">Anualidad</div>
+                <div class="text-4xl font-bold tracking-tight leading-tight">{{subscritpions ? subscritpions[2].description : null | titlecase }}</div>
                 <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Paga una ves y deja de procuparte</div>
                 <div class="w-8 h-1 my-10 rounded bg-accent"></div>
                 <!-- Price -->
                 <div class="flex items-baseline whitespace-nowrap">
                     <div class="mr-2 text-2xl">MXN</div>
                     <div class="text-6xl font-semibold leading-tight tracking-tight">
-                        <ng-container *ngIf="yearlyBilling">$1,000.00</ng-container>
+                        <ng-container *ngIf="yearlyBilling">{{ subscritpions[1].price | currency }}</ng-container>
                     </div>
                 </div>
                 <!-- Price details -->
                 <div class="flex flex-col mt-2 text-secondary">
                     <ng-container *ngIf="yearlyBilling">
                         <div>Pagarias</div>
-                        <div><b>$100.00</b> Mensualmente</div>
+                        <div><b>{{ subscritpions[1].price / 12 | currency }}</b> Mensualmente</div>
                     </ng-container>
                 </div>
                 <!-- CTA -->

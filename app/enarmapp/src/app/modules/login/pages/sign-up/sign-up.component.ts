@@ -195,7 +195,7 @@ export class SignUpComponent implements OnInit {
       this.preferencesServices.setItem('AUTH_TOKEN', response.token)
       this.preferencesServices.setItem('USER', response.data);
       this.isLoading = false
-      this.router.navigateByUrl('home')
+      this.router.navigateByUrl('login/pricing')
 
     } catch (error) {
       console.error(error);

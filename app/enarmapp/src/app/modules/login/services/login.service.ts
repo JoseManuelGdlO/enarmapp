@@ -104,4 +104,16 @@ export class LoginService{
         const url = API_URL + '/auth/logout'
             this.httpclient.post(url, {})
     }
+
+    getSubscriptions():Promise<any> {
+        const url = API_URL + '/others/subscripciones'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.get(url).subscribe( (data: any) => {
+                resolve(data.response)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
 }

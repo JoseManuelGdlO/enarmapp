@@ -12,7 +12,13 @@ module.exports = {
     {
         type: 'Premium',
         price: 200,
-        description: 'plan mensual',
+        description: 'plan premium',
+        month_duration: 6,
+    },
+    {
+        type: 'Anual',
+        price: 200,
+        description: 'plan anual',
         month_duration: 6,
     }
   ], {});
