@@ -13,7 +13,7 @@ import { loadStripe, Stripe, StripeElements, StripeCardElement } from '@stripe/s
     @ViewChild('cardElement') cardElement!: ElementRef;
     yearlyBilling: boolean = true;
 
-    stripe!: Stripe;
+    stripe!: Stripe | null;
     elements!: StripeElements;
     card!: StripeCardElement;
 
@@ -25,7 +25,7 @@ import { loadStripe, Stripe, StripeElements, StripeCardElement } from '@stripe/s
     ){}
 
     async ngAfterViewInit() {
-      // this.stripe = await loadStripe('TU_CLAVE_PUBLICA_STRIPE'); // Reemplaza con tu clave
+      this.stripe = await loadStripe('TU_CLAVE_PUBLICA_STRIPE'); // Reemplaza con tu clave
   
       if (this.stripe) {
         this.elements = this.stripe.elements();
@@ -47,6 +47,10 @@ import { loadStripe, Stripe, StripeElements, StripeCardElement } from '@stripe/s
     }
 
     async handlePayment() {
+      if (!this.stripe) {
+        console.error('Stripe no está inicializado.');
+        return;
+      }
       const { token, error } = await this.stripe.createToken(this.card);
       if (error) {
         console.error('Error en el pago:', error.message);
