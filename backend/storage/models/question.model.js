@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require("../conn.js");
+const Answer = require('./answer.model.js');
 
 const Question = sequelize.define('questions',
   {
@@ -50,5 +51,7 @@ const Question = sequelize.define('questions',
     timestamps: false,
   },
 );
+
+Question.hasMany(Answer, { foreignKey: 'question_id'});
 
 module.exports = Question;
