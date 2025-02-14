@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl } from "@angular/forms";
 import { EAcountStatus } from "app/shared/interfaces/account-status.enum";
 import { ILaboratory, ILaboratorySubcategory } from "app/shared/interfaces/laboratory.interface";
 import { ISubscription } from "app/shared/interfaces/subscriptions.interface";
@@ -14,12 +14,12 @@ export class LaboratoryComponent implements OnInit {
 
 
   laboratory!: Array<ILaboratory>;
-
   laboratoryClone!: Array<ILaboratory>;
   isLoadingModal = false
 
   selectedLaboratory: any;
   selectedSubCategoryLaboratory!: ILaboratorySubcategory
+  searchInputControl: UntypedFormControl = new UntypedFormControl();
   error = false
   resultSave = false
   errorResult = ''
@@ -190,5 +190,16 @@ export class LaboratoryComponent implements OnInit {
     const filters = this.laboratoryClone.filter((x: ILaboratory) => x.name.toString().toLowerCase().includes(value.target.value.toLowerCase()))
     this.laboratory = filters
   }
+
+      /**
+     * Track by function for ngFor loops
+     *
+     * @param index
+     * @param item
+     */
+      trackByFn(index: number, item: any): any
+      {
+          return item.id || index;
+      }
 
 }

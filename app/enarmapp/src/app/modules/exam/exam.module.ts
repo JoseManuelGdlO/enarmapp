@@ -6,6 +6,7 @@ import { ExamComponent } from './pages/exam/exam.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from 'app/shared/shared.module';
 import { ExamsComponent } from './pages/exams/exams.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -20,6 +21,7 @@ import { ExamsComponent } from './pages/exams/exams.component';
     ExamRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatPaginatorModule,
     HttpClientModule,
     SharedModule
   ],

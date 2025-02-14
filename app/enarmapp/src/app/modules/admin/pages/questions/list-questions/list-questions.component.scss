@@ -14,12 +14,12 @@
 
     @screen md {
         // grid-template-columns: 48px 112px auto 112px 72px;
-        grid-template-columns: 48px minmax(200px, auto) minmax(150px, 270px) 150px 120px;
+        grid-template-columns: 48px minmax(200px, auto) minmax(150px, auto) 150px 120px;
     }
 
     @screen lg {
         // grid-template-columns: 48px 112px auto 112px 96px 96px 72px;
-        grid-template-columns: 48px minmax(200px, auto) minmax(250px, auto) 140px 150px 120px 100px 92px;
+        grid-template-columns: 48px minmax(200px, auto) minmax(250px, auto) 140px 150px;
     }
 }
 

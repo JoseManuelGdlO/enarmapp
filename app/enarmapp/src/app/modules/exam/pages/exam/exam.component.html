@@ -10,11 +10,11 @@
                     <enarm-mini-progress-bar-exam [questions]="fromApiQuesitons.length" [answered]="answered"
                         [type]="2"></enarm-mini-progress-bar-exam>
                 </div>
-                <div class="div___header" style="width: 280px;">
+                <div class="div___header">
                     <h5 class="h5___time">Tiempo Restante: </h5>
                     <enarm-timer (onPause)="onPauseTimer()"></enarm-timer>
                 </div>
-                <h2 (click)="openLaboratories()" class="h2___laboratories">Laboratorio</h2>
+                <!-- <h2 (click)="openLaboratories()" class="h2___laboratories">Laboratorio</h2> -->
             </div>
             <div *ngIf="questions" class="div___body">
                 <h4 class="h4___examquestion">
@@ -45,6 +45,17 @@
                         </div>
                     </div>
                 </div>
+                <mat-paginator
+                    *ngIf="fromApiQuesitons"
+                    class="z-10 bg-gray-50 dark:bg-transparent flex justify-center mt-5"
+                    [ngClass]="{'pointer-events-none': isLoading}"
+                    [length]="fromApiQuesitons.length"
+                    [pageIndex]="currentQuestion"
+                    [pageSize]="1"
+                    [showFirstLastButtons]="false"
+                    (page)="newxtQuestion()"
+                    [hidePageSize]="true"
+                    [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
             </div>
         </div>
         <div *ngIf="showLaboratories" class="col-40 div___laboratories tx-center">
@@ -74,8 +85,8 @@
                 </div>
             </div>
         </div>
-        <enarm-pagination (nextQuestion)="newxtQuestion()" *ngIf="fromApiQuesitons" [currentQuestion]="currentQuestion"
-            [totalQuestions]="fromApiQuesitons.length"></enarm-pagination>
+            
+
     </enarm-loading-outlet>
 </div>
 

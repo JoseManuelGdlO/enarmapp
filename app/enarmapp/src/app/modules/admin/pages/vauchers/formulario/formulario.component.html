@@ -1,0 +1,72 @@
+<h1 mat-dialog-title class="text-2xl mb-4" *ngIf="modo!=='eliminar'">{{ ttituloFormulario }}</h1>
+<fuse-alert [type]="'warn'" *ngIf="modo==='eliminar'">
+  <span fuseAlertTitle>Eliminar Vaucher</span>
+  ¿Está seguro que desea eliminar la siguiente Vaucher?
+</fuse-alert>
+<div mat-dialog-content>
+  <div *ngIf="modo==='ver' || modo==='eliminar'">
+    <div class="grid grid-cols-12">
+      <div class="col-span-12">
+        <p class="mb-2"><strong>Id:</strong> {{ item.id }}</p>
+        <p class="mb-2"><strong>Nombre:</strong> {{ item.name }}</p>
+        <p class="mb-2"><strong>Codigo:</strong> {{ item.code }}</p>
+        <p class="mb-2"><strong>Decuento:</strong> {{ item.discount }}</p>
+        <p class="mb-2"><strong>Tipo:</strong> {{ item.type }}</p>
+        <p class="mb-2"><strong>Usos:</strong> {{ item.usage }}</p>
+        <p class="mb-2"><strong>Limite de uso:</strong> {{ item.limit_usage }}</p>
+        <p class="mb-2"><strong>Fecha de Expiracion:</strong> {{ item.expiration_date }}</p>
+      </div>
+    </div>
+
+  </div>
+  <div *ngIf="modo=='nuevo' || modo=='editar'">
+    <mat-form-field *ngIf="modo==='editar'" class="w-full">
+      <mat-label>Id</mat-label>
+      <input matInput [(ngModel)]="item.id" disabled>
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Nombre del Vaucher</mat-label>
+      <input matInput [(ngModel)]="item.name">
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Codigo</mat-label>
+      <input matInput [(ngModel)]="item.code">
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Descuento</mat-label>
+      <input matInput [(ngModel)]="item.discount">
+    </mat-form-field>
+    <div class="flex items-center">
+      <span class="font-bold">Tipo:</span>
+    </div>
+    <mat-form-field class="w-full">
+      <mat-select [(ngModel)]="item.type">
+        <mat-option [value]="nt.value" *ngFor="let nt of [{name: 'Porcentaje', value: 'percentage'}, {name: 'Numerico', value:'fixed'}]">{{nt.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Cuantos cupones hay usados</mat-label>
+      <input matInput [(ngModel)]="item.usage" disabled>
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Cuantos cupones existiran</mat-label>
+      <input matInput [(ngModel)]="item.limit_usage">
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Fecha de expiracion:</mat-label>
+      <input matInput [matDatepicker]="picker1" [(ngModel)]="item.expiration_date">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
+<mat-dialog-actions class="flex justify-between">
+  <button mat-button *ngIf="!regresaVer" (click)="cerrar()">Cerrar</button>
+  <button mat-button *ngIf="regresaVer && modo=='editar'" (click)="changeMode('ver')">Cancelar</button>
+  <button mat-flat-button [disabled]="enProceso" *ngIf="modo=='ver'" (click)="changeMode('editar')" cdkFocusInitial
+    color="accent">Editar</button>
+  <button mat-flat-button [disabled]="enProceso" *ngIf="modo=='editar'" (click)="saveVaucher()" cdkFocusInitial
+    color="primary">Guardar</button>
+  <button mat-flat-button [disabled]="enProceso" *ngIf="modo=='nuevo'" (click)="createVaucher()" cdkFocusInitial
+    color="warn">Crear</button>
+    <button mat-flat-button [disabled]="enProceso" *ngIf="modo=='eliminar'" (click)="eliminarVacuher()" cdkFocusInitial color="warn">Si, Eliminar</button>

@@ -11,10 +11,18 @@ import { FuseConfigModule } from './fuse.config';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AuthInterceptorService } from './shared/services/auth.Interceptor';
 import { NgxStripeModule } from 'ngx-stripe';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CategoryModalComponent } from './shared/components/category-modal/category-modal.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CategoryModalComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +33,13 @@ import { NgxStripeModule } from 'ngx-stripe';
     BrowserAnimationsModule,
     FuseConfigModule,
     NgApexchartsModule,
-    NgxStripeModule.forRoot()
+    NgxStripeModule.forRoot(),
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule // Fixes <mat-spinner> issue
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderBeginInterceptor, multi: true },
@@ -38,6 +52,7 @@ import { NgxStripeModule } from 'ngx-stripe';
       provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: false,
+        lang: 'es',
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,

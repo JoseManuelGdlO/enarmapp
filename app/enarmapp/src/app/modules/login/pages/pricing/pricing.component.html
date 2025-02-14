@@ -8,6 +8,21 @@
         <div class="">Empieza gratis, despues de probar hablamos!</div>
         <div class="">ENARM 2025</div>
     </div>
+    <div class="mt-6">
+        <h2 class="flex text-2xl font-semibold justify-center">TENGO UN CUPON</h2>
+        <div style="border-radius: 20px;" class="grid grid-cols-2 mt-4 bg-gray-50 dark:bg-transparen">
+            <mat-form-field class="w-full">
+                <input class="text-xl" style="padding: 10px 15px;" placeholder="Ingresa el codigo del cupon" matInput>
+            </mat-form-field>
+            <button
+                class="fuse-mat-button-large"
+                mat-stroked-button
+                [color]="'primary'">
+                Aplicar
+            </button>
+
+        </div>
+    </div>
 </div>
 <div>
     <h2>Pago con Stripe</h2>
@@ -236,4 +251,14 @@
             </fuse-card>
         </div>
     </div>
+</div>
+<div class="flex justify-center mt-10 mb-20">
+    
+    <button
+       class="fuse-mat-button-large text-2xl"
+       mat-flat-button
+       [routerLink]="['/home']"
+        [color]="'primary'">
+        Omitir compra, lo hare luego
+    </button>
 </div>

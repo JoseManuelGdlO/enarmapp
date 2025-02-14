@@ -51,6 +51,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon : 'heroicons_outline:tag',
                 link : '/admin/categories',
             },
+            {
+                id   : 'admin.vauchers',
+                title: 'Cupones',
+                type : 'basic',
+                icon : 'heroicons_outline:at-symbol',
+                link : '/admin/vauchers',
+            },
         ],
     },
     // {

@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, UntypedFormControl } from "@angular/forms";
 import { AdminService } from "../../services/admin.service";
 import { ICategory, ISubcategory } from "app/shared/interfaces/categories.interface";
 import { ETypeSelection } from "app/shared/interfaces/type-selection.enum";
+import { MatDialog } from "@angular/material/dialog";
+import { CategoryModalComponent } from "app/shared/components/category-modal/category-modal.component";
 
 @Component({
     templateUrl: './categories.component.html',
@@ -18,6 +20,7 @@ export class CategoriesComponent implements OnInit {
     isLoadingModal = false
 
     selectedCategory!: any;
+    searchInputControl: UntypedFormControl = new UntypedFormControl();
     error = false
     resultSave = false
 
@@ -38,6 +41,7 @@ export class CategoriesComponent implements OnInit {
 
     constructor(
         private adminService: AdminService,
+        public dialog: MatDialog
     ) {
 
     }
@@ -62,6 +66,18 @@ export class CategoriesComponent implements OnInit {
         });
     }
 
+    openDialog(selection: string): void {
+        const dialogRef = this.dialog.open(CategoryModalComponent, {
+          width: '400px',
+          data: { selection }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            console.log('Modal closed with data:', result);
+          }
+        });
+      }
 
     async addCategory() {
         if (this.isLoadingModal) return;
@@ -176,5 +192,16 @@ export class CategoriesComponent implements OnInit {
         const filters = this.categoriesClone.filter((x: ICategory) => x.name.toString().toLowerCase().includes(value.target.value.toLowerCase()))
         this.categories = filters
     }
+
+        /**
+     * Track by function for ngFor loops
+     *
+     * @param index
+     * @param item
+     */
+        trackByFn(index: number, item: any): any
+        {
+            return item.id || index;
+        }
 
 }
