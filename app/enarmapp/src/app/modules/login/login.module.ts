@@ -4,17 +4,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { MatMenuModule } from '@angular/material/menu';
+import { FuseConfigModule } from 'app/fuse.config';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { PricingComponent } from './pages/pricing/pricing.component';
+import { FuseCardComponent } from '@fuse/components/card';
+import { FuseAlertComponent } from '@fuse/components/alert';
 
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    PricingComponent
   ],
   imports: [
     CommonModule,
@@ -23,8 +33,17 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
     AlertModule.forRoot(),
     PopoverModule.forRoot(),
     ReactiveFormsModule,
-    HttpClientModule,
-    SharedModule
+    HttpClientModule,    
+    MatMenuModule,
+    SharedModule,
+    MatButtonModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    NgApexchartsModule,
+    MatButtonModule,
+    FuseCardComponent,
+    FuseAlertComponent,
+    MatIconModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ExamRoutingModule } from './exam-routing.module';
 import { ExamComponent } from './pages/exam/exam.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { ExamsComponent } from './pages/exams/exams.component';
 
 

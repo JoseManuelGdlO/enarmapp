@@ -1,11 +1,11 @@
 import { NumberSymbol } from "@angular/common";
 import { Component, EventEmitter, OnInit } from "@angular/core";
-import { IConfigExam, ISubtemas } from "src/app/shared/interfaces/config-exam.interface";
+import { IConfigExam, ISubtemas } from "app/shared/interfaces/config-exam.interface";
 import { ConfiguratorService } from "../../services/configurator.service";
-import { ICheckBoxOptions } from "src/app/shared/interfaces/checkbox-options.interface";
-import { IRadioButtonOptions } from "src/app/shared/interfaces/radio-button.interface";
-import { HomeService } from "src/app/modules/home/services/home.service";
-import { PreferencesService } from "src/app/shared/services/preferences.service";
+import { ICheckBoxOptions } from "app/shared/interfaces/checkbox-options.interface";
+import { IRadioButtonOptions } from "app/shared/interfaces/radio-button.interface";
+import { HomeService } from "app/modules/home/services/home.service";
+import { PreferencesService } from "app/shared/services/preferences.service";
 import { Router } from "@angular/router";
 
 
@@ -29,6 +29,7 @@ export class ConfiguratorComponent implements OnInit {
   success = false
 
   isLoading = true;
+  isMobile = false;
 
   title = 'app';
 
@@ -63,11 +64,29 @@ export class ConfiguratorComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.isMobile = this.detectMobileDevice();
     await this.getCategoriesData();
     await this.getExamDate();
     this.userId = this.preferencesService.getItem('USER').data.id;
     this.isLoading = false;
     
+  }
+
+  detectMobileDevice(): boolean {
+    const userAgent = navigator.userAgent.toLowerCase();
+    console.log('User Agent', userAgent);
+    
+    // Verifica los dispositivos más comunes
+    if (/iphone|ipod|android|blackberry|windows phone|webos|mobile|tablet/i.test(userAgent)) {
+      return true;
+    }
+    
+    // También puedes verificar el tamaño de la ventana, si es menor que un tamaño típico de escritorio
+    if (window.innerWidth <= 800) {
+      return true;
+    }
+
+    return false;
   }
 
 

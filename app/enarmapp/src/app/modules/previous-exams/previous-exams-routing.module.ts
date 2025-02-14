@@ -5,6 +5,7 @@ import { PreviousExamsComponent } from './pages/previous-exams/previous-exams.co
 const routes: Routes = [
     {
         path: '',
+        title: 'Examenes anteriores',
         component: PreviousExamsComponent
     }
 ];

@@ -16,7 +16,7 @@ router.get('/configuration', verifyToken, async function (req, res, next) {
   }
 });
 
-router.get('/configuration-all', verifyToken, async function (req, res, next) {
+router.get('/configuration-all', async function (req, res, next) {
   try {
     const response = await configurations.getConfiguration()
     res.status(response.code).json(response.data);
@@ -26,7 +26,7 @@ router.get('/configuration-all', verifyToken, async function (req, res, next) {
   }
 });
 
-router.put('/configuration', verifyToken, async function (req, res, next) {
+router.put('/configuration', async function (req, res, next) {
   try {
     let body = req.body;
     const response = await configurations.updateConfiguration(body)
@@ -37,7 +37,7 @@ router.put('/configuration', verifyToken, async function (req, res, next) {
   }
 });
 
-router.get('/configuration-group', verifyToken, async function (req, res, next) {
+router.get('/configuration-group', async function (req, res, next) {
   try {
 
     const group = req.query.group
@@ -49,7 +49,7 @@ router.get('/configuration-group', verifyToken, async function (req, res, next) 
   }
 });
 
-router.get('/universidades', verifyToken, async function (req, res, next) {
+router.get('/universidades', async function (req, res, next) {
   try {
     let code = http.HTTP_STATUS_OK;
     
@@ -76,7 +76,7 @@ router.get('/frases', verifyToken, async function (req, res, next) {
   }
 });
 
-router.get('/especialidades', verifyToken, async function (req, res, next) {
+router.get('/especialidades', async function (req, res, next) {
   try {
     let code = http.HTTP_STATUS_OK;
     
@@ -93,7 +93,7 @@ router.get('/especialidades', verifyToken, async function (req, res, next) {
   }
 });
 
-router.get('/student-type', verifyToken, async function (req, res, next) {
+router.get('/student-type', async function (req, res, next) {
   try {
     const type = req.query.type;
     const response = await configurations.getStudnetTypes(type)
@@ -111,7 +111,7 @@ router.get('/student-type', verifyToken, async function (req, res, next) {
   }
 });
 
-router.get('/enarm-date', verifyToken, async function (req, res, next) {
+router.get('/enarm-date', async function (req, res, next) {
   try {
     const response = await configurations.getEnarmDate()
     let code = http.HTTP_STATUS_OK;
@@ -128,7 +128,7 @@ router.get('/enarm-date', verifyToken, async function (req, res, next) {
   }
 });
 
-router.get('/subscripciones', verifyToken, async function (req, res, next) {
+router.get('/subscripciones', async function (req, res, next) {
   try {
     const response = await configurations.getSubscripciones()
     res.status(response.code).json(response.data);
@@ -138,7 +138,7 @@ router.get('/subscripciones', verifyToken, async function (req, res, next) {
   }
 });
 
-router.put('/subscription', verifyToken, async function (req, res, next) {
+router.put('/subscription', async function (req, res, next) {
   try {
     let body = req.body;
     const response = await configurations.updateSubscriptions(body)
@@ -236,7 +236,7 @@ router.get('/frases', verifyToken, async function (req, res, next) {
   }
 });
 
-router.get('/especialidades', verifyToken, async function (req, res, next) {
+router.get('/especialidades', async function (req, res, next) {
   try {
     const response = await configurations.getEspecialidades()
     res.status(response.code).json(response.data);

@@ -1,49 +1,145 @@
-<enarm-admin-menu current="subscripciones"></enarm-admin-menu>
+<!-- <enarm-admin-menu current="subscripciones"></enarm-admin-menu> -->
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <!-- Header -->
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+        <!-- Loader -->
+        <div
+            class="absolute inset-x-0 bottom-0"
+            *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Subscripciones</div>
+        <!-- Actions -->
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Search -->
+            <mat-form-field
+                class="fuse-mat-dense fuse-mat-rounded min-w-64"
+                [subscriptSizing]="'dynamic'">
+                <mat-icon
+                    class="icon-size-5"
+                    matPrefix
+                    [svgIcon]="'heroicons_solid:magnifying-glass'"></mat-icon>
+                <input
+                    matInput
+                    [formControl]="searchInputControl"
+                    [autocomplete]="'off'"
+                    [placeholder]="'Buscar suscripciones'">
+            </mat-form-field>
+            <!-- Add product button -->
+            <button
+                class="ml-4"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="setValuesForm()">
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Añadir</span>
+            </button>
+        </div>
+    </div>
 
-<div class="container-fluid">
     <enarm-loading-outlet [isLoading]="isLoading">
-        <p class="h3 mt-5">Subscripciones</p>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Filtrar</span>
-            </div>
-            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
-                (keypress)="filter($event)">
-            <button type="button" (click)="setValuesForm()" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">Añadir Subscripcion</button>
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden">
+
+        <!-- Products list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+            <ng-container *ngIf="subscriptions">
+                <ng-container *ngIf="subscriptions.length > 0; else noProducts">
+                    <div class="grid">
+                        <!-- Header -->
+                        <div
+                            class="inventory-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                            matSort
+                            matSortDisableClear>
+                            <div
+                                class="hidden md:block"
+                                [mat-sort-header]="'id'">
+                                ID
+                            </div>
+                            <div [mat-sort-header]="'descripcion'">Descripcion</div>
+                            <div
+                                class="hidden sm:block"
+                                [mat-sort-header]="'tipo'">
+                                Tipo
+                            </div>
+                            <div
+                                class="hidden lg:block"
+                                [mat-sort-header]="'costo'">
+                                Costo
+                            </div>
+                            <div
+                                class="hidden lg:block"
+                                [mat-sort-header]="'duracionMes'">
+                                Duracion por mex
+                            </div>
+                            <div class="hidden sm:block">Details</div>
+                        </div>
+                        <!-- Rows -->
+                        <ng-container *ngIf="subscriptions">
+                            <ng-container *ngFor="let subscription of subscriptions; trackBy: trackByFn">
+                                <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+
+                                    <!-- SKU -->
+                                    <div class="hidden md:block truncate">
+                                        {{subscription.id}}
+                                    </div>
+
+                                    <!-- Name -->
+                                    <div class="truncate">
+                                        {{subscription.descripcion}}
+                                    </div>
+
+                                    <!-- Price -->
+                                    <div class="truncate">
+                                        {{subscription.tipo}}
+                                    </div>
+
+                                    <!-- Stock -->
+                                    <div class="hidden lg:flex items-center">
+                                        <div class="min-w-4">{{subscription.costo| currency:'MXN':'symbol':'1.2-2'}}</div>
+                                       
+                                    </div>
+
+                                    <!-- Active -->
+                                    <div class="hidden lg:flex items-center">
+                                        <div class="min-w-4">{{subscription.duracionMes}}</div>
+                                       
+                                    </div>
+
+                                    <!-- Details button -->
+                                    <div>
+                                        <button
+                                            class="min-w-10 min-h-7 h-7 px-2 leading-6"
+                                            mat-stroked-button
+                                            (click)="setValuesForm(subscription)">
+                                            <mat-icon
+                                                class="icon-size-5"
+                                                [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+
+                </ng-container>
+            </ng-container>
+
+            <ng-template #noProducts>
+                <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no products!</div>
+            </ng-template>
+
         </div>
-        <div class="row">
-            <div class="col-12">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Costo</th>
-                            <th scope="col">Duracion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let sub of subscriptions">
-                            <td>{{ sub.id }}</td>
-                            <td class="col-2 text-truncate">{{ sub.descripcion }}</td>
-                            <td>{{ sub.tipo }}</td>
-                            <td class="col-2 text-truncate">{{ sub.costo }}</td>
-                            <td class="col-2 text-truncate">{{ sub.duracionMes }} meses</td>
-                            <td>
-                                <button type="button" (click)="setValuesForm(sub)" class="btn btn-primary"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+
+    </div>
+        
     </enarm-loading-outlet>
 </div>
 
-<!-- Modal -->
+
+
+<!-- Modal
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div [ngClass]="{'show': error}" class="toast align-items-center text-white bg-danger border-0"
         style="position: absolute; top: 4%; right: 5%;" role="alert" aria-live="assertive" aria-atomic="true">
@@ -111,4 +207,4 @@
         <button (click)="resultSave = false" type="button" class="btn-close btn-close-white me-2 m-auto"
             data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-</div>
+</div> -->

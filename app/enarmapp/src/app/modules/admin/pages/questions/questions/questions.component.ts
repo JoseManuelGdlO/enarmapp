@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ICategory, ISubcategory } from "src/app/shared/interfaces/categories.interface";
+import { ICategory, ISubcategory } from "app/shared/interfaces/categories.interface";
 import { AdminService } from "../../../services/admin.service";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { AdminQuestionService } from "../../../services/admin-question.service";
-import { transformTextb64 } from "src/app/shared/utils/transform.utils";
+import { transformTextb64 } from "app/shared/utils/transform.utils";
 import { QuillEditorComponent } from "ngx-quill";
 
 @Component({

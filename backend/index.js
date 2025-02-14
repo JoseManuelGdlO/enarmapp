@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   console.log(process.env.STRIPE_SECRET_KEY_TEST);
   
-  res.json({ version: "0.0.1", prosess: process.env.STRIPE_SECRET_KEY_TEST });
+  res.json({ version: "0.0.4", prosess: process.env.STRIPE_SECRET_KEY_TEST });
 });
 
 app.use("/users", usersRouter);

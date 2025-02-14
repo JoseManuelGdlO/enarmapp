@@ -5,6 +5,6 @@
 </div>
 <div class="div-container wrapper" [ngStyle]="{'margin-top': '-32px', 'padding': '7px 0px', 'background-color': '#D3D3D3', 'width': percentage+'%'}">
      <h5 class="one" style="color: transparent">Progreso</h5>
-    <h5 class="two" style="color: transparent">{{percentage}}%</h5>
+    <h5 class="two" style="color: transparent">{{percentage | number : '1' }}%</h5>
 </div>
 

@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { PreferencesService } from "src/app/shared/services/preferences.service";
-import { API_URL } from "src/environments/environment";
+import { PreferencesService } from "app/shared/services/preferences.service";
+import { API_URL } from "environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -101,7 +101,7 @@ export class LoginService{
     }
 
     logout() {
-        this.preferenceSession.clearAllItems();
-        this.router.navigateByUrl('login');
+        const url = API_URL + '/auth/logout'
+            this.httpclient.post(url, {})
     }
 }

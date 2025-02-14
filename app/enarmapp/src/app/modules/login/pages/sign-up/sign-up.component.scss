@@ -8,7 +8,6 @@
     /* box-shadow: 8px 6px 31px -4px rgb(0 0 0 / 21%); */
     /* -webkit-box-shadow: 8px 6px 31px -4px rgb(0 0 0 / 21%); */
     border-radius: 10px;
-    width: 40%;
     /* max-height: 550px; */
     overflow: overlay;
 }
@@ -43,6 +42,7 @@
     font-size: 16px;
     line-height: 22px;
     color: #212121;
+    display: inline-flex;
 }
 
 .h5___forgotpassword {

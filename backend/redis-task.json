@@ -1,0 +1,24 @@
+{
+    "family": "redis-task",
+    "requiresCompatibilities": ["FARGATE"],
+    "networkMode": "awsvpc",
+    "executionRoleArn": "arn:aws:iam::978114131195:role/ecsTaskExecutionRole",
+    "cpu": "256",
+    "memory": "512",
+    "containerDefinitions": [
+      {
+        "name": "redis",
+        "image": "978114131195.dkr.ecr.us-east-1.amazonaws.com/redis-app:latest",
+        "memory": 512,
+        "cpu": 256,
+        "essential": true,
+        "portMappings": [
+          {
+            "containerPort": 6379,
+            "hostPort": 6379
+          }
+        ]
+      }
+    ]
+  }
+  

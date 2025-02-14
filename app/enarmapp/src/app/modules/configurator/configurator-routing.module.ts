@@ -5,6 +5,7 @@ import { ConfiguratorComponent } from './pages/configurator/configurator.compone
 const routes: Routes = [
     {
         path: '',
+        title: 'Configurador',
         component: ConfiguratorComponent
     }
 ];

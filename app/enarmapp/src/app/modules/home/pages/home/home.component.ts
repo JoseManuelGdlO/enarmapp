@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { ChartType } from "angular-google-charts";
-import { EAcountStatus } from "src/app/shared/interfaces/account-status.enum";
-import { IUser } from "src/app/shared/interfaces/user.interface";
-import { PreferencesService } from "src/app/shared/services/preferences.service";
+import { EAcountStatus } from "app/shared/interfaces/account-status.enum";
+import { IUser } from "app/shared/interfaces/user.interface";
+import { PreferencesService } from "app/shared/services/preferences.service";
 import { HomeService } from "../../services/home.service";
 import { Router } from "@angular/router";
 
@@ -16,7 +15,6 @@ export class HomeComponent implements OnInit {
   responsedata!: any;
 
   title = 'Browser market shares at a specific website, 2014';
-   type = ChartType.PieChart;
    data = [
       ['Firefox', 45.0],
       ['IE', 26.8],
@@ -31,6 +29,8 @@ export class HomeComponent implements OnInit {
    width = 280
    height = 280;
    examDate = 0
+
+   isMobile = false
 
   exams = [
     { id: 1, progress: 79, questions: 162, answers: 123, status: 1, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
@@ -52,10 +52,29 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isMobile = this.detectMobileDevice();
     this.getData()
     this.getExams();
     this.getExamDate();
     this.getPhrase()
+  }
+
+
+  detectMobileDevice(): boolean {
+    const userAgent = navigator.userAgent.toLowerCase();
+    console.log('User Agent', userAgent);
+    
+    // Verifica los dispositivos más comunes
+    if (/iphone|ipod|android|blackberry|windows phone|webos|mobile|tablet/i.test(userAgent)) {
+      return true;
+    }
+    
+    // También puedes verificar el tamaño de la ventana, si es menor que un tamaño típico de escritorio
+    if (window.innerWidth <= 800) {
+      return true;
+    }
+
+    return false;
   }
 
   async getPhrase(): Promise<void>{

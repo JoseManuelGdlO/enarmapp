@@ -1,16 +1,18 @@
 <body>
     <enarm-header></enarm-header>
-    <div class="ph-55" style="padding-top: 9%;">
+    <div [ngClass]="{'ph-55': !isMobile, 'ph-30': isMobile }" [ngStyle]="{ 'padding-top': !isMobile ? '9%' : '30%' }">
         <enarm-loading-outlet [isLoading]="isLoading">
-        <div class="div___name">
+        <div  [ngClass]="{'div___name': !isMobile}">
             <h1 class="h1___welcome">Configurador de Examen</h1>
             <h1 class="h1___daystoenarm">
-                <img src="assets/icons/calendar-icon.svg" alt="">
-                Quedan {{examDate}} días para el ENARM 2023, ¡tu puedes!
+                <img src="assets/icons/calendar-icon.svg" [ngStyle]="{ 'width': isMobile ? '25px' : '20px'}" alt="">
+                <span [ngStyle]="{ 'padding-top': isMobile ? '5px' : '0', 'padding-left': isMobile ? '5px' : '0' }">
+                    Quedan {{examDate}} días para el ENARM 2023, ¡tu puedes!
+                </span>
             </h1>
         </div>
         <div class="row">
-            <div class="col-50 mt-38">
+            <div [ngClass]="{'col-50': !isMobile, 'col-100': isMobile, 'mtl-38': !isMobile}" >
                 <div style="display: flex;" class="pr-25">
                     <div class="col-50">
                     </div>
@@ -20,26 +22,26 @@
                 </div>
                 <div class="">
                     <h5 class="h5___titles">Incluir preguntas de</h5>
-                    <enarm-menu-category [getCategories]="subtemas?.response" (selectedCategory)="selectCategory($event)"></enarm-menu-category>
+                    <enarm-menu-category [getCategories]="subtemas.response" (selectedCategory)="selectCategory($event)"></enarm-menu-category>
                 </div>
-                <div class=" mt-10 div___moreExams">
+                <div class=" mtt-10 div___moreExams">
                     <h5 class="h5___subtitles">Selecciona los subtemas que deseas incluir en el examen:</h5>
                     <enarm-select [setitems]="subcategorySelected" (onSelected)="getSubcatValue($event)"></enarm-select>
                 </div>
                 <hr class="hr___divider">
-                <div class="mt-10">
+                <div class="mtt-10">
                     <h5 class="h5___titles">Filtrar preguntas</h5>
-                    <div class="mt-10"></div>
+                    <div class="mtt-10"></div>
                     <enarm-checkbox [options]="optionsCheckBox" (onSelectedOption)="getFilterValue($event)"></enarm-checkbox>
                 </div>
                 <hr class="hr___divider">
-                <div class="mt-10">
+                <div class="mtt-10">
                     <h5 class="h5___titles">Idioma</h5>
-                    <div class="mt-10"></div>
+                    <div class="mtt-10"></div>
                     <enarm-radiobutton valueSelect="Español" option="idioma" [options]="optionsRadioButtonLanguage" (onSelectedRadio)="getLanguageValue($event)"></enarm-radiobutton>
                 </div>
                 <hr class="hr___divider">
-                <div class="mt-10">
+                <div class="mtt-10">
                     <div class="div___doubletitle">
                         <h5 class="h5___titles">Número de preguntas</h5>
                         <div class="div___switch">
@@ -52,7 +54,7 @@
                     <mat-slider min="1" max="100" step="1" thumbLabel color="primary" (change)="getSliderValue($event)"></mat-slider>
                 </div>
                 <hr class="hr___divider">
-                <div class="mt-10">
+                <div class="mtt-10">
                     <div class="div___textInfo">
                         <h5 class="h5___titles">Modo de examen</h5>
                         <div class="div___info-icon">
@@ -60,17 +62,17 @@
                             examen para poder entrar al modo de revisión."></enarm-icon-info>
                         </div>
                     </div>
-                    <div class="mt-10"></div>
+                    <div class="mtt-10"></div>
                     <enarm-radiobutton option="examen" valueSelect="Modo Estudio" [options]="optionsRadioButtonMode" (onSelectedRadio)="getModeValue($event)"></enarm-radiobutton>
                     <div class="mb-50"></div>
                 </div>
             </div>
-            <div class="col-50">
+            <div [ngClass]="{'col-50': !isMobile, 'col-100': isMobile}">
                 <div class="mt-38 pl-25">
                     <enarm-toast-quotes
                         quote="Cuéntamelo y me olvidaré. enséñamelo y lo recordaré. involúcrame y lo aprenderé."
                         author="Benjamin Franklin"></enarm-toast-quotes>
-                    <div class="mt-50 div___generate">
+                    <div class="mtt-50 div___generate">
                         <div class="button___generate">
                             <enarm-button text="Generar examen" (onClick)="getAllValues()"></enarm-button>
                         </div>

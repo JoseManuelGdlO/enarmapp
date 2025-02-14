@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { EAcountStatus } from "src/app/shared/interfaces/account-status.enum";
-import { ISubscription } from "src/app/shared/interfaces/subscriptions.interface";
-import { IUserType } from "src/app/shared/interfaces/user-type.interface";
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl } from "@angular/forms";
+import { EAcountStatus } from "app/shared/interfaces/account-status.enum";
+import { ISubscription } from "app/shared/interfaces/subscriptions.interface";
+import { IUserType } from "app/shared/interfaces/user-type.interface";
 import { AdminService } from "../../services/admin.service";
 
 @Component({
   templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.scss']
+  styleUrls: ['./subscription.component.scss'],
 })
 export class SubscriptionComponent implements OnInit {
 
@@ -18,6 +18,7 @@ export class SubscriptionComponent implements OnInit {
   isLoadingModal = false
 
   selectedSubs: any;
+  searchInputControl: UntypedFormControl = new UntypedFormControl();
   error = false
   resultSave = false
 
@@ -113,5 +114,17 @@ export class SubscriptionComponent implements OnInit {
       x.tipo.toLowerCase().includes(value.target.value.toLowerCase()))
     this.subscriptions = filters
   }
+
+  
+    /**
+     * Track by function for ngFor loops
+     *
+     * @param index
+     * @param item
+     */
+    trackByFn(index: number, item: any): any
+    {
+        return item.id || index;
+    }
 
 }

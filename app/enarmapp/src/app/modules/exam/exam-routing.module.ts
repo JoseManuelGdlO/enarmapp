@@ -6,10 +6,12 @@ import { ExamsComponent } from './pages/exams/exams.component';
 const routes: Routes = [
   {
     path: 'work/:id',
+    title: 'Examen',
     component: ExamComponent
   },
   {
     path: 'exams',
+    title: 'Examenes',
     component: ExamsComponent
   }
 ];

@@ -1,29 +1,29 @@
 <body style="background-color: #953193;">    
-    <div class="inline-center" style="position: absolute; top: 10%;" [ngStyle]="{ 'height': screenHeight + 'px;' }">
+    <div class="inline-center" style="position: absolute;" [ngStyle]="{ 'height': screenHeight + 'px;', 'top': isMobile ? '0' : '10%' }">
 
-        <div class="div___content">
+        <div class="div___content" [ngStyle]="{ 'margin-right': !isMobile ? '198px' : '0', 'border-radius': !isMobile ? '10px' : '', 'border': !isMobile ? '0.5px solid #878787' : '' }">
             <h3 class="h3___welcome">¡Bienvenido!</h3>
-            <h1 class="h1___login mt-10">Iniciar sesión</h1>
+            <h1 class="h1___login mttl-10">Iniciar sesión</h1>
             <h4 class="h4___description">Usa tus credenciales para ingresar a MedBrain.</h4>
             <enarm-loading-outlet [isLoading]="isLoading">
-                <h4 class="h4___fields mt-30">Correo</h4>
-                <div class="mt-5">
+                <h4 class="h4___fields mttl-30">Correo</h4>
+                <div class="mttl-5">
                     <enarm-input [(ngModel)]="email" name="email" placeholder="Ingresa tu correo electrónico"></enarm-input>
                 </div>
-                <h4 class="h4___fields mt-30">Contraseña</h4>
-                <div class="mt-5">
+                <h4 class="h4___fields mttl-30">Contraseña</h4>
+                <div class="mttl-5">
                     <enarm-input [(ngModel)]="password" format="password" name="password"
                         placeholder="Ingresa tu contraseña"></enarm-input>
                 </div>
-                <h4 *ngIf="error" style="color: rgb(164, 23, 23)" class="h4___description tx-center mt-10">Datos incorrectos</h4>
-                <div class="inline-separe mt-20">
+                <h4 *ngIf="error" style="color: rgb(164, 23, 23)" class="h4___description tx-center mttl-10">Datos incorrectos</h4>
+                <div class="inline-separe mttl-20">
                     <h5 class="h5___rememberme"><input type="checkbox" id="cbox1" [(ngModel)]="rememberme"> <span
                             style="position: absolute; margin-top: 2px;">Recordar</span></h5>
                     <h5 class="h5___forgotpassword">¿Olvidaste tu contraseña?</h5>
                 </div>
-                <div class="mt-30">
+                <div class="mttl-30">
                     <enarm-button (onClick)="login()" text="Iniciar sesión"></enarm-button>
-                    <div class="mt-5">
+                    <div class="mttl-5">
                         <enarm-button (onClick)="loginFacebook()" [border]="false" backgroundcolor="#953193"
                             text="Iniciar con facebook"></enarm-button>
                     </div>
@@ -32,9 +32,38 @@
                     <h5 class="h5___singup">¿No tienes una cuenta? <span routerLink="sign-up"
                             style="color:black; font-weight: 600; cursor: pointer;">Registrarse</span></h5>
                 </div>
+                <div class="sm:col-span-2 lg:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex items-start justify-between m-6 mb-0">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Casos clinicos generados</div>
+
+                    </div>
+                    <div class="flex flex-col lg:flex-row lg:items-center mx-6 mt-3">
+                        <div class="text-7xl font-bold tracking-tighter leading-tight">{{1323 | number:'1.0-0'}}</div>
+                        <div class="flex lg:flex-col lg:ml-3">
+                            <mat-icon
+                                class="icon-size-5 text-green-500"
+                                [svgIcon]="'heroicons_mini:arrow-trending-up'"></mat-icon>
+                            <div class="flex items-center ml-1 lg:ml-0 lg:mt-0.5 text-md leading-none whitespace-nowrap text-secondary">
+                                <span class="font-medium text-green-500">+2%</span>
+                                <span class="ml-1"> cada semana</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-auto h-20">
+                        <apx-chart
+                            class="flex-auto w-full h-full"
+                            [chart]="chartConversions.chart!"
+                            [colors]="chartConversions.colors!"
+                            [series]="chartConversions.series!"
+                            [stroke]="chartConversions.stroke!"
+                            [tooltip]="chartConversions.tooltip!"
+                            [xaxis]="chartConversions.xaxis!"
+                            [yaxis]="chartConversions.yaxis!"></apx-chart>
+                    </div>
+                </div>
             </enarm-loading-outlet>
         </div>
-        <div style="padding-top: 10%;">
+        <div *ngIf="!isMobile" style="padding-top: 10%;">
             <img class="img___logo" src="assets/images/enarm-logo.png" alt="">
         </div>
 

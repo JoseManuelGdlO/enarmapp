@@ -27,6 +27,7 @@
     "mysql2": "^2.3.3",
     "pg": "^8.13.1",
     "sequelize": "^6.37.5",
+    "redis": "^4.7.0",
     "stripe": "^17.4.0"
   },
   "devDependencies": {
