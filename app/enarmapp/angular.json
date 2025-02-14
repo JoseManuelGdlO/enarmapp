@@ -123,10 +123,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "enarmapp:build:production"
+              "buildTarget": "enarmapp:build:production"
             },
             "development": {
-              "browserTarget": "enarmapp:build:development"
+              "buildTarget": "enarmapp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -134,7 +134,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "enarmapp:build"
+            "buildTarget": "enarmapp:build"
           }
         },
         "test": {
