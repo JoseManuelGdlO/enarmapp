@@ -1,399 +1,208 @@
-const db = require('./db');
+// const db = require('./db');
 const helper = require('../helper');
+const { Op } = require('sequelize');
+
+const careerModel = require("../storage/models/career.model.js");
+const universityModel = require("../storage/models/university.model.js");
+const userTypesModel = require("../storage/models/user_type.model.js");
+const enarmDateModel = require("../storage/models/enarm_date.model.js");
+
+const configurationModel = require("../storage/models/config.model.js"); 
+const phrasesModel = require("../storage/models/phrase.model.js");
+const subscriptionsModel = require("../storage/models/subscription.model.js");
+const laboratoryCategoryModel = require("../storage/models/laboratory_category.model.js");
+const laboratoryValuesModel = require("../storage/models/laboratory_value.model.js");
 
 async function getConfigurationPerCode(codeString) {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM configs
-      WHERE codigo = "${codeString}"`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
+    const config = await configurationModel.findOne({
+        where: {
+            codigo: codeString
         }
-    }
+    })
 
-    return {
-        data,
-        code
-    }
+    return config;
 }
 
 async function getConfigurationPerGroup(group) {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM configs
-      WHERE grupo = "${group}"`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
+    const config = await configurationModel.findAll({
+        where: {
+            grupo: group
         }
-    }
-
-    return {
-        data,
-        code
-    }
+    })
+    return config;
 }
 
 async function getConfiguration() {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM configs`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+    const config = await configurationModel.findAll()
+    return config;
 }
 
 async function updateConfiguration(body) {
-    let code = 200;
-    let rows
+    let response= null
 
     if (body.id) {
-        rows = await db.query(
-            `UPDATE configs SET descripcion = '${body.descripcion}', codigo = '${body.codigo}', grupo = '${body.grupo}', tipo = '${body.tipo}', valor = '${body.valor}' WHERE id = ${body.id}`
-        );
+       response = await configurationModel.update({
+            codigo: body.codigo,
+            grupo: body.grupo,
+            tipo: body.tipo,
+            valor: body.valor,
+            descripcion: body.descripcion
+        }, {
+            where: {
+                id: body.id
+            }
+        })
     } else {
-        rows = await db.query(
-            `INSERT INTO configs (codigo, grupo, tipo, valor, descripcion) VALUES ('${body.codigo}', '${body.grupo}', '${body.tipo}', '${body.valor}', '${body.descripcion}')`
-        );
+        repsonse = await configurationModel.create({
+            codigo: body.codigo,
+            grupo: body.grupo,
+            tipo: body.tipo,
+            valor: body.valor,
+            descripcion: body.descripcion
+        })
     }
 
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+    return response;
 }
 
 async function getUniversidades(group) {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM universidades`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+    const university = await universityModel.findAll()
+    return university;
 }
 
-async function getFrases(group) {
-    let code = 200;
-
-    const rows = await db.query(
-        'SELECT * FROM frases'
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+async function getFrases() {
+    const phrases = await phrasesModel.findAll()
+    return phrases;
 }
 
-async function getEspecialidades(group) {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM especialidades`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+async function getEspecialidades() {
+    const careers = await careerModel.findAll()
+    return careers;
 }
 
 async function getStudnetTypes(type) {
     let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM tipo_usuario`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
+    let where =  null
+    
     if (type === 'signup') {
-        const index = data.findIndex(x => x.id === 5);
-        data.splice(index, 1);
+        where = { where : {
+            name: { [Op.ne]: 'Administrador' }
+        }}
     }
-    return {
-        data,
-        code
-    }
+    const userTypes = userTypesModel.findAll(where)
+    return userTypes;
 }
 
-async function getEnarmDate(group) {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM fecha_enarm`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+async function getEnarmDate() {
+    const enamrsDates = await enarmDateModel.findAll()
+    return enamrsDates;
 }
 
 async function getSubscripciones() {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM suscripcion`
-    );
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+    const subscriptions = await subscriptionsModel.findAll()
+    return subscriptions;
 }
 
 async function updateSubscriptions(body) {
-    let code = 200;
-    let rows
+    const subscription = null
 
     if (body.id) {
-        rows = await db.query(
-            `UPDATE suscripcion SET tipo = '${body.tipo}', costo = '${body.costo}', descripcion = '${body.descripcion}', duracionMes = '${body.duracionMes}' WHERE id = ${body.id}`
-        );
+        subscription = await subscriptionsModel.update({
+            tipo: body.tipo,
+            costo: body.costo,
+            descripcion: body.descripcion,
+            duracionMes: body.duracionMes
+        }, {
+            where: {
+                id: body.id
+            }
+        })
     } else {
-        rows = await db.query(
-            `INSERT INTO suscripcion (tipo, costo, descripcion, duracionMes) VALUES ('${body.tipo}', '${body.costo}', '${body.descripcion}', '${body.duracionMes}')`
-        );
+        subscription = await subscriptionsModel.create({
+            tipo: body.tipo,
+            costo: body.costo,
+            descripcion: body.descripcion,
+            duracionMes: body.duracionMes
+        })
     }
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+    return subscription;
 }
 
 async function getLaboratories() {
-    let code = 200;
-
-    const rows = await db.query(
-        `SELECT * FROM laboratory_category`
-    );
-
-    for (const row of rows) {
-        const rows2 = await db.query(`SELECT * FROM laboratory_values WHERE fk_category = ${row.id}`)
-        row.subcategories = rows2
-    }
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+    const laboratoryCategory = await laboratoryCategoryModel.findAll()
+    return laboratoryCategory;
 }
 
 async function addLaboratory(body) {
-    let code = 200;
-    let rows
+    let laboratoryCategory = null
 
     if (body.id) {
-        rows = await db.query(
-            `UPDATE laboratory_category SET name = '${body.name}' WHERE id = ${body.id}`
-        );
+        laboratoryCategory = await laboratoryCategoryModel.update({
+            name: body.name
+        }, {
+            where: {
+                id: body.id
+            }
+        })
     } else {
-        rows = await db.query(
-            `INSERT INTO laboratory_category (name) VALUES ('${body.name}')`
-        );
+        laboratoryCategory = await laboratoryCategoryModel.create({
+            name: body.name
+        })
     }
 
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+    return laboratoryCategory;
 }
 
 async function removeLaboratory(id) {
-    let code = 200;
-    let rows
 
-    rows = await db.query(
-        `DELETE FROM laboratory_values WHERE fk_category = ${id}`
-    );
-
-    rows = await db.query(
-        `DELETE FROM laboratory_category WHERE id = ${id}`
-    );
-
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            code
+    const laboratoryCategory = await laboratoryCategoryModel.destroy({
+        where: {
+            id: id
         }
-    }
+    })
 
-    return {
-        code
-    }
+    await laboratoryValuesModel.destroy({
+        where: {
+            fk_category: id
+        }
+    })
+
+    return laboratoryCategory;
 }
 
 async function addLaboratorySubcategory(body) {
-    let code = 200;
-    let rows
+    let laboratoryValues = null
 
     if (body.id) {
-        rows = await db.query(
-            `UPDATE laboratory_values SET name = '${body.name}', ejemplo = '${body.ejemplo}', valor = '${body.valor}' WHERE id = ${body.id}`
-        );
+        laboratoryValues = await laboratoryValuesModel.update({
+            name: body.name,
+            ejemplo: body.ejemplo,
+            valor: body.valor
+        }, {
+            where: {
+                id: body.id
+            }
+        })
     } else {
-        rows = await db.query(
-            `INSERT INTO laboratory_values (fk_category, name, ejemplo, valor) VALUES (${body.fk_category}, '${body.name}', '${body.ejemplo}', '${body.valor}')`
-        );
+        laboratoryValues = await laboratoryValuesModel.create({
+            fk_category: body.fk_category,
+            name: body.name,
+            ejemplo: body.ejemplo,
+            valor: body.valor
+        })
     }
 
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            data,
-            code
-        }
-    }
-
-    return {
-        data,
-        code
-    }
+    return laboratoryValues;
 }
 
 async function removeLaboratorySubcategory(id) {
-    let code = 200;
-    let rows
-    console.log('id', id);
-
-    rows = await db.query(
-        `DELETE FROM laboratory_values WHERE id = ${id}`
-    )
-
-    let data = helper.emptyOrRows(rows);
-    if (data.length === 0) {
-        code = 404;
-        return {
-            code
+    const laboratoryValues = await laboratoryValuesModel.destroy({
+        where: {
+            id: id
         }
-    }
+    })
 
-    return {
-        code
-    }
+    return laboratoryValues;
 
 }
 

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const configurations = require('../services/configurations');
 const { verifyToken } = require('../libs/headers');
+var http = require('http2').constants;
 
 router.get('/configuration', verifyToken, async function (req, res, next) {
   try {
@@ -50,8 +51,15 @@ router.get('/configuration-group', verifyToken, async function (req, res, next) 
 
 router.get('/universidades', verifyToken, async function (req, res, next) {
   try {
+    let code = http.HTTP_STATUS_OK;
+    
     const response = await configurations.getUniversidades()
-    res.status(response.code).json(response.data);
+    if (response.length === 0) {
+        code = http.HTTP_STATUS_NOT_FOUND;
+    }
+    return res.status(code).json({
+      response
+    });
   } catch (err) {
     console.error(`Error while getting enarm students info `, err.message);
     next(err);
@@ -70,8 +78,15 @@ router.get('/frases', verifyToken, async function (req, res, next) {
 
 router.get('/especialidades', verifyToken, async function (req, res, next) {
   try {
+    let code = http.HTTP_STATUS_OK;
+    
     const response = await configurations.getEspecialidades()
-    res.status(response.code).json(response.data);
+    if (response.length === 0) {
+        code = http.HTTP_STATUS_NOT_FOUND;
+    }
+    return res.status(code).json({
+      response
+    });
   } catch (err) {
     console.error(`Error while getting enarm students info `, err.message);
     next(err);
@@ -82,7 +97,14 @@ router.get('/student-type', verifyToken, async function (req, res, next) {
   try {
     const type = req.query.type;
     const response = await configurations.getStudnetTypes(type)
-    res.status(response.code).json(response.data);
+    let code = http.HTTP_STATUS_OK;
+    
+    if (response.length === 0) {
+        code = http.HTTP_STATUS_NOT_FOUND;
+    }
+    return res.status(code).json({
+      response
+    });
   } catch (err) {
     console.error(`Error while getting enarm students info `, err.message);
     next(err);
@@ -92,7 +114,14 @@ router.get('/student-type', verifyToken, async function (req, res, next) {
 router.get('/enarm-date', verifyToken, async function (req, res, next) {
   try {
     const response = await configurations.getEnarmDate()
-    res.status(response.code).json(response.data);
+    let code = http.HTTP_STATUS_OK;
+    
+    if (response.length === 0) {
+        code = http.HTTP_STATUS_NOT_FOUND;
+    }
+    return res.status(code).json({
+      response
+    });
   } catch (err) {
     console.error(`Error while getting enarm students info `, err.message);
     next(err);

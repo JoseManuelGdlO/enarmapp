@@ -67,21 +67,21 @@ import { LoginService } from "../../services/login.service";
       this.especialities = await this.loginService.getEspecialities()
       this.studentTypes = await this.loginService.getStudentsTypes()
       this.enarmDate = await this.loginService.getEnarmDates()
-
+      
       this.especialities.forEach((item: any) => {
-        item.value = item.nombre;
+        item.value = item.name;
       })
 
       this.universidades.forEach((item: any) => {
-        item.value = item.nombre;
+        item.value = item.name;
       })
 
       this.studentTypes.forEach((item: any) => {
-        item.value = item.tipo;
+        item.value = item.name;
       })
 
       this.enarmDate.forEach((item: any) => {
-        item.value = item.fecha_anio;
+        item.value = item.year;
       })
     }
 
@@ -109,7 +109,7 @@ import { LoginService } from "../../services/login.service";
       }
       console.log("TRATO DE MANDAR:\n"+object.nombres+"\n"+object.idUniversidad+"\n"+object.idEspecialidad);
 
-      const passw=  /^[A-Za-z]\w{7,14}$/;
+      const passw=  /^(?=.*[A-Z])(?=.*\d).{9,}$/;
       if(!this.fromSocialMedia && !object.password?.match(passw)) 
       { 
         this.message = 'La contraseña no cumple con los requisitos';

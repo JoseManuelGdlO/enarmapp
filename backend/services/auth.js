@@ -1,27 +1,31 @@
+// const db = require('./db');
+const helper = require('../helper');
 const encrypt = require('../libs/encrypt');
 const userModel = require("../storage/models/user.model.js");
-const userStatusModel = require("../storage/models/user_status.model.js");
+const statusUserModel = require("../storage/models/user_status.model.js");
 
 async function register({name, last_name, email, password, picture, user_type_id, university_id, enarm_date_id, career_id, birthdate, gender, social_media_id}) {
     // body.password = await encrypt.encryptPassword(body.password);
-    const user = await userModel.create({
-        name: name,
-        last_name: last_name,
-        email: email,
-        password: password,
-        picture: picture,
-        user_type_id: user_type_id,
-        university_id: university_id,
-        enarm_date_id: enarm_date_id,
-        career_id: career_id,
-        birthdate: birthdate,
-        gender: gender,
-        social_media_id: social_media_id,
-    });
+    let user = await userModel.create({
+        subscription_id: 1,
+        name: body.nombres,
+        last_name: body.apellidos,
+        email: body.email,
+        password: body.password,
+        picture: body.ruta_fotografia,
+        user_type_id: body.idTipoUsuario,
+        university_id: body.idUniversidad,
+        enarm_date_id: body.idFechaEnarm,
+        career_id: body.idEspecialidad,
+        birthdate: body.cumpleanos,
+        gender: body.sexo,
+        social_media_id: body.id_social_media? body.id_social_media : 0,
+      });
+    console.log(user);
 
-    const userStatus = await userStatusModel.upsert({
+    await statusUserModel.create({
         user_id: user.id,
-        name: 0,
+        name: 0
     });
 
     return user;
