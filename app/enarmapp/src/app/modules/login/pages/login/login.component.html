@@ -27,6 +27,28 @@
                         <enarm-button (onClick)="loginFacebook()" [border]="false" backgroundcolor="#953193"
                             text="Iniciar con facebook"></enarm-button>
                     </div>
+                    <div class="mttl-5">
+                        <!-- <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button> -->
+                        <!-- <enarm-button (onClick)="signInWithGoogle()" [border]="false" backgroundcolor="#4285F4"
+                            text="Iniciar con Google"></enarm-button> -->
+                            <script src="https://accounts.google.com/gsi/client" async></script>
+                            <div id="g_id_onload"
+                                data-client_id="538467914450-nf87r5uiivfcpevp41gu9vq18tnugr78.apps.googleusercontent.com"
+                                data-context="signin"
+                                data-ux_mode="popup"
+                                data-callback="handleCredentialResponse"
+                                data-auto_prompt="false">
+                            </div>
+
+                            <div class="g_id_signin"
+                                data-type="standard"
+                                data-shape="rectangular"
+                                data-theme="filled_blue"
+                                data-text="signin_with"
+                                data-size="large"
+                                data-logo_alignment="left">
+                            </div>
+                    </div>
                 </div>
                 <div class="tx-center mt-15">
                     <h5 class="h5___singup">¿No tienes una cuenta? <span routerLink="sign-up"

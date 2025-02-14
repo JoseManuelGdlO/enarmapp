@@ -23,7 +23,7 @@ async function AddQuesiton(body) {
                 const imageBuffer = Buffer.from(clinic.imagen.data.split(',')[1], 'base64');
                 const params = {
                     Bucket: 'enrm-dev-images',
-                    Key: clinic.nombre.split(' ').join('-').trim() + '_' + new Date().getTime().toString() + '.' + clinic.imagen.mimetype.split('/')[1],
+                    Key: clinic.nombre.split(' ').join('-').trim().slice(31) + '_' + new Date().getTime().toString() + '.' + clinic.imagen.mimetype.split('/')[1],
                     Body: imageBuffer,
                     ACL: 'public-read',
                     ContentType: clinic.imagen.mimetype,
@@ -45,7 +45,7 @@ async function AddQuesiton(body) {
                     const imageBuffer = Buffer.from(question.imagen.data.split(',')[1], 'base64');
                     const params = {
                         Bucket: 'enrm-dev-images',
-                        Key: question.pregunta.split(' ').join('-').trim() + '_' + new Date().getTime().toString() + '.' + question.imagen.mimetype.split('/')[1],
+                        Key: question.pregunta.split(' ').join('-').trim().slice(31) + '_' + new Date().getTime().toString() + '.' + question.imagen.mimetype.split('/')[1],
                         Body: imageBuffer,
                         ACL: 'public-read',
                         ContentType: question.imagen.mimetype,
@@ -65,7 +65,7 @@ async function AddQuesiton(body) {
                     if(pregunta.imagen) {
                         const params = {
                             Bucket: 'enrm-dev-images',
-                            Key: pregunta.imagen.name,
+                            Key: pregunta.imagen.name.split(' ').join('-').trim().slice(31) + '_' + new Date().getTime().toString() + '.' + pregunta.imagen.mimetype.split('/')[1],
                             Body: pregunta.imagen.data,
                             ACL: 'public-read',
                             ContentType: pregunta.imagen.mimetype,
@@ -76,8 +76,8 @@ async function AddQuesiton(body) {
                     }
 
                     await connection.execute(
-                        `INSERT INTO respuesta ( idPregunta, respuesta, isCorrecta, retroalimentacion)
-                    VALUES (${rows.insertId},"${pregunta.respuesta}",${pregunta.isCorrecta},"${pregunta.retroalimentacion}");`
+                        `INSERT INTO respuesta ( idPregunta, respuesta, isCorrecta, retroalimentacion, imagen)
+                    VALUES (${rows.insertId},"${pregunta.respuesta}",${pregunta.isCorrecta},"${pregunta.retroalimentacion}", "${response.Location}");`
                     );
                 }
 

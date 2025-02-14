@@ -103,7 +103,8 @@ export class HomeComponent implements OnInit {
   getData() {
     this.responsedata = this.preferencesService.getItem<IUser>('USER');
     this.user = this.responsedata.data as IUser
-
+    console.log('User', this.responsedata);
+    
     switch (this.responsedata.account.estatus) {
       case EAcountStatus.NEW:
         this.isNew = true;

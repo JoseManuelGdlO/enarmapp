@@ -1,82 +1,107 @@
-<div class="p-2 m-1 rounded shadow-lg">
-    <div (click)="remove.emit()" class="float-end">
-        <button class="btn btn-close"></button>
+<!-- <div class="p-2 m-1 rounded shadow-lg"> -->
+<div (click)="remove.emit()" class="float-end">
+    <button class="btn btn-close">Eliminar</button>
+</div>
+<div class="input-group mtt-10 mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text text-xl font-semibold tracking-tight leading-8" id="basic-addon1">Pregunta</span>
     </div>
-    <div class="input-group mtt-10 mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Pregunta</span>
+    <!-- <input type="text" class="form-control" [(ngModel)]="question.pregunta" name="question" placeholder="Pregunta" aria-label="Username"
+            aria-describedby="basic-addon1"> -->
+    <mat-form-field class="fuse-mat-dense fuse-mat min-w-64" [subscriptSizing]="'dynamic'">
+        <input matInput [(ngModel)]="question.pregunta" [autocomplete]="'off'" [placeholder]="'agrega el nombre aquí'">
+    </mat-form-field>
+</div>
+<div class="mt-5">
+    <div for="descripcion" class="input-group-text text-xl font-semibold tracking-tight leading-8">Descripcion de la
+        pregunta</div>
+    <div class="mt-3">
+        <quill-editor #editor (onEditorCreated)="createQuillDescirption($event)"
+            (onEditorChanged)="quillChange($event, 'resumen')" [styles]="{height: '150px'}"
+            placeholder="ingresa aqui la descripcion"></quill-editor>
+    </div>
+</div>
+<div class="mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="mb-4 d-flex justify-content-center">
+                <img [src]="question.imagen ? question.imagen.data : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg'"
+                    alt="example placeholder" style="width: 300px; height: 200px; object-fit: contain;" />
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="btn btn-primary btn-rounded">
+                    <label class="form-label text-white m-1" [for]="'customFile2'+indexQuestion"
+                        style="display: none;">Elige imagen</label>
+                    <input type="file" accept="image/png, image/gif, image/jpeg" (change)="getImage($event, question)"
+                        class="form-control d-none" [id]="'customFile2'+indexQuestion" />
+                </div>
+            </div>
         </div>
-        <input type="text" class="form-control" [(ngModel)]="question.pregunta" name="question" placeholder="Pregunta" aria-label="Username"
-            aria-describedby="basic-addon1">
-    </div>
-    <div class="mt-15">
-        <label for="descripcion">Descripcion de la pregunta</label>
-        <div class="mtt-5">
-            <quill-editor #editor (onEditorCreated)="createQuillDescirption($event)" (onEditorChanged)="quillChange($event, 'resumen')" [styles]="{height: '150px'}" placeholder="ingresa aqui la descripcion"></quill-editor>
+        <div class="mt-5">
+            <div for="descripcion" class="input-group-text text-xl font-semibold tracking-tight leading-8">Bibliografia
+            </div>
+            <div class="mt-3">
+                <quill-editor #biblio (onEditorCreated)="createQuillBiblio($event)" [styles]="{height: '100px'}"
+                    (onEditorChanged)="quillChange($event, 'bibliografia')"
+                    placeholder="ingresa aqui la bibiliografia y referencias"></quill-editor>
+            </div>
         </div>
     </div>
-    <div class="mt-15">
+</div>
+<!-- Respuestas -->
+<div class="mt-5 mb-5">
+    <!-- <button (click)="addAnswer()" class="btn btn-success">Añadir Respuesta</button> -->
+    <button class="ml-4" mat-flat-button [color]="'primary'" (click)="addAnswer()">
+        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+        <span class="ml-2 mr-1">Añadir Respuesta</span>
+    </button>
+    <div *ngFor="let answer of question.answers; index as index">
+        <div class="float-end">
+            <button (click)="removeAnswer(index)" class="btn btn-close"></button>
+        </div>
         <div class="row">
-            <div class="col">
-                <div class="mb-4 d-flex justify-content-center">
-                    <img [src]="question.imagen ? question.imagen.data : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg'" alt="example placeholder"
-                        style="width: 300px; height: 200px; object-fit: contain;" />
-                </div>
-                <div class="d-flex justify-content-center">
-                    <div class="btn btn-primary btn-rounded">
-                        <label class="form-label text-white m-1" [for]="'customFile2'+indexQuestion">Elige imagen</label>
-                        <input type="file" accept="image/png, image/gif, image/jpeg" (change)="getImage($event, question)" class="form-control d-none" [id]="'customFile2'+indexQuestion" />
+            <div class="col-8">
+                <div class="input-group mtt-5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text text-xl font-semibold tracking-tight leading-8"
+                            id="basic-addon1">Respuesta</span>
                     </div>
+                    <!-- <input type="text" [(ngModel)]="answer.respuesta" class="form-control" placeholder="Escribe la repuesta" aria-label="Username"
+                            aria-describedby="basic-addon1"> -->
+                    <mat-form-field class="fuse-mat-dense fuse-mat min-w-64" [subscriptSizing]="'dynamic'">
+                        <input matInput [(ngModel)]="answer.respuesta" [autocomplete]="'off'"
+                            [placeholder]="'agrega el nombre aquí'">
+                    </mat-form-field>
                 </div>
             </div>
-            <div class="col">
-                <label for="descripcion">Bibliografia</label>
-                <div class="mtt-5">
-                    <quill-editor #biblio (onEditorCreated)="createQuillBiblio($event)" [styles]="{height: '100px'}" (onEditorChanged)="quillChange($event, 'bibliografia')"
-                        placeholder="ingresa aqui la bibiliografia y referencias"></quill-editor>
+            <div class="mt-5">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" [name]="'btnradio'+indexQuestion+index"
+                        [(ngModel)]="answer.isCorrecta" [value]="true" [id]="'correcta'+indexQuestion+index"
+                        autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" [for]="'correcta'+indexQuestion+index">Correcta</label>
+
+                    <input type="radio" class="btn-check" [name]="'btnradio'+indexQuestion+index"
+                        [(ngModel)]="answer.isCorrecta" [value]="false" [id]="'incorrecta'+indexQuestion+index"
+                        autocomplete="off">
+                    <label class="btn btn-outline-primary" [for]="'incorrecta'+indexQuestion+index">Incorrecta</label>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Respuestas -->
-    <div class="mt-18 mb-25">
-        <button (click)="addAnswer()" class="btn btn-success">Añadir Respuesta</button>
-        <div *ngFor="let answer of question.answers; index as index" class="p-2 m-2 rounded shadow-lg">
-            <div class="float-end">
-                <button (click)="removeAnswer(index)" class="btn btn-close"></button>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <div class="input-group mtt-5">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Respuesta</span>
-                        </div>
-                        <input type="text" [(ngModel)]="answer.respuesta" class="form-control" placeholder="Escribe la repuesta" aria-label="Username"
-                            aria-describedby="basic-addon1">
-                    </div>
-                </div>
-                <div class="col mtt-5">
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" [name]="'btnradio'+indexQuestion+index"  [(ngModel)]="answer.isCorrecta" [value]="true" [id]="'correcta'+indexQuestion+index" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" [for]="'correcta'+indexQuestion+index">Correcta</label>
-
-                        <input type="radio" class="btn-check" [name]="'btnradio'+indexQuestion+index"  [(ngModel)]="answer.isCorrecta" [value]="false" [id]="'incorrecta'+indexQuestion+index" autocomplete="off">
-                        <label class="btn btn-outline-primary" [for]="'incorrecta'+indexQuestion+index">Incorrecta</label>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-15">
-                <label for="descripcion">Retroalimentacion</label>
-                <div class="mtt-5">
-                    <quill-editor (onEditorCreated)="createQuill($event, answer)" [styles]="{height: '100px'}" (onEditorChanged)="quillAnsewerChange($event, answer)"
-                        placeholder="ingresa aqui la retroalimentacion"></quill-editor>
-                </div>
+        <div class="mt-5">
+            <div for="descripcion" class="input-group-text text-xl font-semibold tracking-tight leading-8">
+                Retroalimentacion</div>
+            <div class="mt-3">
+                <quill-editor (onEditorCreated)="createQuill($event, answer)" [styles]="{height: '100px'}"
+                    (onEditorChanged)="quillAnsewerChange($event, answer)"
+                    placeholder="ingresa aqui la retroalimentacion"></quill-editor>
             </div>
         </div>
-
     </div>
 
 </div>
+
+<!-- </div> -->
 
 <div [ngClass]="{'show': showError.length !== 0}" class="toast align-items-center text-white bg-danger border-0"
     style="position: fixed; top: 9%;" role="alert" aria-live="assertive" aria-atomic="true">
