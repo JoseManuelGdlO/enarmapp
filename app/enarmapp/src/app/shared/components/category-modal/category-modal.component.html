@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>{{ data.selection === 'ADD' ? 'Añadir' : 'Editar' }} Categoría</h2>
+
+<div mat-dialog-content [ngClass]="{ 'opacity-50': isLoadingModal }">
+  <form [formGroup]="categorieForm">
+    <mat-form-field *ngIf="data.selection === 'ADD'" appearance="outline" class="full-width">
+      <mat-label>Categoría*</mat-label>
+      <input matInput formControlName="Nombre">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Subcategoría*</mat-label>
+      <input matInput formControlName="subCategoria">
+    </mat-form-field>
+  </form>
+
+  <div *ngIf="isLoadingModal" class="loading-overlay">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cerrar</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Guardar Cambios</button>
+</div>

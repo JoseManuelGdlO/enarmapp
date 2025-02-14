@@ -3,6 +3,8 @@ import { FormControl, FormGroup, UntypedFormControl } from "@angular/forms";
 import { AdminService } from "../../services/admin.service";
 import { ICategory, ISubcategory } from "app/shared/interfaces/categories.interface";
 import { ETypeSelection } from "app/shared/interfaces/type-selection.enum";
+import { MatDialog } from "@angular/material/dialog";
+import { CategoryModalComponent } from "app/shared/components/category-modal/category-modal.component";
 
 @Component({
     templateUrl: './categories.component.html',
@@ -39,6 +41,7 @@ export class CategoriesComponent implements OnInit {
 
     constructor(
         private adminService: AdminService,
+        public dialog: MatDialog
     ) {
 
     }
@@ -63,6 +66,18 @@ export class CategoriesComponent implements OnInit {
         });
     }
 
+    openDialog(selection: string): void {
+        const dialogRef = this.dialog.open(CategoryModalComponent, {
+          width: '400px',
+          data: { selection }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            console.log('Modal closed with data:', result);
+          }
+        });
+      }
 
     async addCategory() {
         if (this.isLoadingModal) return;
