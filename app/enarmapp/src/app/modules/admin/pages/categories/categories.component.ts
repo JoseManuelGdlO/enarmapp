@@ -66,10 +66,10 @@ export class CategoriesComponent implements OnInit {
         });
     }
 
-    openDialog(selection: string): void {
+    openDialog(selection: string, categoryName?: string): void {
         const dialogRef = this.dialog.open(CategoryModalComponent, {
           width: '400px',
-          data: { selection }
+          data: { selection, categoryName }
         });
     
         dialogRef.afterClosed().subscribe(result => {
