@@ -9,24 +9,24 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-category-modal',
-  templateUrl: './category-modal.component.html',
-  styleUrls: ['./category-modal.component.scss']
+  selector: 'app-labs-modal',
+  templateUrl: './labs-modal.component.html',
+  styleUrls: ['./labs-modal.component.scss']
 })
-export class CategoryModalComponent {
+export class LabsModalComponent {
   categorieForm: FormGroup;
   isLoadingModal = false;
   error = false;
 
   constructor(
-    public dialogRef: MatDialogRef<CategoryModalComponent>,
+    public dialogRef: MatDialogRef<LabsModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private adminService: AdminService
   ) {
     this.categorieForm = this.fb.group({
-      Nombre: [{ value: data.selection === 'ADDSub' ? data.categoryName : 'Categoría', disabled: data.selection === 'ADDSub' }],
+      Nombre: [{ value: data.selection === 'ADD' ? data.LabName : 'Laboratorio' }],
       subCategoria: ['']
     });
   }

@@ -17,11 +17,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CategoryModalComponent } from './shared/components/category-modal/category-modal.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { LabsModalComponent } from './shared/components/labs-modal/labs-modal/labs-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CategoryModalComponent
+    CategoryModalComponent,
+    LabsModalComponent
   ],
   imports: [
     BrowserModule,
