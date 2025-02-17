@@ -77,7 +77,7 @@ export class CategoriesComponent implements OnInit {
             console.log('Modal closed with data:', result);
           }
         });
-      }
+    }
 
     async addCategory() {
         if (this.isLoadingModal) return;
