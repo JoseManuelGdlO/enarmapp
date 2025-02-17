@@ -111,7 +111,7 @@ export class AdminComponent implements OnInit {
       estatus: user.estatus,
       idSuscripcion: user.idSuscripcion,
       idTipoUsuario: user.idTipoUsuario,
-      nombres: user.nombres
+      nombres: user.name
     });
   }
 
@@ -175,7 +175,7 @@ export class AdminComponent implements OnInit {
       return
     }
 
-    const filters = this.usersClone.filter((x: any) => x.nombres.toLowerCase().includes(value.target.value.toLowerCase()) ||
+    const filters = this.usersClone.filter((x: any) => x.name.toLowerCase().includes(value.target.value.toLowerCase()) ||
       x.apellidos.toLowerCase().includes(value.target.value.toLowerCase()) ||
       x.email.toLowerCase().includes(value.target.value.toLowerCase()) ||
       x.tipo.toLowerCase().includes(value.target.value.toLowerCase()) ||

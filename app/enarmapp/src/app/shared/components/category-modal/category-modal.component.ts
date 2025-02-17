@@ -10,7 +10,7 @@ export interface DialogData {
 @Component({
   selector: 'app-category-modal',
   templateUrl: './category-modal.component.html',
-  styleUrls: ['./category-modal.component.css']
+  styleUrls: ['./category-modal.component.scss']
 })
 export class CategoryModalComponent {
   categorieForm: FormGroup;

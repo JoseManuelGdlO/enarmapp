@@ -1,7 +1,9 @@
-.card-input {
+.inputCard {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 1rem;
   }
   button {
     background-color: #5469d4;
@@ -13,4 +15,14 @@
   }
   button:hover {
     background-color: #3c4ab7;
+  }
+
+  .blockContent {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    z-index: 1;
+    width: 100%;
+    background-color: rgb(0 0 0 / 33%);
   }

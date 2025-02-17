@@ -10,7 +10,7 @@ const clinicCasesRouter = require("./routes/clinic_cases.js");
 const categoriesRouter = require("./routes/categories.js");
 // const examRouter = require("./routes/exam-route.js");
 const othersRouter = require("./routes/others.js"); 
-// const paymentRouter = require("./routes/payment.js"); 
+const paymentRouter = require("./routes/payment.js"); 
 const voucherRouter = require("./routes/vouchers.js");
 
 const cors = require('cors');
@@ -46,7 +46,7 @@ app.use("/clinic_cases", clinicCasesRouter);
 app.use("/categories", categoriesRouter);
 // app.use("/exam", examRouter);
 app.use("/others", othersRouter);
-// app.use("/payment", paymentRouter);
+app.use("/payment", paymentRouter);
 app.use("/vouchers", voucherRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {

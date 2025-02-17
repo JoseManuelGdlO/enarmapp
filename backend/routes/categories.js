@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const categoryService = require('../services/categories');
-const { verifyToken } = require('../libs/headers');
+const { verifyToken, verifyAccount } = require('../libs/headers');
 var http = require('http2').constants;
 
-router.get('/', verifyToken, async function(req, res, next) {
+router.get('/', verifyToken, verifyAccount, async function(req, res, next) {
   try {
     let code = http.HTTP_STATUS_OK;
         let categories = await categoryService.getAll();
@@ -20,7 +20,7 @@ router.get('/', verifyToken, async function(req, res, next) {
   }
 });
 
-router.post('/', verifyToken, async function(req, res, next) {
+router.post('/', verifyToken, verifyAccount, async function(req, res, next) {
     try {
         const categories = req.body;
         for (let category of categories) {
@@ -33,7 +33,7 @@ router.post('/', verifyToken, async function(req, res, next) {
     }
 });
 
-router.post('/:id/subcategories', verifyToken, async function(req, res, next) {
+router.post('/:id/subcategories', verifyToken, verifyAccount, async function(req, res, next) {
     try {
         let subcategory = await categoryService.addSubcategory({category_id: req.params.id, name: req.body.name});
         return res.status(http.HTTP_STATUS_CREATED).json(subcategory);
@@ -43,7 +43,7 @@ router.post('/:id/subcategories', verifyToken, async function(req, res, next) {
     }
 });
 
-router.put('/subcategories/:id', verifyToken, async function(req, res, next) {
+router.put('/subcategories/:id', verifyToken, verifyAccount, async function(req, res, next) {
     try {
         let subcategory = await categoryService.editSubcategory({id: req.params.id, name: req.body.name});
         return res.status(http.HTTP_STATUS_NO_CONTENT).json(subcategory);

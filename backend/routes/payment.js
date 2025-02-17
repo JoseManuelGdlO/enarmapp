@@ -1,16 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const poaymentService = require('../services/payment');
-const { verifyToken } = require('../libs/headers');
+const { verifyToken, verifyAccount } = require('../libs/headers');
+var http = require('http2').constants;
+const jwt = require('jsonwebtoken');
 
-router.put('/create-session', verifyToken, async function(req, res, next) {
-    const { amount, currency } = req.body;
+router.post('/pay', verifyToken, verifyAccount, async function(req, res, next) {
+    const { subscription, token, coupon } = req.body;
+    
+    const decoded = jwt.verify(req.token, 'secretkey');
+    let code = http.HTTP_STATUS_OK;
 
     try {
-        const session = await poaymentService.createSession(amount, currency);
-        res.status(200).send(session);
+        const payment = await poaymentService.pay(subscription, token, coupon, decoded.user.id);
+        if (!payment.pay) {
+            code = http.HTTP_STATUS_NOT_FOUND;
+        }
+        return res.status(code).json({ code, response: payment.message});
     } catch (error) {
-        res.status(500).send({ error: error.message });
+        res.status(500).send({ code, response: error.message });
     }
 });
 

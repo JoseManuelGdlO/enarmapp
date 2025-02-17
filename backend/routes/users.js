@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const usersServices = require('../services/users');
-const { verifyToken } = require('../libs/headers');
+const { verifyToken, verifyAccount } = require('../libs/headers');
 var http = require('http2').constants;
 
-router.get('/', verifyToken, async function (req, res, next) {
+router.get('/', verifyToken, verifyAccount, async function (req, res, next) {
     try {
         let code = http.HTTP_STATUS_OK;
         let users = await usersServices.getAll();
@@ -20,7 +20,7 @@ router.get('/', verifyToken, async function (req, res, next) {
     }
 });
 
-router.put('/:id', verifyToken, async function (req, res, next) {
+router.put('/:id', verifyToken, verifyAccount, async function (req, res, next) {
     try {
         
         let body = req.body;

@@ -142,8 +142,15 @@ export class LoginComponent implements OnInit {
       const response = await this.loginService.loginForId(user.email, user.id);
       this.preferencesServices.setItem('RMBR', true)
       this.preferencesServices.setItem('AUTH_TOKEN', response.token)
-      this.preferencesServices.setItem('USER', response.data);
-      if (response.data.data.idTipoUsuario === 5) {
+      this.preferencesServices.setItem('USER', response);
+
+      if(response.account.name === 0) {
+        this.router.navigateByUrl('login/pricing')
+        this.isLoading = false;
+        return
+      }
+
+      if (response.user.user_type_id === 5) {
         this.router.navigateByUrl('admin')
       } else {
         this.router.navigateByUrl('home')
@@ -205,8 +212,14 @@ parseJwt(token: string) {
       if (response) {
         this.preferencesServices.setItem('RMBR', this.rememberme)
         this.preferencesServices.setItem('AUTH_TOKEN', response.token)
-        this.preferencesServices.setItem('USER', response.data);
-        if (response.data.data.idTipoUsuario === 5) {
+        this.preferencesServices.setItem('USER', response);
+
+        if(response.account.name === 0) {
+          this.router.navigateByUrl('login/pricing')
+          this.isLoading = false;
+          return
+        }
+        if (response.user.user_type_id === 5) {
           this.router.navigateByUrl('admin')
         } else {
           this.router.navigateByUrl('home')

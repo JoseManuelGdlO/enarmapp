@@ -28,6 +28,31 @@ export class LoginService{
         }) 
     }
 
+    processPayment(token: any, subscription: any, coupon: any):Promise<any> {
+        const url = API_URL + '/payment/pay'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.post(url, { token, subscription, coupon }).subscribe( (data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
+    
+    changeUserStatus(status: number):Promise<any> {
+        const url = API_URL + '/others/user-status'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.post(url, { status }).subscribe( (data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
+
+
     loginForId(email: string, id: string):Promise<any> {
         const url = API_URL + '/auth/login-id'
         return new Promise ( (resolve, reject) => {

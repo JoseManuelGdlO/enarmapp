@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const voucherService = require('../services/vouchers');
-const { verifyToken } = require('../libs/headers');
+const { verifyToken, verifyAccount } = require('../libs/headers');
 var http = require('http2').constants;
 
-router.get('/', verifyToken, async function(req, res, next) {
+router.get('/', verifyToken, verifyAccount, async function(req, res, next) {
   try {
     let code = http.HTTP_STATUS_OK;
     let vouchers = await voucherService.getAll();
@@ -20,7 +20,7 @@ router.get('/', verifyToken, async function(req, res, next) {
   }
 });
 
-router.get('/one', verifyToken, async function(req, res, next) {
+router.get('/one', verifyToken, verifyAccount, async function(req, res, next) {
   try {
     const data = {
       name: req.query.name,
@@ -40,7 +40,7 @@ router.get('/one', verifyToken, async function(req, res, next) {
   }
 });
 
-router.post('/', verifyToken, async function(req, res, next) {
+router.post('/', verifyToken, verifyAccount, async function(req, res, next) {
   try {
     let data = {
       name: req.body.name,
@@ -66,7 +66,7 @@ router.post('/', verifyToken, async function(req, res, next) {
   }
 });
 
-router.put('/:id', verifyToken, async function(req, res, next) {
+router.put('/:id', verifyToken, verifyAccount, async function(req, res, next) {
   try {
     let data = {
       id: req.params.id,
@@ -88,7 +88,7 @@ router.put('/:id', verifyToken, async function(req, res, next) {
   }
 });
 
-router.delete('/:id', verifyToken, async function(req, res, next) {
+router.delete('/:id', verifyToken, verifyAccount, async function(req, res, next) {
   try {
     if (await voucherService.remove(req.params.id)) {
       return res.status(http.HTTP_STATUS_NO_CONTENT).json();

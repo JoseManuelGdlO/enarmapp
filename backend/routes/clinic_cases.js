@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const clinicCaseService = require('../services/clinic_cases');
-const { verifyToken } = require('../libs/headers');
+const { verifyToken, verifyAccount } = require('../libs/headers');
 var http = require('http2').constants;
 
-router.get('/', verifyToken, async function (req, res, next) {
+router.get('/', verifyToken, verifyAccount, async function (req, res, next) {
   try {
     const clinicCases = await clinicCaseService.get();
     let code = http.HTTP_STATUS_OK;
@@ -18,7 +18,7 @@ router.get('/', verifyToken, async function (req, res, next) {
   }
 });
 
-router.get('/:id/questions', verifyToken, async function (req, res, next) {
+router.get('/:id/questions', verifyToken, verifyAccount, async function (req, res, next) {
   try {
     const id = req.params.id;
     const clinicCaseQuestions = await clinicCaseService.questionsByClinicCase(id);
@@ -33,7 +33,7 @@ router.get('/:id/questions', verifyToken, async function (req, res, next) {
   }
 });
 
-router.post('/', verifyToken, async function(req, res, next) {
+router.post('/', verifyToken, verifyAccount, async function(req, res, next) {
   try {
     const body = req.body;
     console.log(body);

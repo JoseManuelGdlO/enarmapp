@@ -6,6 +6,7 @@ const careerModel = require("../storage/models/career.model.js");
 const universityModel = require("../storage/models/university.model.js");
 const userTypesModel = require("../storage/models/user_type.model.js");
 const enarmDateModel = require("../storage/models/enarm_date.model.js");
+const userStatusModel = require("../storage/models/user_status.model.js");
 
 const configurationModel = require("../storage/models/config.model.js"); 
 const phrasesModel = require("../storage/models/phrase.model.js");
@@ -16,7 +17,7 @@ const laboratoryValuesModel = require("../storage/models/laboratory_value.model.
 async function getConfigurationPerCode(codeString) {
     const config = await configurationModel.findOne({
         where: {
-            codigo: codeString
+            code: codeString
         }
     })
 
@@ -26,7 +27,7 @@ async function getConfigurationPerCode(codeString) {
 async function getConfigurationPerGroup(group) {
     const config = await configurationModel.findAll({
         where: {
-            grupo: group
+            group: group
         }
     })
     return config;
@@ -35,6 +36,18 @@ async function getConfigurationPerGroup(group) {
 async function getConfiguration() {
     const config = await configurationModel.findAll()
     return config;
+}
+
+async function changeStatusUser(status, userId) {
+    const userStatus = await userStatusModel.update({
+        name: status
+    }, {
+        where: {
+            user_id: userId
+        }
+    })
+
+    return userStatus;
 }
 
 async function updateConfiguration(body) {
@@ -222,5 +235,6 @@ module.exports = {
     removeLaboratory,
     addLaboratory,
     addLaboratorySubcategory,
+    changeStatusUser,
     removeLaboratorySubcategory
 }
