@@ -19,7 +19,7 @@
                     [placeholder]="'Buscar categorías'">
             </mat-form-field>
             <!-- Add product button -->
-            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="addCategory()">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="openDialog('ADDCat', 'Categoría')">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                 <span class="ml-2 mr-1">Añadir</span>
             </button>
@@ -36,7 +36,7 @@
                         <div style="display: flex; align-content: center;">
                             <div style="padding:15px; font-weight: bold; font-size: 17px; align-self: center;">{{cat.name}}</div>
                             <!-- <button mat-button style="align-self: center;" (click)="addSubcategory()"> -->
-                            <button mat-button style="align-self: center;" (click)="openDialog('ADD')">
+                            <button mat-button style="align-self: center;" (click)="openDialog('ADDSub', cat.name)">
                                 <mat-icon class="icon-size-7" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                             </button>
                         </div>
@@ -55,7 +55,7 @@
                                     <div class="hidden sm:block truncate">{{ subcategory.id }}</div>
                                     <div class="truncate">{{ subcategory.Nombre }}</div>
                                     <div>
-                                        <button mat-stroked-button (click)="openDialog('EDIT')">
+                                        <button mat-stroked-button (click)="openDialog('EDIT', subcategory.Nombre)">
                                             <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
                                         </button>
                                     </div>

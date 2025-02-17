@@ -5,6 +5,8 @@ import { ILaboratory, ILaboratorySubcategory } from "app/shared/interfaces/labor
 import { ISubscription } from "app/shared/interfaces/subscriptions.interface";
 import { IUserType } from "app/shared/interfaces/user-type.interface";
 import { AdminService } from "../../services/admin.service";
+import { MatDialog } from "@angular/material/dialog";
+import { LabsModalComponent } from "app/shared/components/labs-modal/labs-modal/labs-modal.component";
 
 @Component({
   templateUrl: './laboratory.component.html',
@@ -44,7 +46,8 @@ export class LaboratoryComponent implements OnInit {
 
   constructor(
     private adminService: AdminService,
-  ) {
+    public dialog: MatDialog
+    ) {
 
   }
 
@@ -64,6 +67,19 @@ export class LaboratoryComponent implements OnInit {
     }
     this.laboratoryForm.patchValue({
       name: sub?.name,
+    });
+  }
+
+  openDialog(selection: string, LabName?: string): void {
+    const dialogRef = this.dialog.open(LabsModalComponent, {
+      width: '400px',
+      data: { selection, LabName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Modal closed with data:', result);
+      }
     });
   }
 
