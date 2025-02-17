@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>
+    {{ data.selection === 'ADD' ? 'Añadir Laboratorio' : 'Editar Laboratorio' }}
+  </h2>
+  
+  <div mat-dialog-content [ngClass]="{ 'opacity-50': isLoadingModal }">
+    <form [formGroup]="categorieForm">
+      <!-- Categoría Field: Visible & Editable only in ADDCat, Visible but Disabled in ADDSub -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ data.selection === 'ADD' ? data.categoryName : '' }}</mat-label>
+        <input matInput formControlName="Nombre" [disabled]="data.selection === 'ADDSub'">
+      </mat-form-field>
+  
+      <!-- Subcategoría Field: Visible & Editable in ADDSub and EDIT -->
+      <mat-form-field *ngIf="data.selection !== 'ADDCat'" appearance="outline" class="full-width">
+        <mat-label>Laboratorio*</mat-label>
+        <input matInput formControlName="subCategoria">
+      </mat-form-field>
+    </form>
+  
+    <div *ngIf="isLoadingModal" class="loading-overlay">
+      <mat-spinner></mat-spinner>
+    </div>
+  
+    <div *ngIf="error" class="error-text">
+      <mat-error></mat-error>
+    </div>
+  </div>
+  
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close()">Cerrar</button>
+    <button mat-raised-button color="primary" (click)="addCategory()">Guardar Cambios</button>
+  </div>
+  
