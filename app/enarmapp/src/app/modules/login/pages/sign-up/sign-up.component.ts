@@ -88,19 +88,19 @@ export class SignUpComponent implements OnInit {
     this.enarmDate = await this.loginService.getEnarmDates()
 
     this.especialities.forEach((item: any) => {
-      item.value = item.nombre;
+      item.value = item.name;
     })
 
     this.universidades.forEach((item: any) => {
-      item.value = item.nombre;
+      item.value = item.name;
     })
 
     this.studentTypes.forEach((item: any) => {
-      item.value = item.tipo;
+      item.value = item.name;
     })
 
     this.enarmDate.forEach((item: any) => {
-      item.value = item.fecha_anio;
+      item.value = item.year;
     })
   }
 
@@ -182,9 +182,24 @@ export class SignUpComponent implements OnInit {
     // Si pasa todas las validaciones
     console.log('Formulario válido:', object);
 
+    const body = {
+      name: object.nombres,
+      last_name: object.apellidos, 
+      email: object.email, 
+      password: object.password, 
+      picture: object.ruta_fotografia, 
+      user_type_id: object.idTipoUsuario, 
+      university_id: object.idUniversidad, 
+      enarm_date_id: object.idFechaEnarm,
+      career_id: object.idEspecialidad,
+      birthdate: object.cumpleanos,
+      gender: object.sexo,
+      social_media_id: object.id_social_media,
+    }
+
     this.isLoading = true;
     try {
-      await this.loginService.register(object);
+      await this.loginService.register(body);
       let response;
       if(this.user){
         response = await this.loginService.loginForId(String(object.email), this.user.id)
@@ -193,7 +208,7 @@ export class SignUpComponent implements OnInit {
       }
 
       this.preferencesServices.setItem('AUTH_TOKEN', response.token)
-      this.preferencesServices.setItem('USER', response.data);
+      this.preferencesServices.setItem('USER', response.user);
       this.isLoading = false
       this.router.navigateByUrl('login/pricing')
 

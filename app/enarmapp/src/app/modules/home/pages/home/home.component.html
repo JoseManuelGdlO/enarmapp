@@ -1,10 +1,10 @@
 <body>
-    <enarm-header [profile]="user.nombres"></enarm-header>
+    <enarm-header [profile]="user.name"></enarm-header>
     <div [ngClass]="{'ph-55': !isMobile, 'ph-30': isMobile }" [ngStyle]="{ 'padding-top': !isMobile ? '9%' : '30%' }">
         <div [ngClass]="{'div___name': !isMobile}">
             <h1 *ngIf="user" class="h1___welcome" >Bienvenido, <span
-                    style="font-weight: 600; color: black">{{user.nombres}}
-                    {{user.apellidos}}</span></h1>
+                    style="font-weight: 600; color: black">{{user.name}}
+                    {{user.last_name}}</span></h1>
             <h1 class="h1___daystoenarm">
                 <img src="assets/icons/calendar-icon.svg" [ngStyle]="{ 'width': isMobile ? '25px' : '20px'}" alt="">
                 <span [ngStyle]="{ 'padding-top': isMobile ? '5px' : '0', 'padding-left': isMobile ? '5px' : '0' }">
@@ -58,21 +58,23 @@
                             <h5 class="h5___titleTable">ESTATUS</h5>
                         </div>
                     </div>
-                    <div *ngFor="let item of exams.slice(0, 3)" class="row">
-                        <div class="div___line"></div>
-                        <div class="col-25">
-                            <h5 class="h5___titleTableBody">Examen {{item.id}}</h5>
-                        </div>
-                        <div class="col-25">
-                            <h5 class="h5___titleTableBody">{{item.creationDate | date : 'dd/MM/yy'}}</h5>
-                        </div>
-                        <div class="col-30">
-                            <div style="padding-right: 40px;">
-                                <enarm-mini-progress-bar-exam [percentage]="(item.respondidas*100/item.numeroPreguntas).toString()" [subtitle]="item.respondidas +'/'+item.numeroPreguntas"></enarm-mini-progress-bar-exam>
+                    <div *ngIf="exams.length !== 0">
+                        <div *ngFor="let item of exams.slice(0, 3)" class="row">
+                            <div class="div___line"></div>
+                            <div class="col-25">
+                                <h5 class="h5___titleTableBody">Examen {{item.id}}</h5>
                             </div>
-                        </div>
-                        <div class="col-20">
-                            <enarm-status-exam [type]="item.status"></enarm-status-exam>
+                            <div class="col-25">
+                                <h5 class="h5___titleTableBody">{{item.creationDate | date : 'dd/MM/yy'}}</h5>
+                            </div>
+                            <div class="col-30">
+                                <div style="padding-right: 40px;">
+                                    <enarm-mini-progress-bar-exam [percentage]="(item.respondidas*100/item.numeroPreguntas).toString()" [subtitle]="item.respondidas +'/'+item.numeroPreguntas"></enarm-mini-progress-bar-exam>
+                                </div>
+                            </div>
+                            <div class="col-20">
+                                <enarm-status-exam [type]="item.status"></enarm-status-exam>
+                            </div>
                         </div>
                     </div>
                     <div class="div___noexamlist" *ngIf="exams.length === 0">
@@ -82,8 +84,8 @@
             </div>
             <div [ngClass]="{'col-50': !isMobile, 'col-100': isMobile}">
                 <div [ngClass]="{'mtl-38': true, 'pll-25': !isMobile}">
-                    <enarm-toast-phrases [encabezado]="phrase.autor"
-                        [cuerpo]="phrase.frase"></enarm-toast-phrases>
+                    <enarm-toast-phrases [encabezado]="phrase.author"
+                        [cuerpo]="phrase.phrase"></enarm-toast-phrases>
                     <div class="div___add mtl-38">
                         <div (click)="router.navigateByUrl('configurator')" class="button___add">
                             <h1 style="font-size: 50px;">+</h1>

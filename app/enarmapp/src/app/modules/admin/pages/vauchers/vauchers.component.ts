@@ -3,6 +3,7 @@ import { UntypedFormControl } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { IVaucher } from "app/shared/interfaces/vaucher.interface";
 import { VauchersFormulario } from "./formulario/formulario.component";
+import { VauchersService } from "./services/vaucher.service";
 
 @Component({
     templateUrl: './vauchers.component.html',
@@ -15,6 +16,7 @@ export class VacuhersComponent implements OnInit {
 
     constructor(
         public dialog: MatDialog,
+        public vouchersService: VauchersService
     ) {
     }
 
@@ -24,12 +26,8 @@ export class VacuhersComponent implements OnInit {
 
     async getCatalog() {
         try {
-            this.vauchers = [
-                { code: '123', name: 'Navidad', discount: 10, expiration_date: '2021-10-10', id: 1, limit_usage: 10, type: 'percentage', usage: 10 },
-                { code: '123', name: 'Halloween', discount: 10, expiration_date: '2021-10-10', id: 2, limit_usage: 10, type: 'percentage', usage: 10 },
-                { code: '123', name: 'San Juan', discount: 10, expiration_date: '2021-10-10', id: 3, limit_usage: 10, type: 'percentage', usage: 10 },
-            ]
-
+            const response = await this.vouchersService.getVauchers();
+            this.vauchers = response
         }catch (error) {
             console.log(error);
         } finally {
@@ -51,7 +49,7 @@ export class VacuhersComponent implements OnInit {
         });
         formularioModal.afterClosed().subscribe(respuesta => {
             if (respuesta) {
-              console.log('creado');
+              this.getCatalog();
               
             }
         });

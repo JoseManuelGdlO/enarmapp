@@ -3,33 +3,22 @@ const express = require("express");
 
 const app = express();
 const port = process.env.PORT || 3000;
-const corsOrigin = process.env.CORSORIGIN || '*';
-const enarmStundetsRouter = require("./routes/enarmStudents"); 
-const authRouter = require("./routes/auth"); 
-const questionsRouter = require("./routes/questions-route.js");
-const examRouter = require("./routes/exam-route.js");
+const corsOrigin = process.env.CORSORIGIN || 'http://54.86.172.9:4200';
+const usersRouter = require("./routes/users"); 
+const authRouter = require("./routes/auth");
+const clinicCasesRouter = require("./routes/clinic_cases.js");
+const categoriesRouter = require("./routes/categories.js");
+// const examRouter = require("./routes/exam-route.js");
 const othersRouter = require("./routes/others.js"); 
-const paymentRouter = require("./routes/payment.js");
+const paymentRouter = require("./routes/payment.js"); 
+const voucherRouter = require("./routes/vouchers.js");
 
 const cors = require('cors');
-const corsOptions = {
-  origin: (origin, callback) => {
-      // Permite cualquier origen si está en desarrollo
-      if (!origin || corsOrigin === '*') {
-          callback(null, true);
-      } else {
-          // Cuando conozcas el origen, verifica que esté permitido
-          const allowedOrigins = [corsOrigin];
-          if (allowedOrigins.includes(origin)) {
-              callback(null, true);
-          } else {
-              callback(new Error('Not allowed by CORS'));
-          }
-      }
-  },
-  credentials: false,  // Desactivar credenciales temporalmente
-  optionsSuccessStatus: 200
-};
+const corsOptions ={
+    origin: 'http://localhost:4200', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
 app.use(cors(corsOptions));
 
 app.use(express.json({limit: '25mb'}));
@@ -40,18 +29,25 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  console.log(req.url)
+  next()
+})
+
 app.get("/", (req, res) => {
   console.log(process.env.STRIPE_SECRET_KEY_TEST);
   
   res.json({ version: "0.0.4", prosess: process.env.STRIPE_SECRET_KEY_TEST });
 });
 
-app.use("/enarm-students", enarmStundetsRouter);
+app.use("/users", usersRouter);
 app.use("/auth", authRouter);
-app.use("/questions", questionsRouter);
-app.use("/exam", examRouter);
+app.use("/clinic_cases", clinicCasesRouter);
+app.use("/categories", categoriesRouter);
+// app.use("/exam", examRouter);
 app.use("/others", othersRouter);
 app.use("/payment", paymentRouter);
+app.use("/vouchers", voucherRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

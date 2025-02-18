@@ -8,7 +8,7 @@ export const environment = {
 
 // export const API_URL = 'https://api.medbrain.click'
 export const API_URL = 'http://localhost:3000'
-
+export const STRIPE_KEY = 'pk_test_51QQZg2GHbhGIsNn3vGfe817irV9qkxq5f1ral2wzzCJOnZLau8cz3fMX5miuyadyQjF9WJhx9XbvYTt7lahdAmtl00puZUKTV0';
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

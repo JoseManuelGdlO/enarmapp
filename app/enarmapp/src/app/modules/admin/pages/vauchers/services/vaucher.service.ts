@@ -14,15 +14,15 @@ export class VauchersService {
 
     getVauchers(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpclient.get(`${API_URL}/vauchers`).subscribe((response: any) => {
-                resolve(response);
+            this.httpclient.get(`${API_URL}/vouchers`).subscribe((response: any) => {
+                resolve(response.data);
             }, reject);
         })
     }
 
     createVaucher(body: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpclient.post(`${API_URL}/vauchers/add`, body).subscribe((response: any) => {
+            this.httpclient.post(`${API_URL}/vouchers`, body).subscribe((response: any) => {
                 resolve(response);
             }, reject);
         })
@@ -30,7 +30,7 @@ export class VauchersService {
 
     updateVaucher(body: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpclient.put(`${API_URL}/vauchers`, body).subscribe((response: any) => {
+            this.httpclient.put(`${API_URL}/vouchers/${body.id}`, body).subscribe((response: any) => {
                 resolve(response);
             }, reject);
         })
@@ -38,7 +38,7 @@ export class VauchersService {
 
     removeVaucher(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpclient.delete(`${API_URL}/vauchers/${id}`).subscribe((response: any) => {
+            this.httpclient.delete(`${API_URL}/vouchers/${id}`).subscribe((response: any) => {
                 resolve(response);
             }, reject);
         })

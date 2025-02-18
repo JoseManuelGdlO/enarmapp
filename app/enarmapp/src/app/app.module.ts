@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FuseConfigModule } from './fuse.config';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AuthInterceptorService } from './shared/services/auth.Interceptor';
+import { NgxStripeModule, STRIPE_OPTIONS } from 'ngx-stripe';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -17,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CategoryModalComponent } from './shared/components/category-modal/category-modal.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { STRIPE_KEY } from 'environments/environment';
 import { LabsModalComponent } from './shared/components/labs-modal/labs-modal/labs-modal.component';
 
 @NgModule({
@@ -34,6 +36,7 @@ import { LabsModalComponent } from './shared/components/labs-modal/labs-modal/la
     BrowserAnimationsModule,
     FuseConfigModule,
     NgApexchartsModule,
+    NgxStripeModule,
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
@@ -43,6 +46,12 @@ import { LabsModalComponent } from './shared/components/labs-modal/labs-modal/la
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderBeginInterceptor, multi: true },
+    {
+      provide: STRIPE_OPTIONS,
+      useValue: {
+        publishableKey: STRIPE_KEY,
+      },
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

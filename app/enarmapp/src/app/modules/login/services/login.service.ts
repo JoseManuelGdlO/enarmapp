@@ -28,10 +28,35 @@ export class LoginService{
         }) 
     }
 
+    processPayment(token: any, subscription: any, coupon: any):Promise<any> {
+        const url = API_URL + '/payment/pay'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.post(url, { token, subscription, coupon }).subscribe( (data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
+    
+    changeUserStatus(status: number):Promise<any> {
+        const url = API_URL + '/others/user-status'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.post(url, { status }).subscribe( (data) => {
+                resolve(data)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
+    }
+
+
     loginForId(email: string, id: string):Promise<any> {
         const url = API_URL + '/auth/login-id'
         return new Promise ( (resolve, reject) => {
-            this.httpclient.post(url, {id, email}).subscribe( (data) => {
+            this.httpclient.post(url, {id, email}).subscribe( (data: any) => {
                 resolve(data)
             }, (error: any) => {
                 reject(error)
@@ -43,8 +68,8 @@ export class LoginService{
     getUnivercities():Promise<any> {
         const url = API_URL + '/others/universidades'
         return new Promise ( (resolve, reject) => {
-            this.httpclient.get(url).subscribe( (data) => {
-                resolve(data)
+            this.httpclient.get(url).subscribe( (data: any) => {
+                resolve(data.response)
             }, (error: any) => {
                 reject(error)
             })
@@ -55,8 +80,8 @@ export class LoginService{
     getEspecialities():Promise<any> {
         const url = API_URL + '/others/especialidades'
         return new Promise ( (resolve, reject) => {
-            this.httpclient.get(url).subscribe( (data) => {
-                resolve(data)
+            this.httpclient.get(url).subscribe( (data: any) => {
+                resolve(data.response)
             }, (error: any) => {
                 reject(error)
             })
@@ -67,8 +92,8 @@ export class LoginService{
     getStudentsTypes():Promise<any> {
         const url = API_URL + '/others/student-type?type=signup'
         return new Promise ( (resolve, reject) => {
-            this.httpclient.get(url).subscribe( (data) => {
-                resolve(data)
+            this.httpclient.get(url).subscribe( (data: any) => {
+                resolve(data.response)
             }, (error: any) => {
                 reject(error)
             })
@@ -79,8 +104,8 @@ export class LoginService{
     getEnarmDates():Promise<any> {
         const url = API_URL + '/others/enarm-date'
         return new Promise ( (resolve, reject) => {
-            this.httpclient.get(url).subscribe( (data) => {
-                resolve(data)
+            this.httpclient.get(url).subscribe( (data: any) => {
+                resolve(data.response)
             }, (error: any) => {
                 reject(error)
             })
@@ -103,5 +128,17 @@ export class LoginService{
     logout() {
         const url = API_URL + '/auth/logout'
             this.httpclient.post(url, {})
+    }
+
+    getSubscriptions():Promise<any> {
+        const url = API_URL + '/others/subscripciones'
+        return new Promise ( (resolve, reject) => {
+            this.httpclient.get(url).subscribe( (data: any) => {
+                resolve(data.response)
+            }, (error: any) => {
+                reject(error)
+            })
+
+        })
     }
 }

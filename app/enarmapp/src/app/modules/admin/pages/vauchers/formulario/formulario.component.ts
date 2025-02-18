@@ -75,8 +75,8 @@ export class VauchersFormulario {
             code: this.item.code,
             discount: this.item.discount,
             type: this.item.type,
-            usage: this.item.usage,
-            limit_usage: this.item.limit_usage,
+            usage_count: this.item.usage_count,
+            usage_limit: this.item.usage_limit,
             expiration_date: new Date(this.item.expiration_date).toISOString().split('T')[0],
 
         }
@@ -101,8 +101,8 @@ export class VauchersFormulario {
             code: this.item.code,
             discount: this.item.discount,
             type: this.item.type,
-            usage: this.item.usage,
-            limit_usage: this.item.limit_usage,
+            usage_count: this.item.usage_count,
+            usage_limit: this.item.usage_limit,
             expiration_date: new Date(this.item.expiration_date).toISOString().split('T')[0],
         }
 

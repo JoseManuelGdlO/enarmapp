@@ -1,5 +1,5 @@
- <!-- Header -->
- <div class="flex flex-col items-center mt-30">
+<!-- Header -->
+<div class="flex flex-col items-center mt-30">
     <h2 class="text-xl font-semibold">NUESTROS PRECIOS</h2>
     <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
         Toma el Control del ENARM 2025
@@ -12,46 +12,56 @@
         <h2 class="flex text-2xl font-semibold justify-center">TENGO UN CUPON</h2>
         <div style="border-radius: 20px;" class="grid grid-cols-2 mt-4 bg-gray-50 dark:bg-transparen">
             <mat-form-field class="w-full">
-                <input class="text-xl" style="padding: 10px 15px;" placeholder="Ingresa el codigo del cupon" matInput>
+                <input class="text-xl" [(ngModel)]="coupon" style="padding: 10px 15px;"
+                    placeholder="Ingresa el codigo del cupon" matInput>
             </mat-form-field>
-            <button
-                class="fuse-mat-button-large"
-                mat-stroked-button
-                [color]="'primary'">
+            <button class="fuse-mat-button-large" mat-flat-button (click)="applyCoupon()" [color]="'primary'">
                 Aplicar
             </button>
 
         </div>
     </div>
+    <div style="position: fixed; width: 50vw;">
+        <fuse-alert [type]="'warn'" *ngIf="errorCoupon">
+            <span fuseAlertTitle>Error en cupon</span>
+            {{errorCoupon}}
+        </fuse-alert>
+
+    </div>
+    <div style="position: fixed; width: 50vw;">
+        <fuse-alert [type]="'success'" *ngIf="successCoupon">
+            <span fuseAlertTitle>Excelente!</span>
+            {{successCoupon}}
+        </fuse-alert>
+
+    </div>
 </div>
 <!-- Cards -->
-<div class="flex justify-center mt-10 mb-10 sm:mt-20">
+<div *ngIf="subscritpions" class="flex justify-center mt-10 mb-10 sm:mt-20">
     <div class="w-full max-w-sm md:max-w-7xl">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 lg:gap-y-0 md:gap-x-6">
             <!-- Card 1 -->
             <fuse-card class="flex-col max-w-sm md:max-w-none p-6 sm:py-12 sm:px-10">
-                <div class="text-4xl font-bold tracking-tight leading-tight">Plan Mensual</div>
+                <div class="text-4xl font-bold tracking-tight leading-tight">{{subscritpions ?
+                    subscritpions[0].description : null | titlecase }}</div>
                 <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Tu plan Mensual perfecto </div>
                 <div class="w-8 h-1 my-10 rounded bg-accent"></div>
                 <!-- Price -->
                 <div class="flex items-baseline whitespace-nowrap">
                     <div class="mr-2 text-2xl">MXN</div>
                     <div class="text-6xl font-semibold leading-tight tracking-tight">
-                        <ng-container *ngIf="yearlyBilling">$120.00</ng-container>
+                        <ng-container *ngIf="yearlyBilling">{{ showPrice(subscritpions[0].price) | currency }} <span style="font-size: 15px;">{{couponObj ? couponObj.name : ''}}</span></ng-container>
                     </div>
                 </div>
                 <!-- Price details -->
                 <div class="flex flex-col mt-2 text-secondary">
                     <ng-container *ngIf="yearlyBilling">
                         <div>Pagarias</div>
-                        <div><b>$1,400.00</b> Anualmente</div>
+                        <div><b>{{ subscritpions[0].price * 12 | currency }}</b> Anualmente</div>
                     </ng-container>
                 </div>
                 <!-- CTA -->
-                <button
-                    class="fuse-mat-button-large mt-10"
-                    mat-stroked-button
-                    [color]="'primary'">
+                <button (click)="selectAmount(subscritpions[0])" class="fuse-mat-button-large mt-10" mat-flat-button [color]="'primary'">
                     Empezar
                 </button>
                 <!-- Features -->
@@ -59,111 +69,90 @@
                     <div class="font-semibold">funcionalidades, incluidas:</div>
                     <div class="mt-4 space-y-2">
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Casos clinicos <b>Ilimitadas</b></div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Modo <b>Estudio</b></div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Modo <b>Simulacion</b></div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Acceso a multimedia</div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Preguntas en Ingles y en Espanol</div>
                         </div>
                     </div>
                 </div>
             </fuse-card>
             <!-- Card 2 -->
-            <fuse-card class="flex-col max-w-sm md:max-w-none p-6 sm:py-12 sm:px-10 ring-2 ring-primary overflow-visible">
+            <fuse-card
+                class="flex-col max-w-sm md:max-w-none p-6 sm:py-12 sm:px-10 ring-2 ring-primary overflow-visible">
                 <div class="absolute inset-x-0 -top-4 flex items-center justify-center">
-                    <div class="flex items-center h-8 px-8 rounded-full font-medium text-center leading-none bg-primary text-on-primary">POPULAR</div>
+                    <div
+                        class="flex items-center h-8 px-8 rounded-full font-medium text-center leading-none bg-primary text-on-primary">
+                        POPULAR</div>
                 </div>
-                <div class="text-4xl font-bold tracking-tight leading-tight">Semestral</div>
-                <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Estas a medio ano de que llege tu ENARM</div>
+                <div class="text-4xl font-bold tracking-tight leading-tight">{{subscritpions ?
+                    subscritpions[1].description : null | titlecase }}</div>
+                <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Estas a medio ano de que llege tu
+                    ENARM</div>
                 <div class="w-8 h-1 my-10 rounded bg-accent"></div>
                 <!-- Price -->
                 <div class="flex items-baseline whitespace-nowrap">
                     <div class="mr-2 text-2xl">MXN</div>
                     <div class="text-6xl font-semibold leading-tight tracking-tight">
-                        <ng-container *ngIf="yearlyBilling">$660.00</ng-container>
+                        <ng-container *ngIf="yearlyBilling">{{ showPrice(subscritpions[1].price) | currency }} <span style="font-size: 15px;">{{couponObj ? couponObj.name : ''}}</span></ng-container>
                     </div>
                 </div>
                 <!-- Price details -->
                 <div class="flex flex-col mt-2 text-secondary">
                     <ng-container *ngIf="yearlyBilling">
                         <div>Pagarias</div>
-                        <div><b>$1.320.00</b> Anualmente</div>
+                        <div><b>{{ subscritpions[1].price * 12 | currency }}</b> Anualmente</div>
                     </ng-container>
                 </div>
                 <!-- CTA -->
-                <button
-                    class="fuse-mat-button-large mt-10"
-                    mat-flat-button
-                    [color]="'primary'">
-                    Selecciona Ahora<br>Gratis tu primer examen con 10 Preguntas 
+                <button (click)="selectAmount(subscritpions[1])" class="fuse-mat-button-large mt-10" mat-flat-button [color]="'primary'">
+                    Selecciona Ahora
                 </button>
                 <!-- Features -->
                 <div class="flex flex-col mt-12">
                     <div class="font-semibold">funcionalidades, incluidas:</div>
                     <div class="mt-4 space-y-2">
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
-                            <div class="ml-2 leading-5">Antes de pagar tu Semestre te regalamos un <b>examen con 10 preguntas</b> </div>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <div class="ml-2 leading-5">Antes de pagar tu Semestre te regalamos un <b>examen con 10
+                                    preguntas</b> </div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Casos clinicos <b>Ilimitadas</b></div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Modo <b>Estudio</b></div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Modo <b>Simulacion</b></div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Acceso a multimedia</div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Preguntas en Ingles y en Espanol</div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Soporte <b>12/5</b></div>
                         </div>
                     </div>
@@ -171,74 +160,60 @@
             </fuse-card>
             <!-- Card 3 -->
             <fuse-card class="flex-col max-w-sm md:max-w-none p-6 sm:py-12 sm:px-10">
-                <div class="text-4xl font-bold tracking-tight leading-tight">Anualidad</div>
-                <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Paga una ves y deja de procuparte</div>
+                <div class="text-4xl font-bold tracking-tight leading-tight">{{subscritpions ?
+                    subscritpions[2].description : null | titlecase }}</div>
+                <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Paga una ves y deja de procuparte
+                </div>
                 <div class="w-8 h-1 my-10 rounded bg-accent"></div>
                 <!-- Price -->
                 <div class="flex items-baseline whitespace-nowrap">
                     <div class="mr-2 text-2xl">MXN</div>
                     <div class="text-6xl font-semibold leading-tight tracking-tight">
-                        <ng-container *ngIf="yearlyBilling">$1,000.00</ng-container>
+                        <ng-container *ngIf="yearlyBilling">{{ showPrice(subscritpions[2].price) | currency }} <span style="font-size: 15px;">{{couponObj ? couponObj.name : ''}}</span></ng-container>
                     </div>
                 </div>
                 <!-- Price details -->
                 <div class="flex flex-col mt-2 text-secondary">
                     <ng-container *ngIf="yearlyBilling">
                         <div>Pagarias</div>
-                        <div><b>$100.00</b> Mensualmente</div>
+                        <div><b>{{ subscritpions[2].price / 12 | currency }}</b> Mensualmente</div>
                     </ng-container>
                 </div>
                 <!-- CTA -->
-                <button
-                    class="fuse-mat-button-large mt-10"
-                    mat-stroked-button
-                    [color]="'primary'">
-                    Selecciona Ahora<br>Gratis tu primer examen con 10 Preguntas 
+                <button (click)="selectAmount(subscritpions[2])" class="fuse-mat-button-large mt-10" mat-flat-button [color]="'primary'">
+                    Selecciona Ahora
                 </button>
                 <!-- Features -->
                 <div class="flex flex-col mt-12">
                     <div class="font-semibold">funcionalidades, incluidas:</div>
                     <div class="mt-4 space-y-2">
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
-                            <div class="ml-2 leading-5">Antes de pagar tu Semestre te regalamos un <b>examen con 10 preguntas</b> </div>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <div class="ml-2 leading-5">Antes de pagar tu Semestre te regalamos un <b>examen con 10
+                                    preguntas</b> </div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Casos clinicos <b>Ilimitadas</b></div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Modo <b>Estudio</b></div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Modo <b>Simulacion</b></div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Acceso a multimedia</div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Preguntas en Ingles y en Espanol</div>
                         </div>
                         <div class="flex">
-                            <mat-icon
-                                class="icon-size-5 text-green-600"
-                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                            <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                             <div class="ml-2 leading-5">Soporte <b>24/6</b></div>
                         </div>
                     </div>
@@ -248,12 +223,8 @@
     </div>
 </div>
 <div class="flex justify-center mt-10 mb-20">
-    
-    <button
-       class="fuse-mat-button-large text-2xl"
-       mat-flat-button
-       [routerLink]="['/home']"
-        [color]="'primary'">
+
+    <button class="fuse-mat-button-large text-2xl" mat-flat-button (click)="otherMoment()" [color]="'primary'">
         Omitir compra, lo hare luego
     </button>
 </div>

@@ -12,8 +12,8 @@
         <p class="mb-2"><strong>Codigo:</strong> {{ item.code }}</p>
         <p class="mb-2"><strong>Decuento:</strong> {{ item.discount }}</p>
         <p class="mb-2"><strong>Tipo:</strong> {{ item.type }}</p>
-        <p class="mb-2"><strong>Usos:</strong> {{ item.usage }}</p>
-        <p class="mb-2"><strong>Limite de uso:</strong> {{ item.limit_usage }}</p>
+        <p class="mb-2"><strong>Usos:</strong> {{ item.usage_count }}</p>
+        <p class="mb-2"><strong>Limite de uso:</strong> {{ item.usage_limit }}</p>
         <p class="mb-2"><strong>Fecha de Expiracion:</strong> {{ item.expiration_date }}</p>
       </div>
     </div>
@@ -34,7 +34,7 @@
     </mat-form-field>
     <mat-form-field class="w-full">
       <mat-label>Descuento</mat-label>
-      <input matInput [(ngModel)]="item.discount">
+      <input type="number" matInput [(ngModel)]="item.discount">
     </mat-form-field>
     <div class="flex items-center">
       <span class="font-bold">Tipo:</span>
@@ -46,11 +46,11 @@
     </mat-form-field>
     <mat-form-field class="w-full">
       <mat-label>Cuantos cupones hay usados</mat-label>
-      <input matInput [(ngModel)]="item.usage" disabled>
+      <input matInput [(ngModel)]="item.usage_count" disabled>
     </mat-form-field>
     <mat-form-field class="w-full">
       <mat-label>Cuantos cupones existiran</mat-label>
-      <input matInput [(ngModel)]="item.limit_usage">
+      <input matInput [(ngModel)]="item.usage_limit">
     </mat-form-field>
     <mat-form-field class="w-full">
       <mat-label>Fecha de expiracion:</mat-label>

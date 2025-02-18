@@ -32,14 +32,14 @@ export class HomeComponent implements OnInit {
 
    isMobile = false
 
-  exams = [
-    { id: 1, progress: 79, questions: 162, answers: 123, status: 1, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
-    { id: 2, progress: 65, questions: 162, answers: 100, status: 2, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
-    { id: 3, progress: 38, questions: 162, answers: 67, status: 2, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
-    { id: 4, progress: 15, questions: 162, answers: 32, status: 3, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
+  exams: any = [
+    // { id: 1, progress: 79, questions: 162, answers: 123, status: 1, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
+    // { id: 2, progress: 65, questions: 162, answers: 100, status: 2, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
+    // { id: 3, progress: 38, questions: 162, answers: 67, status: 2, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
+    // { id: 4, progress: 15, questions: 162, answers: 32, status: 3, creationDate: '', respondidas: 1, numeroPreguntas: 1, isEspanol: 1 },
   ]
 
-  phrase: { autor: string, frase: string, id: number } = { autor: '', frase: '', id: 0 }
+  phrase: { author: string, phrase: string, id: number } = { author: '', phrase: '', id: 0 }
 
   isNew = false;
   isTryAccount = false;
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
   async getPhrase(): Promise<void>{
     try {
     const response = await this.homeService.getPhrase()
-      this.phrase = response[(Math.floor(Math.random() * response.length))];
+      this.phrase = response.response[(Math.floor(Math.random() * response.response.length))];
     }catch(error: any) {
       console.error(error);
       
@@ -102,10 +102,10 @@ export class HomeComponent implements OnInit {
 
   getData() {
     this.responsedata = this.preferencesService.getItem<IUser>('USER');
-    this.user = this.responsedata.data as IUser
+    this.user = this.responsedata.user as IUser
     console.log('User', this.responsedata);
     
-    switch (this.responsedata.account.estatus) {
+    switch (this.responsedata.account.name) {
       case EAcountStatus.NEW:
         this.isNew = true;
         break;
@@ -122,9 +122,10 @@ export class HomeComponent implements OnInit {
 
   async getExams() {
     try {
-      this.exams = await this.homeService.getExams(this.responsedata.account.idUsuario)
-      this.exams.sort((a, b) => new Date(b.creationDate).valueOf() - new Date(a.creationDate).valueOf());
-      this.exams.forEach(exam => {
+      const response = await this.homeService.getExams(this.responsedata.account.user_id)
+      this.exams = response;
+      this.exams.sort((a: any, b: any) => new Date(b.creationDate).valueOf() - new Date(a.creationDate).valueOf());
+      this.exams.forEach((exam: any) => {
 
         exam.status = exam.respondidas === exam.numeroPreguntas ? 1 : 2     
       });

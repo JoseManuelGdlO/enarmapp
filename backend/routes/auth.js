@@ -2,29 +2,28 @@ const express = require('express');
 const router = express.Router();
 const authService = require('../services/auth');
 const jwt = require('jsonwebtoken');
+var http = require('http2').constants;
 
 // const redisClient = require('../libs/redis');
 
 
 router.post('/login', async function (req, res, next) {
     try {
-        const response = await authService.login(req.body)
-        if (response.code === 200) {
-            console.log('response', response);
-            
-            // const token = await redisClient.get(response.data.data.email);
-
-            // if (token) {
-            //     return res.status(401).json({ message: 'Sesión inválida, otra sesión detectada' });
-            // }
-
-            jwt.sign( {data: response}, 'secretkey', async (err, token) => {
-                // await redisClient.set(response.data.data.email, token, 'EX', 3600);
-                res.status(response.code).json({ data: response.data, token });
-            })
-        } else {
-            res.status(response.code).json(response);
+        let user = await authService.login({email: req.body.email, password: req.body.password});
+        if (user.error === "USER") {
+            return res.status(http.HTTP_STATUS_NOT_FOUND).json({
+                user: null,
+                account: null
+            });
+        } else if (user.error === "PASSWORD") {
+            return res.status(http.HTTP_STATUS_FORBIDDEN).json({
+                user: null,
+                account: null
+            });
         }
+        jwt.sign( user.data, 'secretkey', (err, token) => {
+            res.status(http.HTTP_STATUS_OK).json({ user: user.data.user, account: user.data.account, token });
+        })
     } catch (err) {
         console.error(`Error while getting enarm students info `, err.message);
         next(err);
@@ -33,22 +32,16 @@ router.post('/login', async function (req, res, next) {
 
 router.post('/login-id', async function (req, res, next) {
     try {
-        const response = await authService.loginForId(req.body)
-            
-        // const token = await redisClient.get(response.data.data.email);
-
-        // if (token) {
-        //     return res.status(401).json({ message: 'Sesión inválida, otra sesión detectada' });
-        // }
-        if (response.code === 200) {
-                console.log('response', response);
-            jwt.sign( response, 'secretkey', async (err, token) => {
-                // await redisClient.set(response.data.data.email, token, 'EX', 3600);
-                res.status(response.code).json({ data: response.data, token });
-            })
-        } else {
-            res.status(response.code).json(response);
+        const user = await authService.loginForId({email: req.body.email, social_media_id: req.body.social_media_id});
+        if (user.error === "USER") {
+            return res.status(http.HTTP_STATUS_NOT_FOUND).json({
+                user: null,
+                account: null
+            });
         }
+        jwt.sign( user.data, 'secretkey', (err, token) => {
+            res.status(http.HTTP_STATUS_OK).json({ user: user.data.user, account: user.data.account, token });
+        })
     } catch (err) {
         console.error(`Error while getting enarm students info `, err.message);
         next(err);
@@ -57,18 +50,41 @@ router.post('/login-id', async function (req, res, next) {
 
 router.post('/register', async function (req, res, next) {
     try {
-        let body = req.body;
-        res.status(201).json(await authService.register(body));
+        let data = {
+            name: req.body.name, 
+            last_name: req.body.last_name, 
+            email: req.body.email, 
+            password: req.body.password, 
+            picture: req.body.picture, 
+            user_type_id: req.body.user_type_id, 
+            university_id: req.body.university_id, 
+            enarm_date_id: req.body.enarm_date_id,
+            career_id: req.body.career_id,
+            birthdate: req.body.birthdate,
+            gender: req.body.gender,
+            social_media_id: req.body.social_media_id
+        };
+        const user = await authService.register(data);
+
+        res.status(http.HTTP_STATUS_CREATED).json({data: user});
     } catch (err) {
         console.error(`Error while getting enarm students info `, err.message);
         next(err);
     }
 });
 
-router.post('/change-account-status', async function (req, res, next) {
+router.put('/change-account-status', async function (req, res, next) {
     try {
-        let body = req.body;
-        res.status(201).json(await authService.changeAccountStatus(body));
+        const data = {
+            user_id: req.body.user_id,
+            status: req.body.status
+        }
+        const userStatus = await authService.changeAccountStatus(data);
+        // TODO: send error when not changed?
+        if (userStatus) {
+            return res.status(http.HTTP_STATUS_CREATED).json();
+        }
+        return res.status(http.HTTP_STATUS_BAD_REQUEST).json();
     } catch (err) {
         console.error(`Error while getting enarm students info `, err.message);
         next(err);
@@ -108,9 +124,9 @@ router.post('/logout', async function (req, res, next) {
 
 router.put('/reset-password', async function (req, res, next) {
     try {
-        console.log('req', req.body);
-        const id = parseInt(req.body.id);
-        res.status(201).json(await authService.resetPassword(id));
+        const id = req.body.id;
+        const resetPass = await authService.resetPassword(id)
+        return res.status(http.HTTP_STATUS_CREATED).json(resetPass);
     } catch (err) {
         console.error(`Error while getting enarm students info `, err.message);
         next(err);
