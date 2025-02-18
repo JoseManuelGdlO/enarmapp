@@ -14,7 +14,7 @@ export class AdminQuestionService {
 
     getQuestions(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpclient.get(`${API_URL}/questions/all`).subscribe((response: any) => {
+            this.httpclient.get(`${API_URL}/clinic_cases`).subscribe((response: any) => {
                 resolve(response.rows);
             }, reject);
         })

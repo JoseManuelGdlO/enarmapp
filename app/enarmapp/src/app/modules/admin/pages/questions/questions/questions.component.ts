@@ -18,7 +18,7 @@ export class QuestionsComponent implements OnInit {
 
     clinicCase: {name: string, category: ISubcategory, image: any, lenguague: string, resume: string, questions: any} = {
         name: '',
-        category: {categoria: '', id: 0, value: '', Nombre: '', fkid_categoria: 0},
+        category: {name: '', id: 0, value: '', category_id: 0},
         image: '',
         lenguague: 'es',
         resume: '',
@@ -114,8 +114,8 @@ export class QuestionsComponent implements OnInit {
         const categories: Array<ICategory> = await this.adminService.getCategories();
 
         for (const item of categories) {
-            for (const sub of item.subcategoria) {
-                sub.value = sub.Nombre
+            for (const sub of item.subcategories) {
+                sub.value = sub.name
                 this.categories.push(sub);
             }
         }
@@ -149,7 +149,7 @@ export class QuestionsComponent implements OnInit {
    
     async save() {
         this.showError = ''
-        if (this.clinicCase.name === '' || this.clinicCase.category.Nombre === '' || this.clinicCase.resume === ''){
+        if (this.clinicCase.name === '' || this.clinicCase.category.name === '' || this.clinicCase.resume === ''){
             this.showError = 'Los campos Nombre, categoria y/o resumen son requeridos'
             return
         }

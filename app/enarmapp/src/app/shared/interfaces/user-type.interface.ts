@@ -1,4 +1,4 @@
 export interface IUserType {
     id: number
-    tipo: string
+    name: string
 }

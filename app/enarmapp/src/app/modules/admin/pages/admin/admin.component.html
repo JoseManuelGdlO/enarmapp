@@ -42,7 +42,7 @@
     <!-- Main -->
     <div class="flex flex-auto overflow-hidden">
         <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
-            <ng-container *ngIf="users?.data; else noUsers">
+            <ng-container *ngIf="users; else noUsers">
                 <div class="grid">
                     <!-- Cabecera -->
                     <div
@@ -58,15 +58,15 @@
                     </div>
 
                     <!-- Filas -->
-                    <ng-container *ngFor="let user of users.data; trackBy: trackByFn">
+                    <ng-container *ngFor="let user of users; trackBy: trackByFn">
                         <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
                             <div class="hidden sm:block truncate">{{ user.id }}</div>
                             <div class="truncate">{{ user.email }}</div>
                             <div class="hidden lg:block truncate">{{ user.name }}</div>
-                            <div class="hidden lg:block truncate">{{ user.apellidos }}</div>
-                            <div class="truncate">{{ user.tipo }}</div>
-                            <div class="hidden sm:block truncate">{{ user.suscripcion }}</div>
-                            <div class="hidden sm:block truncate">{{ user.estatusString }}</div>
+                            <div class="hidden lg:block truncate">{{ user.last_name }}</div>
+                            <div class="truncate">{{ user.user_type.name }}</div>
+                            <div class="hidden sm:block truncate">{{ user.subscription_name }}</div>
+                            <div class="hidden sm:block truncate">{{ user.userStatus.name }}</div>
                             <div>
                                 <button
                                     mat-stroked-button

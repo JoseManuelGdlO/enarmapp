@@ -78,7 +78,7 @@ router.put('/:id', verifyToken, verifyAccount, async function(req, res, next) {
     let voucher = await voucherService.update(data);
 
     let code = http.HTTP_STATUS_NO_CONTENT;
-    if (voucher) {
+    if (!voucher) {
       code = http.HTTP_STATUS_BAD_REQUEST;
     }
     return res.status(code).json();

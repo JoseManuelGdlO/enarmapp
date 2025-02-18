@@ -4,7 +4,7 @@ export interface IVaucher {
     code: string;
     discount: number;
     type: 'percentage' | 'fixed';
-    usage: number;
-    limit_usage: number;
+    usage_count: number;
+    usage_limit: number;
     expiration_date: string;
 }

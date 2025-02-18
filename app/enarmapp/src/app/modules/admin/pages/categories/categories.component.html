@@ -19,24 +19,22 @@
                     [placeholder]="'Buscar categorías'">
             </mat-form-field>
             <!-- Add product button -->
-            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="openDialog('ADDCat', 'Categoría')">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="openDialog('ADDCat')">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                 <span class="ml-2 mr-1">Añadir</span>
             </button>
         </div>
     </div>
 
-
-    <enarm-loading-outlet [isLoading]="isLoading">
         <!-- Main -->
-        <div class="flex flex-auto overflow-hidden">
-            <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
-                <ng-container *ngIf="categories.length > 0; else noCategories">
+        <div class="flex flex-auto overflow-auto">
+            <div class="flex flex-col flex-auto sm:mb-18">
+                <ng-container *ngIf="categories; else noCategories">
                     <div *ngFor="let cat of categories">
                         <div style="display: flex; align-content: center;">
                             <div style="padding:15px; font-weight: bold; font-size: 17px; align-self: center;">{{cat.name}}</div>
                             <!-- <button mat-button style="align-self: center;" (click)="addSubcategory()"> -->
-                            <button mat-button style="align-self: center;" (click)="openDialog('ADDSub', cat.name)">
+                            <button mat-button style="align-self: center;" (click)="openDialog('ADDSub', cat)">
                                 <mat-icon class="icon-size-7" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                             </button>
                         </div>
@@ -50,12 +48,12 @@
                             </div>
 
                             <!-- Filas -->
-                            <ng-container *ngFor="let subcategory of cat.subcategoria; trackBy: trackByFn">
+                            <ng-container *ngFor="let subcategory of cat.subcategories; trackBy: trackByFn">
                                 <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
                                     <div class="hidden sm:block truncate">{{ subcategory.id }}</div>
-                                    <div class="truncate">{{ subcategory.Nombre }}</div>
+                                    <div class="truncate">{{ subcategory.name }}</div>
                                     <div>
-                                        <button mat-stroked-button (click)="openDialog('EDIT', subcategory.Nombre)">
+                                        <button mat-stroked-button (click)="openDialog('EDITSUB', cat, subcategory)">
                                             <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
                                         </button>
                                     </div>
@@ -121,7 +119,6 @@
                 </div>
             </div>
         </div> -->
-    </enarm-loading-outlet>
 </div>
 
 

@@ -1,13 +1,12 @@
 export interface ICategory {
     id: number;
     name: string;
-    subcategoria: Array<ISubcategory>;
+    subcategories: Array<ISubcategory>;
 }
 
 export interface ISubcategory {
-    Nombre: string;
-    categoria: string;
-    fkid_categoria: number;
     id: number;
+    name: string;
+    category_id: number;
     value?: string;
 }

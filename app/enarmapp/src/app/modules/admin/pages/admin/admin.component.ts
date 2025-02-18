@@ -63,14 +63,10 @@ export class AdminComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.getUsers()
-    await this.getUserTypes()
-    await this.getSusbcriptions()
 
-    for (const user of this.users.data) {
-      const type = this.userType.find(x => x.id === user.idTipoUsuario)
-      user.tipo = type?.tipo
+    for (const user of this.users) {
       let estatusString = ''
-      switch (user.estatus) {
+      switch (user.userStatus.name) {
         case EAcountStatus.CURRENT:
           estatusString = 'Corriente'
           break;
@@ -89,14 +85,11 @@ export class AdminComponent implements OnInit {
         default:
           estatusString = 'Desconocido'
       }
-
-      const subscriptionString = this.subscriptions.find(x => x.id === user.idSuscripcion)?.descripcion
-
-      user.suscripcion = subscriptionString ? subscriptionString : 'Desconocido'
-      user.estatusString = estatusString
+      user.subscription_name = user.subscription ? user.subscription.suscripcion : 'Desconocido'
+      user.userStatus.name = estatusString
     }
 
-    this.usersClone = [...this.users.data]
+    this.usersClone = [...this.users]
     this.isLoading = false
 
   }
@@ -155,17 +148,20 @@ export class AdminComponent implements OnInit {
 
 
   async getUsers() {
-    this.users = await this.adminService.getUsers();
+    const response = await this.adminService.getUsers();
+    this.users = response.users;
 
   }
 
   async getUserTypes() {
-    this.userType = await this.adminService.getUserTypes();
+    const response = await this.adminService.getUserTypes();
+    this.userType = response;
 
   }
 
   async getSusbcriptions() {
-    this.subscriptions = await this.adminService.getSusbcriptions();
+    const response = await this.adminService.getSusbcriptions();
+    this.subscriptions = response;
 
   }
 

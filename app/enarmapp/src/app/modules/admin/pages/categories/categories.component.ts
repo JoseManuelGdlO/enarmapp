@@ -66,15 +66,15 @@ export class CategoriesComponent implements OnInit {
         });
     }
 
-    openDialog(selection: string, categoryName?: string): void {
+    openDialog(selection: string, category?: any, subcategory?: any): void {
         const dialogRef = this.dialog.open(CategoryModalComponent, {
           width: '400px',
-          data: { selection, categoryName }
+          data: { selection, category, subcategory }
         });
     
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
-            console.log('Modal closed with data:', result);
+            this.getCategories();
           }
         });
     }
@@ -97,74 +97,6 @@ export class CategoriesComponent implements OnInit {
         }]
         try {
             await this.adminService.addCategory(body)
-            this.resultSave = true
-            this.isLoading = true
-            this.isLoadingModal = false
-            this.ngOnInit()
-            this.modalClose.nativeElement.click();
-
-        } catch (error) {
-            console.log('error', error);
-            this.isLoadingModal = false
-        }
-
-
-    }
-
-    async chooseSubcategory(type: ETypeSelection) {
-        if(type === ETypeSelection.EDIT) {
-            this.editSubcategory()
-        } else {
-            this.addSubcategory()
-        }
-    }
-
-    async editSubcategory() {
-        if (this.isLoadingModal) return;
-
-        if (this.categorieForm.value.subCategoria === '' ||
-            this.categorieForm.value.subCategoria === null) {
-            this.error = true
-            return;
-        }
-
-        this.isLoadingModal = true;
-        const body = {
-            id: this.selectedCategory?.id,
-            name: this.categorieForm.value.subCategoria
-        }
-
-        try {
-            await this.adminService.editSubCategory(body)
-            this.resultSave = true
-            this.isLoading = true
-            this.isLoadingModal = false
-            this.ngOnInit()
-            this.modalClose.nativeElement.click();
-
-        } catch (error) {
-            console.log('error', error);
-            this.isLoadingModal = false
-        }
-    }
-
-    async addSubcategory() {
-        if (this.isLoadingModal) return;
-
-        if (this.categorieForm.value.subCategoria === '' ||
-            this.categorieForm.value.subCategoria === null) {
-            this.error = true
-            return;
-        }
-
-        this.isLoadingModal = true;
-        const body = {
-            fk_id: this.selectedCategory?.id,
-            name: this.categorieForm.value.subCategoria
-        }
-
-        try {
-            await this.adminService.addSubCategory(body)
             this.resultSave = true
             this.isLoading = true
             this.isLoadingModal = false

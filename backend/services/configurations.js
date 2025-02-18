@@ -95,14 +95,15 @@ async function getEspecialidades() {
 
 async function getStudnetTypes(type) {
     let code = 200;
-    let where =  null
+    let userTypes = null
     
     if (type === 'signup') {
-        where = { where : {
+        const where = { where : {
             name: { [Op.ne]: 'Administrador' }
         }}
+        userTypes = await userTypesModel.findAll(where)
     }
-    const userTypes = userTypesModel.findAll(where)
+    userTypes = await userTypesModel.findAll()
     return userTypes;
 }
 

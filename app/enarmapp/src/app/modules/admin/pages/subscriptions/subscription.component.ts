@@ -57,10 +57,10 @@ export class SubscriptionComponent implements OnInit {
       return
     }
     this.profileForm.patchValue({
-      costo: sub?.costo,
-      descripcion: sub?.descripcion,
-      duracionMes: sub?.duracionMes,
-      tipo: sub?.tipo,
+      costo: sub?.price,
+      descripcion: sub?.description,
+      duracionMes: sub?.month_duration,
+      tipo: sub?.type
     });
   }
 
@@ -108,10 +108,10 @@ export class SubscriptionComponent implements OnInit {
       return
     }
 
-    const filters = this.subscriptionsClone.filter((x: ISubscription) => x.costo.toString().toLowerCase().includes(value.target.value.toLowerCase()) ||
-      x.descripcion.toLowerCase().includes(value.target.value.toLowerCase()) ||
-      x.duracionMes.toString().toLowerCase().includes(value.target.value.toLowerCase()) ||
-      x.tipo.toLowerCase().includes(value.target.value.toLowerCase()))
+    const filters = this.subscriptionsClone.filter((x: ISubscription) => x.price.toString().toLowerCase().includes(value.target.value.toLowerCase()) ||
+      x.description.toLowerCase().includes(value.target.value.toLowerCase()) ||
+      x.month_duration.toString().toLowerCase().includes(value.target.value.toLowerCase()) ||
+      x.type.toLowerCase().includes(value.target.value.toLowerCase()))
     this.subscriptions = filters
   }
 

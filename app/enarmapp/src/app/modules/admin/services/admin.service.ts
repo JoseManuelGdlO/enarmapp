@@ -20,7 +20,7 @@ export class AdminService {
 
     getUsers(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpclient.get(`${API_URL}/enarm-students`).subscribe((response: any) => {
+            this.httpclient.get(`${API_URL}/users`).subscribe((response: any) => {
                 resolve(response);
             }, reject);
         })
@@ -29,7 +29,7 @@ export class AdminService {
     getUserTypes(): Promise<Array<IUserType>> {
         return new Promise((resolve, reject) => {
             this.httpclient.get<IUserType>(`${API_URL}/others/student-type`).subscribe((response: any) => {
-                resolve(response as Array<IUserType>);
+                resolve(response.response as Array<IUserType>);
             }, reject);
         })
     }
@@ -37,7 +37,7 @@ export class AdminService {
     getSusbcriptions(): Promise<Array<ISubscription>> {
         return new Promise((resolve, reject) => {
             this.httpclient.get(`${API_URL}/others/subscripciones`).subscribe((response: any) => {
-                resolve(response as Array<ISubscription>);
+                resolve(response.response as Array<ISubscription>);
             }, reject);
         })
     }
@@ -138,31 +138,31 @@ export class AdminService {
 
     getCategories(): Promise<Array<ICategory>> {
         return new Promise((resolve, reject) => {
-            this.httpclient.get<Array<ICategory>>(`${API_URL}/questions/categories`).subscribe((response: any) => {
-                resolve(response.response as Array<ICategory>);
+            this.httpclient.get<Array<ICategory>>(`${API_URL}/categories`).subscribe((response: any) => {
+                resolve(response.data as Array<ICategory>);
             }, reject);
         })
     }
 
     addCategory(body: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpclient.post(`${API_URL}/questions/add-category`, body).subscribe((response: any) => {
+            this.httpclient.post(`${API_URL}/categories`, body).subscribe((response: any) => {
                 resolve(response);
             }, reject);
         })
     }
 
-    addSubCategory(body: any): Promise<any> {
+    addSubCategory(body: any, id: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpclient.post(`${API_URL}/questions/add-subcategory`, body).subscribe((response: any) => {
+            this.httpclient.post(`${API_URL}/categories/${id}/subcategories`, body).subscribe((response: any) => {
                 resolve(response);
             }, reject);
         })
     }
 
-    editSubCategory(body: any): Promise<any> {
+    editSubCategory(body: any, id: number ): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpclient.put(`${API_URL}/questions/edit-subcategory`, body).subscribe((response: any) => {
+            this.httpclient.put(`${API_URL}/categories/subcategories/${id}`, body).subscribe((response: any) => {
                 resolve(response);
             }, reject);
         })

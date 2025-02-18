@@ -5,9 +5,9 @@
 <div mat-dialog-content [ngClass]="{ 'opacity-50': isLoadingModal }">
   <form [formGroup]="categorieForm">
     <!-- Categoría Field: Visible & Editable only in ADDCat, Visible but Disabled in ADDSub -->
-    <mat-form-field *ngIf="data.selection === 'ADDSub' || data.selection === 'ADDCat'" appearance="outline" class="full-width">
-      <mat-label>{{ data.selection === 'ADDCat' ? data.categoryName : '' }}</mat-label>
-      <input matInput formControlName="Nombre" [disabled]="data.selection === 'ADDSub'">
+    <mat-form-field appearance="outline" class="full-width pt-5">
+      <mat-label>Categoria</mat-label>
+      <input matInput formControlName="Nombre" [disabled]="data.selection === 'ADDSub' || data.selection === 'EDITSUB'">
     </mat-form-field>
 
     <!-- Subcategoría Field: Visible & Editable in ADDSub and EDIT -->

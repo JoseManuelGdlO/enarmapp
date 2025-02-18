@@ -1,5 +1,11 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require("../conn.js");
+const Subscription = require("./subscription.model.js");
+const UserType = require("./user_type.model.js");
+const University = require("./university.model.js");
+const EnarmDate = require("./enarm_date.model.js");
+const Career = require("./career.model.js");
+const UserStatus = require("./user_status.model.js");
 
 const User = sequelize.define('users',
   {
@@ -94,5 +100,12 @@ const User = sequelize.define('users',
     timestamps: false,
   },
 );
+
+User.belongsTo(Subscription, { foreignKey: 'subscription_id' });
+User.belongsTo(UserType, { foreignKey: 'user_type_id' });
+User.belongsTo(University, { foreignKey: 'university_id' });
+User.belongsTo(EnarmDate, { foreignKey: 'enarm_date_id' });
+User.belongsTo(Career, { foreignKey: 'career_id' });
+User.hasOne(UserStatus, { foreignKey: 'user_id', as: 'userStatus' });
 
 module.exports = User;

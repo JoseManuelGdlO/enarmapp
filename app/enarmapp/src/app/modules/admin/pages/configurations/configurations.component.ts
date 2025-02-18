@@ -60,11 +60,11 @@ export class ConfigurationsComponent implements OnInit {
       return
     }
     this.profileForm.patchValue({
-      codigo: confi.codigo,
-      descripcion: confi.descripcion,
-      grupo: confi.grupo,
-      tipo: confi.tipo,
-      valor: confi.valor
+      codigo: confi.code,
+      descripcion: confi.description,
+      grupo: confi.group,
+      tipo: confi.type,
+      valor: confi.value
     });
   }
 
@@ -105,7 +105,8 @@ export class ConfigurationsComponent implements OnInit {
 
 
   async getConfigurations(){
-    this.configurations = await this.adminService.getAllConfigurations();
+    const resp: any = await this.adminService.getAllConfigurations()
+    this.configurations = resp.response
   }
 
 
@@ -115,12 +116,11 @@ export class ConfigurationsComponent implements OnInit {
       return
     }
 
-    const filters = this.configurationsClone.filter((x: IConfiguration) => x.codigo.toLowerCase().includes(value.target.value.toLowerCase()) ||
-      x.grupo.toLowerCase().includes(value.target.value.toLowerCase()) ||
-      x.tipo.toLowerCase().includes(value.target.value.toLowerCase()) ||
-      x.tipo.toLowerCase().includes(value.target.value.toLowerCase()) ||
-      x.descripcion.toLowerCase().includes(value.target.value.toLowerCase()) ||
-      x.valor.toLowerCase().includes(value.target.value.toLowerCase()))
+    const filters = this.configurationsClone.filter((x: IConfiguration) => x.code.toLowerCase().includes(value.target.value.toLowerCase()) ||
+      x.group.toLowerCase().includes(value.target.value.toLowerCase()) ||
+      x.type.toLowerCase().includes(value.target.value.toLowerCase()) ||
+      x.description.toLowerCase().includes(value.target.value.toLowerCase()) ||
+      x.value.toLowerCase().includes(value.target.value.toLowerCase()))
     this.configurations = filters
   }
 

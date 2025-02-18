@@ -27,14 +27,14 @@
                     [placeholder]="'Buscar suscripciones'">
             </mat-form-field>
             <!-- Add product button -->
-            <button
+            <!-- <button
                 class="ml-4"
                 mat-flat-button
                 [color]="'primary'"
                 (click)="setValuesForm()">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                 <span class="ml-2 mr-1">Añadir</span>
-            </button>
+            </button> -->
         </div>
     </div>
 
@@ -87,23 +87,23 @@
 
                                     <!-- Name -->
                                     <div class="truncate">
-                                        {{subscription.descripcion}}
+                                        {{subscription.description}}
                                     </div>
 
                                     <!-- Price -->
                                     <div class="truncate">
-                                        {{subscription.tipo}}
+                                        {{subscription.type}}
                                     </div>
 
                                     <!-- Stock -->
                                     <div class="hidden lg:flex items-center">
-                                        <div class="min-w-4">{{subscription.costo| currency:'MXN':'symbol':'1.2-2'}}</div>
+                                        <div class="min-w-4">{{subscription.price| currency:'MXN':'symbol':'1.2-2'}}</div>
                                        
                                     </div>
 
                                     <!-- Active -->
                                     <div class="hidden lg:flex items-center">
-                                        <div class="min-w-4">{{subscription.duracionMes}}</div>
+                                        <div class="min-w-4">{{subscription.month_duration}}</div>
                                        
                                     </div>
 

@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AdminService } from 'app/modules/admin/services/admin.service';
+import { categories } from '../../../mock-api/apps/ecommerce/inventory/data';
 
 export interface DialogData {
   selection: string;
@@ -25,9 +26,16 @@ export class CategoryModalComponent {
     private snackBar: MatSnackBar,
     private adminService: AdminService
   ) {
+
+    const category = [{ value : data.category ? data.category.name : '', disabled: data.selection === 'ADDSub' || data.selection === 'EDITSUB' }];
+    let subCategory = []
+
+    if(data.selection === 'EDITSUB') { 
+      subCategory.push({ value: data.subcategory.name, disabled: false });
+    }
     this.categorieForm = this.fb.group({
-      Nombre: [{ value: data.selection === 'ADDSub' ? data.categoryName : 'Categoría', disabled: data.selection === 'ADDSub' }],
-      subCategoria: ['']
+      Nombre: category,
+      subCategoria: subCategory
     });
   }
 
@@ -41,13 +49,27 @@ export class CategoryModalComponent {
 
     this.isLoadingModal = true;
 
-    const body = [{
-      category: this.categorieForm.value.Nombre,
-      subcategories: [this.categorieForm.value.subCategoria]
-    }];
+    console.log(this.categorieForm.value.subCategoria, this.categorieForm.value.Nombre );
+
+    const subcategory = [];
+
+    if (this.categorieForm.value.subCategoria) {
+      subcategory.push(this.categorieForm.value.subCategoria);
+    }
+    
 
     try {
-      await this.adminService.addCategory(body);
+      if (this.data.selection === 'EDITSUB') {
+        await this.adminService.editSubCategory( {name: this.categorieForm.value.subCategoria} ,this.data.category.id);
+      } else if (this.data.selection === 'ADDSub') {
+        await this.adminService.addSubCategory({name: this.categorieForm.value.subCategoria}, this.data.category.id);
+      } else  {
+        const body = [{
+          name: this.categorieForm.value.Nombre,
+          subcategories: subcategory
+        }];
+        await this.adminService.addCategory(body);
+      }
       this.snackBar.open('Datos guardados exitosamente', 'Cerrar', { duration: 3000, panelClass: ['success-snackbar'] });
       this.dialogRef.close(true); // Close modal & return success flag
     } catch (error) {

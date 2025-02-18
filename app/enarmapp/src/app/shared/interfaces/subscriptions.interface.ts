@@ -1,7 +1,7 @@
 export interface ISubscription {
     id: number
-    tipo: string
-    costo: number
-    descripcion: string
-    duracionMes: number
+    type: string
+    price: number
+    description: string
+    month_duration: number
 }
