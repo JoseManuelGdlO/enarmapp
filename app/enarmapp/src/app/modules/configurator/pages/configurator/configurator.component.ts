@@ -67,7 +67,8 @@ export class ConfiguratorComponent implements OnInit {
     this.isMobile = this.detectMobileDevice();
     await this.getCategoriesData();
     await this.getExamDate();
-    this.userId = this.preferencesService.getItem('USER').data.id;
+    const user = this.preferencesService.getItem('USER');
+    this.userId = user.user.id;
     this.isLoading = false;
     
   }
@@ -105,9 +106,9 @@ export class ConfiguratorComponent implements OnInit {
 
   async getCategoriesData() {
     this.subtemas = await this.configuratorService.getCategories()
-    this.subtemas.response.forEach((item: any) => {
-      item.subcategoria.forEach((subitem: any) => {
-        subitem.value = subitem.Nombre;
+    this.subtemas.data.forEach((item: any) => {
+      item.subcategories.forEach((subitem: any) => {
+        subitem.value = subitem.name;
         subitem.index = subitem.id;
       })
       item.value = item.name;

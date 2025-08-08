@@ -168,4 +168,20 @@ export class AdminService {
         })
     }
 
+    removeCategory(id: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.httpclient.delete(`${API_URL}/categories/${id}`).subscribe((response: any) => {
+                resolve(response);
+            }, reject);
+        })
+    }
+
+    removeSubCategory(id: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.httpclient.delete(`${API_URL}/categories/subcategory/${id}`).subscribe((response: any) => {
+                resolve(response);
+            }, reject);
+        })
+    }
+
 }

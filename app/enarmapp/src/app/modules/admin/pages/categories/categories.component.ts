@@ -5,6 +5,7 @@ import { ICategory, ISubcategory } from "app/shared/interfaces/categories.interf
 import { ETypeSelection } from "app/shared/interfaces/type-selection.enum";
 import { MatDialog } from "@angular/material/dialog";
 import { CategoryModalComponent } from "app/shared/components/category-modal/category-modal.component";
+import { FuseConfirmationService } from "@fuse/services/confirmation";
 
 @Component({
     templateUrl: './categories.component.html',
@@ -41,6 +42,7 @@ export class CategoriesComponent implements OnInit {
 
     constructor(
         private adminService: AdminService,
+        public _fuseConfirmationService: FuseConfirmationService,
         public dialog: MatDialog
     ) {
 
@@ -76,6 +78,40 @@ export class CategoriesComponent implements OnInit {
           if (result) {
             this.getCategories();
           }
+        });
+    }
+
+    removeDialog(selection: string, category: any) { // Open the confirmation dialog
+        const confirmation = this._fuseConfirmationService.open({
+            title  : 'Eliminar ' + category.name,
+            message: `Estas seguro que deseas eliminar esta ${selection === 'category' ? 'categoria' : 'subcategoria'}?`,
+            actions: {
+                confirm: {
+                    label: 'Eliminar',
+                },
+                cancel : {
+                    label: 'Cancelar',
+                },
+            },
+        });
+
+        // Subscribe to the confirmation dialog closed action
+        confirmation.afterClosed().subscribe(async (result) =>
+        {
+            console.log('result', result);
+            
+            // If the confirm button pressed...
+            if ( result === 'confirmed' )
+            {
+                if(selection === 'category') {
+                    await this.adminService.removeCategory(category.id)
+                }else {
+                   await this.adminService.removeSubCategory(category.id)
+                }
+
+                this.getCategories()
+
+            }
         });
     }
 

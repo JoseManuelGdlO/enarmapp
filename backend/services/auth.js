@@ -5,30 +5,42 @@ const userModel = require("../storage/models/user.model.js");
 const userStatusModel = require("../storage/models/user_status.model.js");
 
 async function register({name, last_name, email, password, picture, user_type_id, university_id, enarm_date_id, career_id, birthdate, gender, social_media_id}) {
-    // body.password = await encrypt.encryptPassword(body.password);
-    let user = await userModel.create({
-        subscription_id: 1,
-        name: name,
-        last_name: last_name,
-        email: email,
-        password: password,
-        picture: picture,
-        user_type_id: user_type_id,
-        university_id: university_id,
-        enarm_date_id: enarm_date_id,
-        career_id: career_id,
-        birthdate: birthdate,
-        gender: gender,
-        social_media_id: social_media_id ? social_media_id : 0,
-      });
-    console.log(user);
+    try {
+        // body.password = await encrypt.encryptPassword(body.password);
+        let user = await userModel.create({
+            subscription_id: 1,
+            name: name,
+            last_name: last_name,
+            email: email,
+            password: password,
+            picture: picture,
+            user_type_id: user_type_id,
+            university_id: university_id,
+            enarm_date_id: enarm_date_id,
+            career_id: career_id,
+            birthdate: birthdate,
+            gender: gender,
+            social_media_id: social_media_id ? social_media_id : 0,
+        });
+        console.log(user);
 
-    await userStatusModel.create({
-        user_id: user.id,
-        name: 0
-    });
+        await userStatusModel.create({
+            user_id: user.id,
+            name: 0
+        });
 
-    return user;
+        return {code: 201, user};
+
+    } catch (error) {
+        console.log(error.original.code);
+
+        if(error.original.code == 'ER_DUP_ENTRY') {
+            return {code: 409, user: 'Correo ya existente'};
+        } else {
+            return {code: 415, user: error};
+        }
+        
+    }
 }
 
 async function login({email, password}) {

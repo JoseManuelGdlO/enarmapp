@@ -9,5 +9,5 @@ export interface IConfigExam {
     modo_examen?: number
 }
 export interface ISubtemas {
-    response:[]
+    data:[]
 }

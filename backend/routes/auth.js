@@ -64,9 +64,9 @@ router.post('/register', async function (req, res, next) {
             gender: req.body.gender,
             social_media_id: req.body.social_media_id
         };
-        const user = await authService.register(data);
+        const response = await authService.register(data);
 
-        res.status(http.HTTP_STATUS_CREATED).json({data: user});
+        res.status(response.code).json({data: response.user});
     } catch (err) {
         console.error(`Error while getting enarm students info `, err.message);
         next(err);

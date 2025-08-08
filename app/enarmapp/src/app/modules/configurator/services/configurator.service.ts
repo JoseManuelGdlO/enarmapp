@@ -14,9 +14,11 @@ export class ConfiguratorService {
     }
 
     getCategories(): Promise<any> {
-        const url = API_URL + '/questions/categories'
+        const url = API_URL + '/categories'
         return new Promise((resolve, reject) => {
             this.httpclient.get(url).subscribe((data) => {
+                console.log('cat', data);
+                
                 resolve(data)
             }, (error: any) => {
                 reject(error)

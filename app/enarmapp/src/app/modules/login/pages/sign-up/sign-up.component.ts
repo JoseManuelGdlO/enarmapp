@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { PreferencesService } from "app/shared/services/preferences.service";
 import { LoginService } from "../../services/login.service";
@@ -11,25 +11,12 @@ import { LoginService } from "../../services/login.service";
 export class SignUpComponent implements OnInit {
   isMobile = false
   screenHeight = 0;
-  checkoutForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    lastname: ['', Validators.required],
-    secondlastname: ['', Validators.required],
-    birthdate: ['', Validators.required],
-    studenttype: ['', Validators.required],
-    studies: ['', Validators.required],
-    especility: ['', Validators.required],
-    enarmdate: ['', Validators.required],
-    email: ['', Validators.email],
-    phonenumber: ['', Validators.required],
-    password: ['', Validators.required],
-    repypassword: ['', Validators.required]
-  });
+  checkoutForm: UntypedFormGroup = new UntypedFormGroup({});
 
-  universidades = []
-  especialities = []
-  studentTypes = [];
-  enarmDate = [];
+  universidades: any = []
+  especialities: any = []
+  studentTypes: any = [];
+  enarmDate: any = [];
 
   user: any;
   fromSocialMedia = false;
@@ -39,13 +26,27 @@ export class SignUpComponent implements OnInit {
   isLoading = false;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private loginService: LoginService,
     private preferencesServices: PreferencesService,
     private router: Router
   ) { }
 
   async ngOnInit() {
+    this.checkoutForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      lastname: ['', Validators.required],
+      secondlastname: ['', Validators.required],
+      birthdate: ['', Validators.required],
+      studenttype: ['', Validators.required],
+      studies: ['', Validators.required],
+      especility: ['', Validators.required],
+      enarmdate: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phonenumber: ['', Validators.required],
+      password: ['', Validators.required],
+      repypassword: ['', Validators.required]
+    });
     this.isMobile = this.detectMobileDevice();
     console.log('¿Es dispositivo móvil?', this.isMobile);
     this.getCatalogues();
@@ -74,10 +75,16 @@ export class SignUpComponent implements OnInit {
     this.user = this.preferencesServices.getItem('USER_MEDIA');
     if (this.user) {
       this.fromSocialMedia = true;
-      this.checkoutForm.controls.name.setValue(this.user.firstName)
-      this.checkoutForm.controls.email.setValue(this.user.email)
-      this.checkoutForm.controls.password.clearValidators()
-      this.checkoutForm.controls.repypassword.clearValidators()
+      this.checkoutForm.patchValue({
+        name: this.user.firstName,
+        email: this.user.email
+      });
+      this.checkoutForm.controls['password'].clearValidators();
+      this.checkoutForm.controls['repypassword'].clearValidators();
+      
+      // Es importante llamar a `updateValueAndValidity()` después
+      this.checkoutForm.controls['password'].updateValueAndValidity();
+      this.checkoutForm.controls['repypassword'].updateValueAndValidity();
     }
   }
 
@@ -106,18 +113,18 @@ export class SignUpComponent implements OnInit {
 
   async onSubmit() {
     this.message = ''
-    const idTipo: any = this.checkoutForm.controls.studenttype.value;
-    const idUniversidad: any = this.checkoutForm.controls.studies.value;
-    const idFechaEnarm: any = this.checkoutForm.controls.enarmdate.value;
-    const idEspecialidad: any = this.checkoutForm.controls.especility.value;
+    const idTipo: any = this.checkoutForm.get('studenttype')?.value;
+    const idUniversidad: any = this.checkoutForm.get('studies')?.value;
+    const idFechaEnarm: any = this.checkoutForm.get('enarmdate')?.value;
+    const idEspecialidad: any = this.checkoutForm.get('especility')?.value;
     const object = {
-      nombres: this.checkoutForm.controls.name.value,
-      apellidos: this.checkoutForm.controls.lastname.value + ' ' + this.checkoutForm.controls.secondlastname.value,
-      cumpleanos: this.checkoutForm.controls.birthdate.value,
+      nombres: this.checkoutForm.get('name')?.value,
+      apellidos: this.checkoutForm.get('lastname')?.value + ' ' + this.checkoutForm.get('secondlastname')?.value,
+      cumpleanos: this.checkoutForm.get('birthdate')?.value,
       idsuscripcion: 0,
-      email: this.checkoutForm.controls.email.value,
-      password: this.checkoutForm.controls.password.value,
-      replyPassword: this.checkoutForm.controls.repypassword.value,
+      email: this.checkoutForm.get('email')?.value,
+      password: this.checkoutForm.get('password')?.value,
+      replyPassword: this.checkoutForm.get('repypassword')?.value,
       ruta_fotografia: '',
       idTipoUsuario: idTipo.id,
       idUniversidad: idUniversidad.id,
@@ -125,8 +132,10 @@ export class SignUpComponent implements OnInit {
       idEspecialidad: idEspecialidad.id,
       sexo: 'Masculino',
       id_social_media: this.user?.id ? this.user.id : null,
-      telefono: this.checkoutForm.controls.phonenumber.value,
+      telefono: this.checkoutForm.get('phonenumber')?.value,
     }
+    console.log('Objeto a enviar:', object);
+    
     // Validaciones
     if (!object.nombres || object.nombres.trim().length < 3) {
       this.message = 'El nombre debe tener al menos 3 caracteres';
@@ -203,7 +212,7 @@ export class SignUpComponent implements OnInit {
       let response;
       if(this.user){
         response = await this.loginService.loginForId(String(object.email), this.user.id)
-      }else {
+      } else {
         response = await this.loginService.login(String(object.email), object.password ? object.password : '')
       }
 
@@ -212,8 +221,9 @@ export class SignUpComponent implements OnInit {
       this.isLoading = false
       this.router.navigateByUrl('login/pricing')
 
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      this.message = error.status === 409 ? 'El correo ya está registrado' : 'Ocurrió un error al registrar el usuario';
       this.isLoading = false
     }
   }

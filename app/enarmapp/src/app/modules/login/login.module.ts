@@ -17,6 +17,11 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { PricingComponent } from './pages/pricing/pricing.component';
 import { FuseCardComponent } from '@fuse/components/card';
 import { FuseAlertComponent } from '@fuse/components/alert';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -30,6 +35,13 @@ import { FuseAlertComponent } from '@fuse/components/alert';
     CommonModule,
     LoginRoutingModule,
     FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
     AlertModule.forRoot(),
     PopoverModule.forRoot(),
     ReactiveFormsModule,

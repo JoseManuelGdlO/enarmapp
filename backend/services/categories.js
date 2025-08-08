@@ -37,9 +37,31 @@ async function editSubcategory({id, name}) {
     return updated == 0 ? false : true;
 }
 
+async function deleteSubcategory({id}) {
+    const deleted = await subcategoryModel.destroy({
+        where: {
+            id: Number(id)
+        }
+    });
+    console.log(deleted);
+    
+    return deleted == 0 ? false : true;
+}
+
+async function deleteCategory ({id}) {
+    const deleted = await categoryModel.destroy({
+        where: {
+            id:  Number(id)
+        }
+    });
+    return deleted == 0 ? false : true;
+}
+
 module.exports = {
     getAll,
     create,
     addSubcategory,
     editSubcategory,
+    deleteSubcategory,
+    deleteCategory
 }

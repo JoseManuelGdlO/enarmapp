@@ -53,4 +53,24 @@ router.put('/subcategories/:id', verifyToken, verifyAccount, async function(req,
     }
 });
 
+router.delete('/subcategory/:id', verifyToken, verifyAccount, async function(req, res, next) {
+    try {
+        let subcategory = await categoryService.deleteSubcategory({id: req.params.id});
+        return res.status(http.HTTP_STATUS_NO_CONTENT).json(subcategory);
+    } catch (err) {
+        console.error(`Error while getting categories `, err.message);
+        next(err);
+    }
+});
+
+router.delete('/:id', verifyToken, verifyAccount, async function(req, res, next) {
+    try {
+        let subcategory = await categoryService.deleteCategory({id: req.params.id});
+        return res.status(http.HTTP_STATUS_NO_CONTENT).json(subcategory);
+    } catch (err) {
+        console.error(`Error while getting categories `, err.message);
+        next(err);
+    }
+});
+
 module.exports = router;
